@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>9DBA6162-7E4F-4B60-A78F-ED980ABCF3AC</string>
+	<key>IDESourceControlProjectName</key>
+	<string>flyingV</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>A32005C7-9633-45E7-88F9-7FBE8F68656D</key>
+		<string>https://github.com/caden311/flyingV.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>flyingV.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>A32005C7-9633-45E7-88F9-7FBE8F68656D</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/caden311/flyingV.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>A32005C7-9633-45E7-88F9-7FBE8F68656D</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>A32005C7-9633-45E7-88F9-7FBE8F68656D</string>
+			<key>IDESourceControlWCCName</key>
+			<string>flyingV</string>
+		</dict>
+	</array>
+</dict>
+</plist>
