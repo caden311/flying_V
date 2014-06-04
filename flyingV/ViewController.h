@@ -10,6 +10,14 @@
 
 @interface ViewController : UIViewController
 {
-    int a;
+    
 }
+
+
+
+@property (strong, nonatomic) IBOutlet UIImageView *birdImage;
+
+
+
+
 @end

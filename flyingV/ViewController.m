@@ -20,6 +20,55 @@
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
+
+
+
+
+
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+
+{
+    
+    UITouch *touch = [[event allTouches] anyObject];
+    
+    CGPoint location = [touch locationInView:touch.view];
+    
+    location.y-=60;
+    
+    _birdImage.center=location;
+    
+    
+    
+}
+
+-(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+
+{
+    
+    UITouch *touch = [[event allTouches] anyObject];
+    
+    CGPoint location = [touch locationInView:touch.view];
+    
+    location.y-=60;
+    
+    _birdImage.center=location;
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
