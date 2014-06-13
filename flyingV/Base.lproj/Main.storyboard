@@ -16,8 +16,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bat.png" translatesAutoresizingMaskIntoConstraints="NO" id="vhE-EX-Za9">
-                                <rect key="frame" x="99" y="332" width="65" height="41"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="dragon.png" translatesAutoresizingMaskIntoConstraints="NO" id="vhE-EX-Za9">
+                                <rect key="frame" x="99" y="332" width="82" height="43"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
                         </subviews>
@@ -32,7 +32,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="bat.png" width="401" height="238"/>
+        <image name="dragon.png" width="1045" height="688"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

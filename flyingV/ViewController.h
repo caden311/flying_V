@@ -10,6 +10,14 @@
 
 @interface ViewController : UIViewController
 {
+    int lengthOfViewController;
+    int widthOfViewController;
+    
+    
+    
+    
+    NSTimer * gameTimer;
+    int count;
     
 }
 
