@@ -12,6 +12,9 @@
 {
     int lengthOfViewController;
     int widthOfViewController;
+    NSMutableArray * birds;
+    float sizeModifier;
+    float newBirdSizeModifier;
     
     
     

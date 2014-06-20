@@ -5,36 +5,36 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>0D0C6E6F-2D08-46C4-9171-F4181E7E3BE8</string>
+	<string>C4C70519-B1F2-447B-BD9B-8D1964FF6068</string>
 	<key>IDESourceControlProjectName</key>
 	<string>flyingV</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>A32005C7-9633-45E7-88F9-7FBE8F68656D</key>
-		<string>https://github.com/caden311/flyingV.git</string>
+		<key>0DEFC275-ED36-4958-807F-8E004739987C</key>
+		<string>https://github.com/caden311/flying_V.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>flyingV.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>A32005C7-9633-45E7-88F9-7FBE8F68656D</key>
+		<key>0DEFC275-ED36-4958-807F-8E004739987C</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/caden311/flyingV.git</string>
+	<string>https://github.com/caden311/flying_V.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>A32005C7-9633-45E7-88F9-7FBE8F68656D</string>
+	<string>0DEFC275-ED36-4958-807F-8E004739987C</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>A32005C7-9633-45E7-88F9-7FBE8F68656D</string>
+			<string>0DEFC275-ED36-4958-807F-8E004739987C</string>
 			<key>IDESourceControlWCCName</key>
-			<string>flyingV</string>
+			<string>flying_V</string>
 		</dict>
 	</array>
 </dict>
