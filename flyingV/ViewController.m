@@ -22,7 +22,24 @@
     gameTimer=[[NSTimer alloc] init];
     sizeModifier = 0.9;
     newBirdSizeModifier = 1.0;
+    
+    
+    animationSpeed=.1;
+    animateInProgress=NO;
+    animationCounter=0;
+    animationModifier=.25;
+    animatingBird=[[UIImageView alloc] init];
+    animationDone=NO;
+    
+    
+    
+    
+    animateTimer=[[NSTimer alloc] init];
+  
     gameTimer=[NSTimer scheduledTimerWithTimeInterval:.09 target:self selector:@selector(gameLoop) userInfo:nil repeats:YES];
+    
+    
+    
     count=0;
     birds = [[NSMutableArray alloc]init];
     [birds addObject:_birdImage];
@@ -48,18 +65,42 @@
         }
     }
     
-    NSLog([NSString stringWithFormat:@"%i",count] );
-    count++;
+    if(animationDone==NO)
+    {
+        
+        if(animateInProgress==NO)
+        {
+            animatingBird=[self createBirdImage];
+            animateInProgress=YES;
+        }
+        
+        animateTimer=[NSTimer scheduledTimerWithTimeInterval:.09 target:self selector:@selector(animateBird1) userInfo:nil repeats:YES];
+        
+        
+    }
+    
+
+    
     
 }
 
--(void)animateBird: (UIImageView*) bird
+-(void)animateBird1
 {
-    [UIView animateWithDuration:0.01 animations:^(void)
+    if(animationCounter%600==0)
     {
-        bird.frame=CGRectMake(widthOfViewController/2, lengthOfViewController, bird.frame.size.width, bird.frame.size.height);
+        animationModifier*=-1;
     }
-completion:^(BOOL finished){}];
+    animatingBird.frame=CGRectMake(animatingBird.frame.origin.x+animationModifier, animatingBird.frame.origin.y+animationSpeed, animatingBird.frame.size.width, animatingBird.frame.size.height);
+    float val=animatingBird.frame.origin.x+animationModifier;
+    NSLog([NSString stringWithFormat:@"%f",val]);
+    
+    if(animatingBird.center.y>lengthOfViewController)
+    {
+        animationDone=YES;
+        animateInProgress=NO;
+        
+    }
+    animationCounter++;
 }
 -(UIImageView*)createBirdImage
 {
@@ -68,16 +109,17 @@ completion:^(BOOL finished){}];
     bird.image=[UIImage imageNamed:@"dragon.png"];
     [self.view addSubview:bird];
     [self.view sendSubviewToBack:bird];
-    NSLog([NSString stringWithFormat:@"%f", newBirdSizeModifier]);
+   // NSLog([NSString stringWithFormat:@"%f", newBirdSizeModifier]);
     return bird;
                             
 }
+
 
 -(void)moveBirds:(CGPoint)location
 {
     UIImageView * bird = [birds objectAtIndex:0];
     bird.center = location;
-    NSLog([NSString stringWithFormat:@"%d", birds.count]);
+  //  NSLog([NSString stringWithFormat:@"%d", birds.count]);
     if(birds.count > 1)
     {
         int leftOrRight = -1;

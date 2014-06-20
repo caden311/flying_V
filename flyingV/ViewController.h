@@ -17,14 +17,23 @@
     float newBirdSizeModifier;
     
     
+    float animationSpeed;
+    bool animateInProgress;
+    int animationCounter;
+    float animationModifier;
+    UIImageView *animatingBird;
+    bool animationDone;
+    NSTimer * animateTimer;
+    
     
     
     NSTimer * gameTimer;
     int count;
     
+    
 }
 
-
+-(void)animateBird1;
 
 @property (strong, nonatomic) IBOutlet UIImageView *birdImage;
 
