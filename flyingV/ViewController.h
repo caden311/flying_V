@@ -16,16 +16,20 @@
     float sizeModifier;
     float newBirdSizeModifier;
     
-    
+        //animation variables
+    int randAnimation;
     float animationSpeed;
     bool animateInProgress;
     int animationCounter;
     float animationModifier;
     UIImageView *animatingBird;
-    bool animationDone;
+
     NSTimer * animateTimer;
     
-    
+    float gravity;
+    float accel;
+    float gravityLine;
+    bool passedGravityLine;
     
     NSTimer * gameTimer;
     int count;
