@@ -38,6 +38,11 @@
     gravityLine=widthOfViewController/2;
     passedGravityLine=NO;
     
+    Ygravity=.01;
+    Yaccel=0;
+    YgravityLine=lengthOfViewController/2;
+    passedYgravityLine=NO;
+    
     
     animateTimer=[[NSTimer alloc] init];
   
@@ -82,17 +87,24 @@
            
            
             
-             animatingBird.frame=CGRectMake(widthOfViewController, 0, animatingBird.frame.size.width, animatingBird.frame.size.height);
-            int y=animatingBird.frame.origin.y;
-            int x= animatingBird.frame.origin.x;
-            NSLog([NSString stringWithFormat:@"BEGGG Y %i",y]);
-            NSLog([NSString stringWithFormat:@"BEGGG X %i",x]);
+            //animtaion 1&2
+            //animatingBird.frame=CGRectMake(widthOfViewController, 0, animatingBird.frame.size.width, animatingBird.frame.size.height);
+            
+            //animtaion 3
+             animatingBird.frame=CGRectMake(widthOfViewController, animatingBird.frame.size.height*2, animatingBird.frame.size.width, animatingBird.frame.size.height);
+          
+            
+            
+            // int y=animatingBird.frame.origin.y;
+           // int x= animatingBird.frame.origin.x;
+           // NSLog([NSString stringWithFormat:@"BEGGG Y %i",y]);
+          //  NSLog([NSString stringWithFormat:@"BEGGG X %i",x]);
            
         }
     
         if(animateInProgress==YES)
         {
-            animateTimer=[NSTimer scheduledTimerWithTimeInterval:.2 target:self selector:@selector(animateBird2) userInfo:nil repeats:YES];
+            animateTimer=[NSTimer scheduledTimerWithTimeInterval:.2 target:self selector:@selector(animateBird3) userInfo:nil repeats:YES];
         }
         
     
@@ -151,6 +163,44 @@
    // NSLog([NSString stringWithFormat:@"%f",accel]);
     
     if(animatingBird.center.y>lengthOfViewController)
+    {
+        //[animatingBird removeFromSuperview];
+        animateInProgress=NO;
+        [animateTimer invalidate];
+        
+    }
+}
+
+-(void)animateBird3
+{
+    if(animatingBird.center.y>YgravityLine)
+    {
+        if(passedYgravityLine==NO)
+        {
+            //Yaccel=-1.8;
+            Ygravity*=-1;
+            passedYgravityLine=YES;
+        }
+    }
+    else if(animatingBird.center.y<YgravityLine)
+    {
+        if(passedYgravityLine==YES)
+        {
+            //Yaccel=1.8;
+            Ygravity*=-1;
+            passedYgravityLine=NO;
+        }
+    }
+    //int y=animatingBird.frame.origin.y;
+   // int x= animatingBird.frame.origin.x;
+
+    animatingBird.frame=CGRectMake(animatingBird.frame.origin.x-animationSpeed, animatingBird.frame.origin.y+Yaccel, animatingBird.frame.size.width, animatingBird.frame.size.height);
+    
+    
+    Yaccel=Yaccel+Ygravity;
+ 
+    
+    if(animatingBird.center.y<0)
     {
         //[animatingBird removeFromSuperview];
         animateInProgress=NO;

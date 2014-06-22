@@ -31,6 +31,11 @@
     float gravityLine;
     bool passedGravityLine;
     
+    float Ygravity;
+    float Yaccel;
+    float YgravityLine;
+    bool passedYgravityLine;
+    
     NSTimer * gameTimer;
     int count;
     
