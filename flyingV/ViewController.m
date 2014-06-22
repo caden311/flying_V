@@ -25,7 +25,7 @@
     
     //animation variables
     randAnimation=0;
-    animationSpeed=.5;
+    animationSpeed=5;
     animateInProgress=NO;
     animationCounter=0;
     animationModifier=.25;
@@ -33,15 +33,21 @@
    
     
     
-    gravity=-.01;
+    gravity=-.75;
     accel=0;
     gravityLine=widthOfViewController/2;
     passedGravityLine=NO;
     
+    animatingBird=[[UIImageView alloc] initWithFrame:CGRectMake(widthOfViewController, 0, _birdImage.frame.size.width, _birdImage.frame.size.height)];
+    animatingBird.image=[UIImage imageNamed:@"dragon.png"];
+    [self.view addSubview:animatingBird];
+    [self.view sendSubviewToBack:animatingBird];
+
+    
     
     animateTimer=[[NSTimer alloc] init];
   
-    gameTimer=[NSTimer scheduledTimerWithTimeInterval:.09 target:self selector:@selector(gameLoop) userInfo:nil repeats:YES];
+    gameTimer=[NSTimer scheduledTimerWithTimeInterval:.016 target:self selector:@selector(gameLoop) userInfo:nil repeats:YES];
     
     
     
@@ -59,7 +65,7 @@
         UIImageView * bird=[self createBirdImage];
         //[self animateBird:bird];
         [birds addObject:bird];
-        if(birds.count % 3 == 0)
+        if(birds.count % 5 == 0)
         {
             for(int i = 0; i < birds.count; i += 1)
             {
@@ -68,38 +74,28 @@
             }
             newBirdSizeModifier *= sizeModifier;
         }
+        count = 0;
     }
     
- 
+    if(animateInProgress==NO)
+    {
+        passedGravityLine=NO;
+        accel=0;
         
-        if(animateInProgress==NO)
-        {
-            passedGravityLine=NO;
-            gravity=-.01;
-            accel=0;
-            animatingBird=[self createBirdImage];
-            animateInProgress=YES;
-           
-           
-            
-             animatingBird.frame=CGRectMake(widthOfViewController, 0, animatingBird.frame.size.width, animatingBird.frame.size.height);
-            int y=animatingBird.frame.origin.y;
-            int x= animatingBird.frame.origin.x;
-            NSLog([NSString stringWithFormat:@"BEGGG Y %i",y]);
-            NSLog([NSString stringWithFormat:@"BEGGG X %i",x]);
-           
-        }
-    
-        if(animateInProgress==YES)
-        {
-            animateTimer=[NSTimer scheduledTimerWithTimeInterval:.2 target:self selector:@selector(animateBird2) userInfo:nil repeats:YES];
-        }
+        animateInProgress=YES;
         
+        //NSLog([NSString stringWithFormat:@"BEGGG Y %f",animatingBird.frame.origin.y]);
+        //NSLog([NSString stringWithFormat:@"BEGGG X %f",animatingBird.frame.origin.x]);
+    }
     
+    if(animateInProgress==YES)
+    {
+        //NSLog(@"Calling function!");
+        [self animateBird2];
+        //animateTimer=[NSTimer scheduledTimerWithTimeInterval:.2 target:self selector:@selector(animateBird2) userInfo:nil repeats:YES];
+    }
     
-
-    
-    
+    count += 1;
 }
 
 -(void)animateBird1
@@ -125,7 +121,6 @@
     {
         if(passedGravityLine==NO)
         {
-            accel=-1.8;
             gravity*=-1;
             passedGravityLine=YES;
         }
@@ -134,28 +129,23 @@
     {
         if(passedGravityLine==YES)
         {
-            accel=1.8;
             gravity*=-1;
             passedGravityLine=NO;
         }
     }
-    int y=animatingBird.frame.origin.y;
-    int x= animatingBird.frame.origin.x;
-    NSLog([NSString stringWithFormat:@"Y value %i",y]);
-    NSLog([NSString stringWithFormat:@"X value %i",x]);
+    //NSLog([NSString stringWithFormat:@"Y value %f",animatingBird.frame.origin.y]);
+    //NSLog([NSString stringWithFormat:@"X value %f",animatingBird.frame.origin.x]);
     animatingBird.frame=CGRectMake(animatingBird.frame.origin.x+accel, animatingBird.frame.origin.y+animationSpeed, animatingBird.frame.size.width, animatingBird.frame.size.height);
     
-  
-        accel=accel+gravity;
-    
-   // NSLog([NSString stringWithFormat:@"%f",accel]);
+    accel=accel+gravity;
+    //NSLog([NSString stringWithFormat:@"%f", accel]);
     
     if(animatingBird.center.y>lengthOfViewController)
     {
         //[animatingBird removeFromSuperview];
         animateInProgress=NO;
-        [animateTimer invalidate];
-        
+        //[animateTimer invalidate];
+        animatingBird.frame = CGRectMake(widthOfViewController, 0, _birdImage.frame.size.width, _birdImage.frame.size.height);
     }
 }
 
@@ -169,6 +159,8 @@
     [self.view addSubview:bird];
     [self.view sendSubviewToBack:bird];
    // NSLog([NSString stringWithFormat:@"%f", newBirdSizeModifier]);
+    CGPoint newBirdLocation = _birdImage.center;
+    [self moveBirds:newBirdLocation];
     return bird;
                             
 }
@@ -228,19 +220,6 @@
     //_birdImage.center=location;
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 - (void)didReceiveMemoryWarning
 {
