@@ -142,6 +142,44 @@
     }
 }
 
+-(void)animateBird3
+{
+    if(animatingBird.center.y>YgravityLine)
+    {
+        if(passedYgravityLine==NO)
+        {
+            //Yaccel=-1.8;
+            Ygravity*=-1;
+            passedYgravityLine=YES;
+        }
+    }
+    else if(animatingBird.center.y<YgravityLine)
+    {
+        if(passedYgravityLine==YES)
+        {
+            //Yaccel=1.8;
+            Ygravity*=-1;
+            passedYgravityLine=NO;
+        }
+    }
+    //int y=animatingBird.frame.origin.y;
+   // int x= animatingBird.frame.origin.x;
+
+    animatingBird.frame=CGRectMake(animatingBird.frame.origin.x-animationSpeed, animatingBird.frame.origin.y+Yaccel, animatingBird.frame.size.width, animatingBird.frame.size.height);
+    
+    
+    Yaccel=Yaccel+Ygravity;
+ 
+    
+    if(animatingBird.center.y<0)
+    {
+        //[animatingBird removeFromSuperview];
+        animateInProgress=NO;
+        [animateTimer invalidate];
+        
+    }
+}
+
 
 
 -(UIImageView*)createBirdImage
