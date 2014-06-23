@@ -84,8 +84,7 @@
             accel=0;
             animatingBird=[self createBirdImage];
             animateInProgress=YES;
-           
-           
+        
             
             //animtaion 1&2
             //animatingBird.frame=CGRectMake(widthOfViewController, 0, animatingBird.frame.size.width, animatingBird.frame.size.height);
