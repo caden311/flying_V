@@ -26,15 +26,20 @@
 
     NSTimer * animateTimer;
     
-    float gravity;
-    float accel;
-    float gravityLine;
-    bool passedGravityLine;
+    float gravity2;
+    float accel2;
+    float gravity2Line;
+    bool passedGravity2Line;
     
-    float Ygravity;
-    float Yaccel;
-    float YgravityLine;
-    bool passedYgravityLine;
+    float gravity3;
+    float accel3;
+    float gravity3Line;
+    bool passedgravity3Line;
+    
+    float gravity4;
+    float accel4;
+    float gravity4Line;
+
     
     NSTimer * gameTimer;
     int count;
