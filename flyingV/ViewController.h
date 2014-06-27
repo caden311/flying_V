@@ -40,6 +40,8 @@
     float accel4;
     float gravity4Line;
 
+    int randX;
+    int randY;
     
     NSTimer * gameTimer;
     int count;

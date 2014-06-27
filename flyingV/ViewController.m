@@ -43,6 +43,9 @@
     gravity3Line = lengthOfViewController / 2;
     gravity4Line=widthOfViewController/2;
     
+    randX=0;
+    randY=0;
+    
     passedGravity2Line=NO;
     
     animatingBird=[[UIImageView alloc] initWithFrame:CGRectMake(widthOfViewController - 75, 0, _birdImage.frame.size.width, _birdImage.frame.size.height)];
@@ -97,6 +100,21 @@
         animatingBird=[self createBirdImage];
         animateInProgress=YES;
         
+        int randDirection=(arc4random() % 2 ? 1 : -1);
+        
+        randY=arc4random()%7+1;
+        randX=(1+arc4random()%5)*randDirection;
+        if(randX>=0)
+        {
+             animatingBird.frame=CGRectMake(0, -(animatingBird.frame.size.height), animatingBird.frame.size.width, animatingBird.frame.size.height);
+        }
+        else
+        {
+             animatingBird.frame=CGRectMake(lengthOfViewController, -(animatingBird.frame.size.height), animatingBird.frame.size.width, animatingBird.frame.size.height);
+        }
+        
+
+    
             
             //animtaion 1&2
            // animatingBird.frame=CGRectMake(widthOfViewController, 0, animatingBird.frame.size.width, animatingBird.frame.size.height);
@@ -105,7 +123,7 @@
        // animatingBird.frame=CGRectMake(widthOfViewController, animatingBird.frame.size.height*2, animatingBird.frame.size.width, animatingBird.frame.size.height);
         
             //animmation 4
-             animatingBird.frame=CGRectMake(widthOfViewController-animatingBird.frame.size.width, 0, animatingBird.frame.size.width, animatingBird.frame.size.height);
+             //animatingBird.frame=CGRectMake(widthOfViewController-animatingBird.frame.size.width, 0, animatingBird.frame.size.width, animatingBird.frame.size.height);
             
             // int y=animatingBird.frame.origin.y;
            // int x= animatingBird.frame.origin.x;
@@ -116,7 +134,7 @@
     
     if(animateInProgress==YES)
     {
-        [self animateBird4];
+        [self animateBird5];
         //[self animateBird1];
     }
     
@@ -232,6 +250,17 @@
        
     }
     
+}
+-(void)animateBird5
+{
+        animatingBird.frame=CGRectMake(animatingBird.frame.origin.x+randX, animatingBird.frame.origin.y+randY, animatingBird.frame.size.width, animatingBird.frame.size.height);
+ 
+    if(animatingBird.center.y>lengthOfViewController)
+    {
+        
+        animateInProgress=NO;
+        
+    }
 }
 
 
