@@ -70,6 +70,7 @@
 
 -(void)gameLoop
 {
+    
     if(count%50==0)
     {
         UIImageView * bird=[self createBirdImage];
@@ -85,6 +86,16 @@
         }
         count = 0;
     }
+
+    [self upDateAnimations];
+    
+    
+    count += 1;
+}
+
+
+-(void)upDateAnimations
+{
     
     if(animateInProgress==NO)
     {
@@ -106,30 +117,30 @@
         randX=(1+arc4random()%5)*randDirection;
         if(randX>=0)
         {
-             animatingBird.frame=CGRectMake(0, -(animatingBird.frame.size.height), animatingBird.frame.size.width, animatingBird.frame.size.height);
+            animatingBird.frame=CGRectMake(0, -(animatingBird.frame.size.height), animatingBird.frame.size.width, animatingBird.frame.size.height);
         }
         else
         {
-             animatingBird.frame=CGRectMake(lengthOfViewController, -(animatingBird.frame.size.height), animatingBird.frame.size.width, animatingBird.frame.size.height);
+            animatingBird.frame=CGRectMake(lengthOfViewController, -(animatingBird.frame.size.height), animatingBird.frame.size.width, animatingBird.frame.size.height);
         }
         
-
-    
-            
-            //animtaion 1&2
-           // animatingBird.frame=CGRectMake(widthOfViewController, 0, animatingBird.frame.size.width, animatingBird.frame.size.height);
-            
-            //animtaion 3
-       // animatingBird.frame=CGRectMake(widthOfViewController, animatingBird.frame.size.height*2, animatingBird.frame.size.width, animatingBird.frame.size.height);
         
-            //animmation 4
-             //animatingBird.frame=CGRectMake(widthOfViewController-animatingBird.frame.size.width, 0, animatingBird.frame.size.width, animatingBird.frame.size.height);
-            
-            // int y=animatingBird.frame.origin.y;
-           // int x= animatingBird.frame.origin.x;
-           // NSLog([NSString stringWithFormat:@"BEGGG Y %i",y]);
-          //  NSLog([NSString stringWithFormat:@"BEGGG X %i",x]);
-           
+        
+        
+        //animtaion 1&2
+        // animatingBird.frame=CGRectMake(widthOfViewController, 0, animatingBird.frame.size.width, animatingBird.frame.size.height);
+        
+        //animtaion 3
+        // animatingBird.frame=CGRectMake(widthOfViewController, animatingBird.frame.size.height*2, animatingBird.frame.size.width, animatingBird.frame.size.height);
+        
+        //animmation 4
+        //animatingBird.frame=CGRectMake(widthOfViewController-animatingBird.frame.size.width, 0, animatingBird.frame.size.width, animatingBird.frame.size.height);
+        
+        // int y=animatingBird.frame.origin.y;
+        // int x= animatingBird.frame.origin.x;
+        // NSLog([NSString stringWithFormat:@"BEGGG Y %i",y]);
+        //  NSLog([NSString stringWithFormat:@"BEGGG X %i",x]);
+        
     }
     
     if(animateInProgress==YES)
@@ -137,8 +148,6 @@
         [self animateBird5];
         //[self animateBird1];
     }
-    
-    count += 1;
 }
 
 -(void)animateBird1
