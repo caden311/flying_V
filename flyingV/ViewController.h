@@ -39,12 +39,15 @@
     float gravity4;
     float accel4;
     float gravity4Line;
+    bool passedGravityLine4;
 
     int randX;
     int randY;
     
     NSTimer * gameTimer;
     int count;
+    
+    bool birdCaught;
     
     
 }

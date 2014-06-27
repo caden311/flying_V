@@ -33,7 +33,7 @@
    
     gravity2=-.75;
     gravity3= .75;
-    gravity4= .05;
+    gravity4= .002;
     
     accel2=0;
     accel3=0;
@@ -41,12 +41,16 @@
     
     gravity2Line=widthOfViewController/2;
     gravity3Line = lengthOfViewController / 2;
-    gravity4Line=widthOfViewController/2;
+    gravity4Line=lengthOfViewController/2;
     
     randX=0;
     randY=0;
     
+    birdCaught=NO;
+    
     passedGravity2Line=NO;
+    passedGravityLine4=NO;
+    passedgravity3Line=NO;
     
     animatingBird=[[UIImageView alloc] initWithFrame:CGRectMake(widthOfViewController - 75, 0, _birdImage.frame.size.width, _birdImage.frame.size.height)];
     animatingBird.image=[UIImage imageNamed:@"dragon.png"];
@@ -71,7 +75,18 @@
 -(void)gameLoop
 {
     
-    if(count%50==0)
+  
+    [self collisionChecking];
+    [self upDateAnimations];
+    
+    
+    count += 1;
+}
+
+-(void)collisionChecking
+{
+    
+    if(CGRectIntersectsRect(_birdImage.frame, animatingBird.frame)&&birdCaught==NO)
     {
         UIImageView * bird=[self createBirdImage];
         [birds addObject:bird];
@@ -85,14 +100,11 @@
             newBirdSizeModifier *= sizeModifier;
         }
         count = 0;
+        birdCaught=YES;
+        animatingBird.hidden=YES;
     }
-
-    [self upDateAnimations];
     
-    
-    count += 1;
 }
-
 
 -(void)upDateAnimations
 {
@@ -128,10 +140,10 @@
         
         
         //animtaion 1&2
-        // animatingBird.frame=CGRectMake(widthOfViewController, 0, animatingBird.frame.size.width, animatingBird.frame.size.height);
+         //animatingBird.frame=CGRectMake(widthOfViewController, 0, animatingBird.frame.size.width, animatingBird.frame.size.height);
         
         //animtaion 3
-        // animatingBird.frame=CGRectMake(widthOfViewController, animatingBird.frame.size.height*2, animatingBird.frame.size.width, animatingBird.frame.size.height);
+        //animatingBird.frame=CGRectMake(widthOfViewController, animatingBird.frame.size.height*3, animatingBird.frame.size.width, animatingBird.frame.size.height);
         
         //animmation 4
         //animatingBird.frame=CGRectMake(widthOfViewController-animatingBird.frame.size.width, 0, animatingBird.frame.size.width, animatingBird.frame.size.height);
@@ -149,7 +161,19 @@
         //[self animateBird1];
     }
 }
-
+-(void)endingAnimation
+{
+    if(animatingBird.frame.origin.y>lengthOfViewController)
+    {
+        animateInProgress=NO;
+        animatingBird.hidden=YES;
+        birdCaught=NO;
+        passedGravityLine4=NO;
+        
+        
+    }
+    
+}
 -(void)animateBird1
 {
     if(animationCounter%50==0)
@@ -158,11 +182,8 @@
     }
     animatingBird.frame=CGRectMake(animatingBird.frame.origin.x+animationModifier, animatingBird.frame.origin.y+animationSpeed, animatingBird.frame.size.width, animatingBird.frame.size.height);
    
-    
-    if(animatingBird.center.y>lengthOfViewController)
-    {
-        animateInProgress=NO;
-    }
+    [self endingAnimation];
+  
     animationCounter++;
 }
 -(void)animateBird2
@@ -190,13 +211,7 @@
     accel2=accel2+gravity2;
     //NSLog([NSString stringWithFormat:@"%f", accel]);
     
-    if(animatingBird.center.y>lengthOfViewController)
-    {
-        //[animatingBird removeFromSuperview];
-        animateInProgress=NO;
-        //[animateTimer invalidate];
-        animatingBird.frame = CGRectMake(widthOfViewController, 0, _birdImage.frame.size.width, _birdImage.frame.size.height);
-    }
+  [self endingAnimation];
 }
 
 -(void)animateBird3
@@ -227,49 +242,37 @@
     accel3=accel3+gravity3;
  
     
-    if(animatingBird.center.y<0)
-    {
-        //[animatingBird removeFromSuperview];
-        animateInProgress=NO;
-        //[animateTimer invalidate];
-    }
+  [self endingAnimation];
 }
 
 -(void)animateBird4
 {
     
-    
-    if(animatingBird.center.x<gravity4Line)
+    if(passedGravityLine4==NO)
     {
-        animatingBird.center=CGPointMake(gravity4Line, animatingBird.center.y);
-        gravity4*=-1;
-        accel4=0;
+        if(animatingBird.center.y>gravity4Line)
+        {
         
+           // animatingBird.center=CGPointMake(gravity4Line, animatingBird.center.y);
+            gravity4*=-1;
+            accel4*=-1;
+            passedGravityLine4=YES;
+        
+        }
     }
-
     
      animatingBird.frame=CGRectMake(animatingBird.frame.origin.x-accel4, animatingBird.frame.origin.y+animationSpeed, animatingBird.frame.size.width, animatingBird.frame.size.height);
  
     accel4=accel4+gravity4;
     
-    if(animatingBird.center.y>lengthOfViewController)
-    {
-       
-        animateInProgress=NO;
-       
-    }
+   [self endingAnimation];
     
 }
 -(void)animateBird5
 {
         animatingBird.frame=CGRectMake(animatingBird.frame.origin.x+randX, animatingBird.frame.origin.y+randY, animatingBird.frame.size.width, animatingBird.frame.size.height);
  
-    if(animatingBird.center.y>lengthOfViewController)
-    {
-        
-        animateInProgress=NO;
-        
-    }
+[self endingAnimation];
 }
 
 
