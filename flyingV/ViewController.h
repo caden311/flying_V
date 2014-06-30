@@ -12,7 +12,8 @@
 {
     int lengthOfViewController;
     int widthOfViewController;
-    NSMutableArray * birds;
+    NSMutableArray * leftBirds;
+    NSMutableArray * rightBirds;
     float sizeModifier;
     float newBirdSizeModifier;
     
@@ -49,12 +50,13 @@
     
     bool birdCaught;
     
+    int birdCount;
     
 }
 
 -(void)animateBird1;
 
-@property (strong, nonatomic) IBOutlet UIImageView *birdImage;
+@property (strong, nonatomic) IBOutlet UIImageView *headBird;
 
 
 

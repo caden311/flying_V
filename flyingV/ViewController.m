@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "Bird.h"
 
 @interface ViewController ()
 
@@ -52,7 +53,7 @@
     passedGravityLine4=NO;
     passedgravity3Line=NO;
     
-    animatingBird=[[UIImageView alloc] initWithFrame:CGRectMake(widthOfViewController - 75, 0, _birdImage.frame.size.width, _birdImage.frame.size.height)];
+    animatingBird=[[UIImageView alloc] initWithFrame:CGRectMake(widthOfViewController - 75, 0, _headBird.frame.size.width, _headBird.frame.size.height)];
     animatingBird.image=[UIImage imageNamed:@"dragon.png"];
     [self.view addSubview:animatingBird];
     [self.view sendSubviewToBack:animatingBird];
@@ -66,9 +67,12 @@
     
     
     count=0;
-    birds = [[NSMutableArray alloc]init];
-    [birds addObject:_birdImage];
+    leftBirds = [[NSMutableArray alloc]init];
+    rightBirds = [[NSMutableArray alloc]init];
+    //[birds addObject:_headBird];
     [super viewDidLoad];
+    
+    birdCount = 1;
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -78,7 +82,7 @@
   
     [self collisionChecking];
     [self upDateAnimations];
-    
+    [self moveBirds: _headBird.center];
     
     count += 1;
 }
@@ -86,18 +90,27 @@
 -(void)collisionChecking
 {
     
-    if(CGRectIntersectsRect(_birdImage.frame, animatingBird.frame)&&birdCaught==NO)
+    if(CGRectIntersectsRect(_headBird.frame, animatingBird.frame)&&birdCaught==NO)
     {
-        UIImageView * bird=[self createBirdImage];
-        [birds addObject:bird];
-        if(birds.count % 5 == 0)
+        [self createBirdForV];
+        int birdLevel = (int)((leftBirds.count + rightBirds.count) / 5);
+        newBirdSizeModifier = 1;
+        for(int i = 0; i < birdLevel; i += 1)
         {
-            for(int i = 1; i < birds.count; i += 1)
-            {
-                UIImageView * tempBird = [birds objectAtIndex:i];
-                [tempBird setFrame:CGRectMake(tempBird.frame.origin.x, tempBird.frame.origin.y, tempBird.frame.size.width * sizeModifier, tempBird.frame.size.height * sizeModifier)];
-            }
-            newBirdSizeModifier *= sizeModifier;
+            newBirdSizeModifier *= 0.9;
+        }
+        for(int i = 0; i < leftBirds.count; i += 1)
+        {
+            Bird * tempBird = [leftBirds objectAtIndex:i];
+            UIImageView * tempView = [tempBird getImage];
+            [tempView setFrame:CGRectMake(tempView.frame.origin.x, tempView.frame.origin.y, tempView.frame.size.width * newBirdSizeModifier, tempView.frame.size.height * newBirdSizeModifier)];
+        }
+        for(int i = 0; i < rightBirds.count; i += 1)
+        {
+            
+            Bird * tempBird = [rightBirds objectAtIndex:i];
+            UIImageView * tempView = [tempBird getImage];
+            [tempView setFrame:CGRectMake(tempView.frame.origin.x, tempView.frame.origin.y, tempView.frame.size.width * newBirdSizeModifier, tempView.frame.size.height * newBirdSizeModifier)];
         }
         count = 0;
         birdCaught=YES;
@@ -279,13 +292,12 @@
 -(UIImageView*)createBirdImage
 {
     
-    UIImageView * bird = [[UIImageView alloc] initWithFrame:CGRectMake(widthOfViewController/2, -(_birdImage.frame.size.height), _birdImage.frame.size.width * newBirdSizeModifier, _birdImage.frame.size.height * newBirdSizeModifier)];
+    UIImageView * bird = [[UIImageView alloc] initWithFrame:CGRectMake(widthOfViewController/2, -(_headBird.frame.size.height), _headBird.frame.size.width * newBirdSizeModifier, _headBird.frame.size.height * newBirdSizeModifier)];
     bird.image=[UIImage imageNamed:@"dragon.png"];
     [self.view addSubview:bird];
     [self.view sendSubviewToBack:bird];
    // NSLog([NSString stringWithFormat:@"%f", newBirdSizeModifier]);
-    UIImageView * temp = [birds objectAtIndex:0];
-    CGPoint newBirdLocation = temp.center;
+    CGPoint newBirdLocation = _headBird.center;
     //NSLog([NSString stringWithFormat:@"Passing:(%f, %f)", temp.center.x, temp.center.y]);
     [self moveBirds:newBirdLocation];
     return bird;
@@ -293,27 +305,59 @@
 }
 
 
+-(void)createBirdForV
+{
+    Bird * newBird = [[Bird alloc]initWithImageAndIndex:@"dragon.png" :CGRectMake(animatingBird.frame.origin.x, animatingBird.frame.origin.y, _headBird.frame.size.width * sizeModifier, _headBird.frame.size.height * sizeModifier) :birdCount];
+    if(birdCount % 2 == 1)
+    {
+        [leftBirds addObject:newBird];
+    }
+    else
+    {
+        [rightBirds addObject:newBird];
+    }
+    [self.view addSubview:[newBird getImage]];
+    [self.view sendSubviewToBack:[newBird getImage]];
+    CGPoint newBirdLocation = _headBird.center;
+    [self moveBirds:newBirdLocation];
+    birdCount += 1;
+}
+
 -(void)moveBirds:(CGPoint)location
 {
-    UIImageView * bird = [birds objectAtIndex:0];
-    //NSLog([NSString stringWithFormat:@"Received:(%f, %f)", location.x, location.y]);
-    bird.center = location;
-    //NSLog([NSString stringWithFormat:@"Set:(%f, %f)", bird.center.x, bird.center.y]);
-  //  NSLog([NSString stringWithFormat:@"%d", birds.count]);
-    if(birds.count > 1)
+    _headBird.center = location;
+    CGPoint tempLocation = location;
+    float moveDistX = 15 * newBirdSizeModifier;
+    float moveDistY = 30 * newBirdSizeModifier;
+    for(int i = 0; i < leftBirds.count; i += 1)
     {
-        int leftOrRight = -1;
-        for(int i = 0; i < birds.count - 1; i++)
-        {
-            CGPoint movePoint = location;
-            bird = [birds objectAtIndex:i + 1];
-            float moveDistY = 30 * newBirdSizeModifier;
-            float moveDistX = 15 * newBirdSizeModifier;
-            movePoint.y += moveDistY + (moveDistY * (i / 2));
-            movePoint.x += (moveDistX * leftOrRight) + (moveDistX * leftOrRight * (i/2));
-            bird.center = movePoint;
-            leftOrRight *= -1;
-        }
+        tempLocation.x -= moveDistX;
+        tempLocation.y += moveDistY;
+        Bird * tempBird = [leftBirds objectAtIndex:i];
+        UIImageView * tempView = [tempBird getImage];
+        float chaseX = (tempView.center.x - tempLocation.x) / 10;
+        float chaseY = (tempView.center.y - tempLocation.y) / 10;
+        CGPoint newPoint = location;
+        newPoint.x = tempView.center.x - chaseX;
+        newPoint.y = tempView.center.y - chaseY;
+        tempView.center = newPoint;
+        tempLocation = tempView.center;
+    }
+    tempLocation = location;
+    for(int i = 0; i < rightBirds.count; i += 1)
+    {
+        tempLocation.x += moveDistX;
+        tempLocation.y += moveDistY;
+        Bird * tempBird = [rightBirds objectAtIndex:i];
+        UIImageView * tempView = [tempBird getImage];
+        float chaseX = (tempView.center.x - tempLocation.x) / 10;
+        float chaseY = (tempView.center.y - tempLocation.y) / 10;
+        CGPoint newPoint = location;
+        newPoint.x = tempView.center.x - chaseX;
+        newPoint.y = tempView.center.y - chaseY;
+        tempView.center = newPoint;
+        tempLocation = tempView.center;
+
     }
 }
 
