@@ -103,14 +103,14 @@
         {
             Bird * tempBird = [leftBirds objectAtIndex:i];
             UIImageView * tempView = [tempBird getImage];
-            [tempView setFrame:CGRectMake(tempView.frame.origin.x, tempView.frame.origin.y, tempView.frame.size.width * newBirdSizeModifier, tempView.frame.size.height * newBirdSizeModifier)];
+            [tempView setFrame:CGRectMake(tempView.frame.origin.x, tempView.frame.origin.y, _headBird.frame.size.width * newBirdSizeModifier, _headBird.frame.size.height * newBirdSizeModifier)];
         }
         for(int i = 0; i < rightBirds.count; i += 1)
         {
             
             Bird * tempBird = [rightBirds objectAtIndex:i];
             UIImageView * tempView = [tempBird getImage];
-            [tempView setFrame:CGRectMake(tempView.frame.origin.x, tempView.frame.origin.y, tempView.frame.size.width * newBirdSizeModifier, tempView.frame.size.height * newBirdSizeModifier)];
+            [tempView setFrame:CGRectMake(tempView.frame.origin.x, tempView.frame.origin.y, _headBird.frame.size.width * newBirdSizeModifier, _headBird.frame.size.height * newBirdSizeModifier)];
         }
         count = 0;
         birdCaught=YES;
@@ -307,7 +307,7 @@
 
 -(void)createBirdForV
 {
-    Bird * newBird = [[Bird alloc]initWithImageAndIndex:@"dragon.png" :CGRectMake(animatingBird.frame.origin.x, animatingBird.frame.origin.y, _headBird.frame.size.width * sizeModifier, _headBird.frame.size.height * sizeModifier) :birdCount];
+    Bird * newBird = [[Bird alloc]initWithImageAndIndex:@"dragon.png" :CGRectMake(animatingBird.frame.origin.x, animatingBird.frame.origin.y, _headBird.frame.size.width * newBirdSizeModifier, _headBird.frame.size.height * newBirdSizeModifier) :birdCount];
     if(birdCount % 2 == 1)
     {
         [leftBirds addObject:newBird];
