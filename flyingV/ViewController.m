@@ -101,29 +101,39 @@
     
     if(CGRectIntersectsRect(_headBird.frame, animatingBird.frame)&&birdCaught==NO)
     {
-        [self createBirdForV];
-        int birdLevel = (int)((leftBirds.count + rightBirds.count) / 5);
-        newBirdSizeModifier = 1;
-        for(int i = 0; i < birdLevel; i += 1)
+        if(birdCount < 3)
         {
-            newBirdSizeModifier *= 0.9;
-        }
-        for(int i = 0; i < leftBirds.count; i += 1)
-        {
-            Bird * tempBird = [leftBirds objectAtIndex:i];
-            UIImageView * tempView = [tempBird getImage];
-            [tempView setFrame:CGRectMake(tempView.frame.origin.x, tempView.frame.origin.y, _headBird.frame.size.width * newBirdSizeModifier, _headBird.frame.size.height * newBirdSizeModifier)];
-        }
-        for(int i = 0; i < rightBirds.count; i += 1)
-        {
+            [self createBirdForV];
+            int birdLevel = (int)((leftBirds.count + rightBirds.count) / 5);
+            newBirdSizeModifier = 1;
+            for(int i = 0; i < birdLevel; i += 1)
+            {
+                newBirdSizeModifier *= 0.9;
+            }
+            for(int i = 0; i < leftBirds.count; i += 1)
+            {
+                Bird * tempBird = [leftBirds objectAtIndex:i];
+                UIImageView * tempView = [tempBird getImage];
+                [tempView setFrame:CGRectMake(tempView.frame.origin.x, tempView.frame.origin.y, _headBird.frame.size.width * newBirdSizeModifier, _headBird.frame.size.height * newBirdSizeModifier)];
+            }
+            for(int i = 0; i < rightBirds.count; i += 1)
+            {
             
-            Bird * tempBird = [rightBirds objectAtIndex:i];
-            UIImageView * tempView = [tempBird getImage];
-            [tempView setFrame:CGRectMake(tempView.frame.origin.x, tempView.frame.origin.y, _headBird.frame.size.width * newBirdSizeModifier, _headBird.frame.size.height * newBirdSizeModifier)];
+                Bird * tempBird = [rightBirds objectAtIndex:i];
+                UIImageView * tempView = [tempBird getImage];
+                [tempView setFrame:CGRectMake(tempView.frame.origin.x, tempView.frame.origin.y, _headBird.frame.size.width * newBirdSizeModifier, _headBird.frame.size.height * newBirdSizeModifier)];
+            }
+            count = 0;
+            birdCaught=YES;
+            animatingBird.hidden=YES;
         }
-        count = 0;
-        birdCaught=YES;
-        animatingBird.hidden=YES;
+        else
+        {
+            birdCount -= 2;
+            count = 0;
+            birdCaught=YES;
+            animatingBird.hidden=YES;
+        }
     }
     
 }
@@ -301,7 +311,7 @@
 -(UIImageView*)createBirdImage
 {
     
-    UIImageView * bird = [[UIImageView alloc] initWithFrame:CGRectMake(widthOfViewController/2, -(_headBird.frame.size.height), _headBird.frame.size.width * newBirdSizeModifier, _headBird.frame.size.height * newBirdSizeModifier)];
+    UIImageView * bird = [[UIImageView alloc] initWithFrame:CGRectMake(widthOfViewController/2, -(_headBird.frame.size.height), _headBird.frame.size.width, _headBird.frame.size.height)];
     bird.image=[UIImage imageNamed:@"dragon.png"];
     [self.view addSubview:bird];
     [self.view sendSubviewToBack:bird];
@@ -340,32 +350,65 @@
     float moveDistY = 30 * newBirdSizeModifier;
     for(int i = 0; i < leftBirds.count; i += 1)
     {
-        tempLocation.x -= moveDistX;
-        tempLocation.y += moveDistY;
         Bird * tempBird = [leftBirds objectAtIndex:i];
         UIImageView * tempView = [tempBird getImage];
-        float chaseX = (tempView.center.x - tempLocation.x) / 10;
-        float chaseY = (tempView.center.y - tempLocation.y) / 10;
         CGPoint newPoint = location;
-        newPoint.x = tempView.center.x - chaseX;
-        newPoint.y = tempView.center.y - chaseY;
-        tempView.center = newPoint;
-        tempLocation = tempView.center;
+        if([tempBird isDying] == NO && [tempBird getIndex] < birdCount)
+        {
+            tempLocation.x -= moveDistX;
+            tempLocation.y += moveDistY;
+            float chaseX = (tempView.center.x - tempLocation.x) / 10;
+            float chaseY = (tempView.center.y - tempLocation.y) / 10;
+            newPoint.x = tempView.center.x - chaseX;
+            newPoint.y = tempView.center.y - chaseY;
+            tempView.center = newPoint;
+            tempLocation = tempView.center;
+        }
+        else
+        {
+            [tempBird setDying:YES];
+            newPoint.x = tempView.center.x;
+            newPoint.y = tempView.center.y + 2;
+            tempView.center = newPoint;
+            if(tempView.frame.origin.y > lengthOfViewController)
+            {
+                tempView.hidden = YES;
+                [leftBirds removeObjectAtIndex:i];
+                i -= 1;
+            }
+        }
     }
     tempLocation = location;
     for(int i = 0; i < rightBirds.count; i += 1)
     {
-        tempLocation.x += moveDistX;
-        tempLocation.y += moveDistY;
         Bird * tempBird = [rightBirds objectAtIndex:i];
         UIImageView * tempView = [tempBird getImage];
-        float chaseX = (tempView.center.x - tempLocation.x) / 10;
-        float chaseY = (tempView.center.y - tempLocation.y) / 10;
         CGPoint newPoint = location;
-        newPoint.x = tempView.center.x - chaseX;
-        newPoint.y = tempView.center.y - chaseY;
-        tempView.center = newPoint;
-        tempLocation = tempView.center;
+        if([tempBird isDying] == NO && [tempBird getIndex] < birdCount)
+        {
+            tempLocation.x += moveDistX;
+            tempLocation.y += moveDistY;
+            float chaseX = (tempView.center.x - tempLocation.x) / 10;
+            float chaseY = (tempView.center.y - tempLocation.y) / 10;
+            newPoint.x = tempView.center.x - chaseX;
+            newPoint.y = tempView.center.y - chaseY;
+            tempView.center = newPoint;
+            tempLocation = tempView.center;
+        }
+        else
+        {
+            [tempBird setDying:YES];
+            newPoint.x = tempView.center.x;
+            newPoint.y = tempView.center.y + 2;
+            tempView.center = newPoint;
+            if(tempView.frame.origin.y > lengthOfViewController)
+            {
+                tempView.hidden = YES;
+                [rightBirds removeObjectAtIndex:i];
+                i -= 1;
+            }
+
+        }
 
     }
 }
