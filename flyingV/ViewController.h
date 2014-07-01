@@ -41,9 +41,13 @@
     float accel4;
     float gravity4Line;
     bool passedGravityLine4;
+    
+    bool birdClose;
+    float animationSpeedModifier;
 
     int randX;
     int randY;
+    int randDirection;
     
     NSTimer * gameTimer;
     int count;
