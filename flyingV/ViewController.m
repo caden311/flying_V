@@ -412,7 +412,7 @@
         Bird * tempBird = [leftBirds objectAtIndex:i];
         UIImageView * tempView = [tempBird getImage];
         CGPoint newPoint = location;
-        if([tempBird isDying] == NO && [tempBird getIndex] < birdCount)
+        if([tempBird isDying] == NO && [tempBird getIndex] <= birdCount)
         {
             tempLocation.x -= moveDistX;
             tempLocation.y += moveDistY;
@@ -443,7 +443,7 @@
         Bird * tempBird = [rightBirds objectAtIndex:i];
         UIImageView * tempView = [tempBird getImage];
         CGPoint newPoint = location;
-        if([tempBird isDying] == NO && [tempBird getIndex] < birdCount)
+        if([tempBird isDying] == NO && [tempBird getIndex] <= birdCount)
         {
             tempLocation.x += moveDistX;
             tempLocation.y += moveDistY;
