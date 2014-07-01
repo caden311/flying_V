@@ -25,6 +25,7 @@
     newBirdSizeModifier = 1.0;
     
     //animation variables
+    animationSpeedModifier=1;
     randAnimation=0;
     animationSpeed=3;
     animateInProgress=NO;
@@ -46,8 +47,10 @@
     
     randX=0;
     randY=0;
+    randDirection=1;
     
     birdCaught=NO;
+    birdClose=NO;
     
     passedGravity2Line=NO;
     passedGravityLine4=NO;
@@ -135,6 +138,8 @@
     {
         passedGravity2Line=NO;
         
+        birdClose=NO;
+        
         accel2=0;
         accel3=0;
         
@@ -145,7 +150,7 @@
         animatingBird=[self createBirdImage];
         animateInProgress=YES;
         
-        int randDirection=(arc4random() % 2 ? 1 : -1);
+        randDirection=(arc4random() % 2 ? 1 : -1);
         
         randY=arc4random()%7+1;
         randX=(1+arc4random()%5)*randDirection;
@@ -159,6 +164,8 @@
         }
         
         
+        //animate away
+        animatingBird.frame=CGRectMake(widthOfViewController/2, 0, animatingBird.frame.size.width, animatingBird.frame.size.height);
         
         
         //animtaion 1&2
@@ -179,7 +186,7 @@
     
     if(animateInProgress==YES)
     {
-        [self animateBird5:animatingBird];
+        [self animatebirdAway:animatingBird];
         //[self animateBird1];
     }
 }
@@ -297,6 +304,57 @@
 [self endingAnimation:object];
 }
 
+-(void)animatebirdAway:(UIImageView *)bird
+{
+    
+    float distance=sqrt(pow((_headBird.frame.origin.x-bird.frame.origin.x),2.0)+pow((_headBird.frame.origin.y-bird.frame.origin.y),2.0));
+    
+    NSLog([NSString stringWithFormat:@"distance: %f",distance ]);
+    
+   
+    
+    if(distance<100)
+    {
+        birdClose=YES;
+        animationSpeedModifier=5;
+        
+    }
+    else if(distance<50)
+    {
+        animationSpeedModifier=10;
+    }
+    else if(distance<10)
+    {
+        animationSpeedModifier=20;
+    }
+    
+    
+    
+    if(birdClose==NO)
+    {
+        bird.frame=CGRectMake(bird.frame.origin.x, bird.frame.origin.y+animationSpeed, bird.frame.size.width, bird.frame.size.height);
+    }
+    else if(randDirection<1)
+    {
+       bird.frame=CGRectMake(bird.frame.origin.x-(animationSpeedModifier), bird.frame.origin.y-(animationSpeedModifier), bird.frame.size.width, bird.frame.size.height);
+    }
+    else
+    {
+        bird.frame=CGRectMake(bird.frame.origin.x+(animationSpeedModifier), bird.frame.origin.y-(animationSpeedModifier), bird.frame.size.width, bird.frame.size.height);
+    }
+    
+    if(distance>lengthOfViewController)
+    {
+        animateInProgress=NO;
+        bird.hidden=YES;
+        birdCaught=NO;
+      
+        
+        
+    }
+    
+}
+
 
 -(UIImageView*)createBirdImage
 {
@@ -312,6 +370,7 @@
     return bird;
                             
 }
+
 
 
 -(void)createBirdForV
