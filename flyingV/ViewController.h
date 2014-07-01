@@ -51,6 +51,7 @@
     bool birdCaught;
     
     int birdCount;
+    int highBirdCount;
     
 }
 
@@ -58,7 +59,9 @@
 
 @property (strong, nonatomic) IBOutlet UIImageView *headBird;
 
+@property (strong, nonatomic) IBOutlet UILabel *highScoreLabel;
 
+@property (strong, nonatomic) IBOutlet UILabel *currentScore;
 
 
 @end
