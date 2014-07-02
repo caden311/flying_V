@@ -24,6 +24,14 @@
     sizeModifier = 0.9;
     newBirdSizeModifier = 1.0;
     
+    //animating collision objects
+    collisionSpeed=3;
+    collisionAnimationInProgress=NO;
+    animatingObject=[[UIImageView alloc] initWithFrame:CGRectMake(widthOfViewController, 0, 25, 25)];
+    animatingObject.image=[UIImage imageNamed:@"ball.png"];
+    [self.view addSubview:animatingObject];
+    [self.view sendSubviewToBack:animatingObject];
+    
     //animation variables
     animationSpeedModifier=1;
     randAnimation=0;
@@ -32,6 +40,10 @@
     animationCounter=0;
     animationModifier=5;
     animatingBird=[[UIImageView alloc] init];
+    animatingBird=[[UIImageView alloc] initWithFrame:CGRectMake(widthOfViewController - 75, 0, _headBird.frame.size.width, _headBird.frame.size.height)];
+    animatingBird.image=[UIImage imageNamed:@"dragon.png"];
+    [self.view addSubview:animatingBird];
+    [self.view sendSubviewToBack:animatingBird];
    
     gravity2=-.75;
     gravity3= .75;
@@ -56,10 +68,7 @@
     passedGravityLine4=NO;
     passedgravity3Line=NO;
     
-    animatingBird=[[UIImageView alloc] initWithFrame:CGRectMake(widthOfViewController - 75, 0, _headBird.frame.size.width, _headBird.frame.size.height)];
-    animatingBird.image=[UIImage imageNamed:@"dragon.png"];
-    [self.view addSubview:animatingBird];
-    [self.view sendSubviewToBack:animatingBird];
+
 
     
     
@@ -82,7 +91,7 @@
 
 -(void)gameLoop
 {
-    
+    [self upDateCollisionAnimations];
     [self updateLabels];
     [self collisionChecking];
     [self upDateAnimations];
@@ -140,7 +149,22 @@
     }
     
 }
-
+-(void)upDateCollisionAnimations
+{
+    if(collisionAnimationInProgress==NO)
+    {
+        
+        animatingObject.frame=CGRectMake(widthOfViewController/2, 0, animatingObject.frame.size.width, animatingObject.frame.size.height);
+        collisionAnimationInProgress=YES;
+    }
+    else
+    {
+        [self animateBird1:animatingObject];
+    }
+    
+    
+    
+}
 -(void)upDateAnimations
 {
     
@@ -204,14 +228,20 @@
 {
     if(object.frame.origin.y>lengthOfViewController)
     {
+        if(object.image==@"dragon.png")
+        {
         animateInProgress=NO;
-        animatingBird.hidden=YES;
+        object.hidden=YES;
         birdCaught=NO;
         passedGravityLine4=NO;
-        
-        
+        }
+        if(object.image==@"ball.png")
+        {
+            collisionAnimationInProgress=NO;
+            object.hidden=YES;
+        }
     }
-    
+
 }
 -(void)animateBird1:(UIImageView*) object
 {
@@ -219,7 +249,7 @@
     {
         animationModifier*=-1;
     }
-    animatingBird.frame=CGRectMake(animatingBird.frame.origin.x+animationModifier, animatingBird.frame.origin.y+animationSpeed, animatingBird.frame.size.width, animatingBird.frame.size.height);
+    object.frame=CGRectMake(object.frame.origin.x+animationModifier, object.frame.origin.y+animationSpeed, object.frame.size.width, object.frame.size.height);
    
     [self endingAnimation:object];
   
@@ -227,7 +257,7 @@
 }
 -(void)animateBird2:(UIImageView*) object
 {
-    if(animatingBird.center.x<gravity2Line)
+    if(object.center.x<gravity2Line)
     {
         if(passedGravity2Line==NO)
         {
@@ -235,7 +265,7 @@
             passedGravity2Line=YES;
         }
     }
-    else if(animatingBird.center.x>gravity2Line)
+    else if(object.center.x>gravity2Line)
     {
         if(passedGravity2Line==YES)
         {
@@ -245,7 +275,7 @@
     }
     //NSLog([NSString stringWithFormat:@"Y value %f",animatingBird.frame.origin.y]);
     //NSLog([NSString stringWithFormat:@"X value %f",animatingBird.frame.origin.x]);
-    animatingBird.frame=CGRectMake(animatingBird.frame.origin.x+accel2, animatingBird.frame.origin.y+animationSpeed, animatingBird.frame.size.width, animatingBird.frame.size.height);
+    object.frame=CGRectMake(object.frame.origin.x+accel2, object.frame.origin.y+animationSpeed, object.frame.size.width, object.frame.size.height);
     
     accel2=accel2+gravity2;
     //NSLog([NSString stringWithFormat:@"%f", accel]);
@@ -255,7 +285,7 @@
 
 -(void)animateBird3:(UIImageView*) object
 {
-    if(animatingBird.center.y>gravity3Line)
+    if(object.center.y>gravity3Line)
     {
         if(passedgravity3Line==NO)
         {
@@ -264,7 +294,7 @@
             passedgravity3Line=YES;
         }
     }
-    else if(animatingBird.center.y<gravity3Line)
+    else if(object.center.y<gravity3Line)
     {
         if(passedgravity3Line==YES)
         {
@@ -275,7 +305,7 @@
     }
   
 
-    object.frame=CGRectMake(animatingBird.frame.origin.x-animationSpeed, animatingBird.frame.origin.y+accel3, animatingBird.frame.size.width, animatingBird.frame.size.height);
+    object.frame=CGRectMake(object.frame.origin.x-animationSpeed, object.frame.origin.y+accel3, object.frame.size.width, object.frame.size.height);
     
     
     accel3=accel3+gravity3;
@@ -289,10 +319,10 @@
     
     if(passedGravityLine4==NO)
     {
-        if(animatingBird.center.y>gravity4Line)
+        if(object.center.y>gravity4Line)
         {
         
-           // animatingBird.center=CGPointMake(gravity4Line, animatingBird.center.y);
+           // object.center=CGPointMake(gravity4Line, object.center.y);
             gravity4*=-1;
             accel4*=-1;
             passedGravityLine4=YES;
@@ -300,7 +330,7 @@
         }
     }
     
-     object.frame=CGRectMake(animatingBird.frame.origin.x-accel4, animatingBird.frame.origin.y+animationSpeed, animatingBird.frame.size.width, animatingBird.frame.size.height);
+     object.frame=CGRectMake(object.frame.origin.x-accel4, object.frame.origin.y+animationSpeed, object.frame.size.width, object.frame.size.height);
  
     accel4=accel4+gravity4;
     
@@ -309,7 +339,7 @@
 }
 -(void)animateBird5:(UIImageView*) object
 {
-        object.frame=CGRectMake(animatingBird.frame.origin.x+randX, animatingBird.frame.origin.y+randY, animatingBird.frame.size.width, animatingBird.frame.size.height);
+        object.frame=CGRectMake(object.frame.origin.x+randX, object.frame.origin.y+randY, object.frame.size.width, object.frame.size.height);
  
 [self endingAnimation:object];
 }
@@ -374,13 +404,25 @@
     [self.view addSubview:bird];
     [self.view sendSubviewToBack:bird];
    // NSLog([NSString stringWithFormat:@"%f", newBirdSizeModifier]);
-    CGPoint newBirdLocation = _headBird.center;
+   // CGPoint newBirdLocation = _headBird.center;
     //NSLog([NSString stringWithFormat:@"Passing:(%f, %f)", temp.center.x, temp.center.y]);
-    [self moveBirds:newBirdLocation];
+  //  [self moveBirds:newBirdLocation];
     return bird;
                             
 }
 
+-(UIImageView*)createCollisionImage
+{
+    
+    UIImageView * object = [[UIImageView alloc] initWithFrame:CGRectMake(widthOfViewController/2, -25, 25, 25)];
+    object.image=[UIImage imageNamed:@"ball.png"];
+    [self.view addSubview:object];
+    [self.view sendSubviewToBack:object];
+   
+   
+    return object;
+    
+}
 
 
 -(void)createBirdForV
