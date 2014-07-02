@@ -104,7 +104,7 @@
     
     if(CGRectIntersectsRect(_headBird.frame, animatingBird.frame)&&birdCaught==NO)
     {
-        if(birdCount < 3)
+        if(birdCount < 5)
         {
             [self createBirdForV];
             int birdLevel = (int)((leftBirds.count + rightBirds.count) / 5);
@@ -132,7 +132,7 @@
         }
         else
         {
-            birdCount -= 2;
+            birdCount -= 3;
             count = 0;
             birdCaught=YES;
             animatingBird.hidden=YES;
@@ -385,6 +385,7 @@
 
 -(void)createBirdForV
 {
+    birdCount += 1;
     Bird * newBird = [[Bird alloc]initWithImageAndIndex:@"dragon.png" :CGRectMake(animatingBird.frame.origin.x, animatingBird.frame.origin.y, _headBird.frame.size.width * newBirdSizeModifier, _headBird.frame.size.height * newBirdSizeModifier) :birdCount];
     if(birdCount % 2 == 1)
     {
@@ -398,7 +399,6 @@
     [self.view sendSubviewToBack:[newBird getImage]];
     CGPoint newBirdLocation = _headBird.center;
     [self moveBirds:newBirdLocation];
-    birdCount += 1;
 }
 
 -(void)moveBirds:(CGPoint)location
@@ -412,22 +412,28 @@
         Bird * tempBird = [leftBirds objectAtIndex:i];
         UIImageView * tempView = [tempBird getImage];
         CGPoint newPoint = location;
-        if([tempBird isDying] == NO && [tempBird getIndex] <= birdCount)
+        if([tempBird isDying] == NO)
         {
-            tempLocation.x -= moveDistX;
-            tempLocation.y += moveDistY;
-            float chaseX = (tempView.center.x - tempLocation.x) / 10;
-            float chaseY = (tempView.center.y - tempLocation.y) / 10;
-            newPoint.x = tempView.center.x - chaseX;
-            newPoint.y = tempView.center.y - chaseY;
-            tempView.center = newPoint;
-            tempLocation = tempView.center;
+            if([tempBird getIndex] <= birdCount)
+            {
+                tempLocation.x -= moveDistX;
+                tempLocation.y += moveDistY;
+                float chaseX = (tempView.center.x - tempLocation.x) / 10;
+                float chaseY = (tempView.center.y - tempLocation.y) / 10;
+                newPoint.x = tempView.center.x - chaseX;
+                newPoint.y = tempView.center.y - chaseY;
+                tempView.center = newPoint;
+                tempLocation = tempView.center;
+            }
+            else
+            {
+                [tempBird setDying:YES];
+            }
         }
         else
         {
-            [tempBird setDying:YES];
             newPoint.x = tempView.center.x;
-            newPoint.y = tempView.center.y + 2;
+            newPoint.y = tempView.center.y + 3;
             tempView.center = newPoint;
             if(tempView.frame.origin.y > lengthOfViewController)
             {
@@ -443,22 +449,28 @@
         Bird * tempBird = [rightBirds objectAtIndex:i];
         UIImageView * tempView = [tempBird getImage];
         CGPoint newPoint = location;
-        if([tempBird isDying] == NO && [tempBird getIndex] <= birdCount)
+        if([tempBird isDying] == NO)
         {
-            tempLocation.x += moveDistX;
-            tempLocation.y += moveDistY;
-            float chaseX = (tempView.center.x - tempLocation.x) / 10;
-            float chaseY = (tempView.center.y - tempLocation.y) / 10;
-            newPoint.x = tempView.center.x - chaseX;
-            newPoint.y = tempView.center.y - chaseY;
-            tempView.center = newPoint;
-            tempLocation = tempView.center;
+            if([tempBird getIndex] <= birdCount)
+            {
+                tempLocation.x += moveDistX;
+                tempLocation.y += moveDistY;
+                float chaseX = (tempView.center.x - tempLocation.x) / 10;
+                float chaseY = (tempView.center.y - tempLocation.y) / 10;
+                newPoint.x = tempView.center.x - chaseX;
+                newPoint.y = tempView.center.y - chaseY;
+                tempView.center = newPoint;
+                tempLocation = tempView.center;
+            }
+            else
+            {
+                [tempBird setDying:YES];
+            }
         }
         else
         {
-            [tempBird setDying:YES];
             newPoint.x = tempView.center.x;
-            newPoint.y = tempView.center.y + 2;
+            newPoint.y = tempView.center.y + 3;
             tempView.center = newPoint;
             if(tempView.frame.origin.y > lengthOfViewController)
             {
