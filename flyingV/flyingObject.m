@@ -22,7 +22,7 @@
         speed=newSpeed;
         objectHit=NO;
         livesWorth=0;
-        animationInProgress=NO;
+        animationInProgress=YES;
         
     }
     return self;

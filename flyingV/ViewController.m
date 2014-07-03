@@ -27,6 +27,8 @@
     
     //animating collision objects
     flyingObjectsArray=[[NSMutableArray alloc] init];
+    flyingBirdsArray=[[NSMutableArray alloc] init];
+    numCollisionAnimations=1;
     
     collisionRand=0;
     birdHit=NO;
@@ -38,10 +40,10 @@
     [self.view sendSubviewToBack:animatingObject];
     
     //animation variables
+    numBirdAnimations=1;
     animationSpeedModifier=1;
     randAnimation=0;
     animationSpeed=3;
-    animateInProgress=NO;
     animationCounter=0;
     animationModifier=5;
     animatingBird=[[UIImageView alloc] init];
@@ -96,6 +98,7 @@
 
 -(void)gameLoop
 {
+   
     [self upDateCollisionAnimations];
     [self updateLabels];
     [self collisionChecking];
@@ -115,29 +118,10 @@
 }
 -(void)collisionChecking
 {
-    /* for(int i=0; i<[flyingObjectsArray count]; i++)
-     {
-     flyingObject * object =[flyingObjectsArray objectAtIndex:i];
-     if(CGRectIntersectsRect(_headBird.frame, [object getImage].frame)&&[object getObjectHit]==NO)
-     {
-     if(birdCount>=4)
-     {
-     birdCount -= 3;
-     }
-     else
-     {
-     birdCount=1;
-     }
-     count = 0;
-     birdCaught=YES;
-     [object getImage].hidden=YES;
-     [object setObjectHit:YES];
-     }
-     
-     }*/
-    for(int i=0; i<[flyingObjectsArray count]; i++)
+
+    for(int i=0; i<[flyingBirdsArray count]; i++)
     {
-        flyingObject * object =[flyingObjectsArray objectAtIndex:i];
+        flyingObject * object =[flyingBirdsArray objectAtIndex:i];
         if(CGRectIntersectsRect(_headBird.frame, [object getImage].frame)&&[object getObjectHit]==NO)
         {
             CGPoint point=CGPointMake([object getImage].center.x, [object getImage].center.y);
@@ -170,34 +154,49 @@
    
         }
     }
-    
-    if(CGRectIntersectsRect(_headBird.frame, animatingObject.frame)&&birdHit==NO)
-    {
-        if(birdCount>=4)
-        {
-            birdCount -= 3;
-        }
-        else
-        {
-            birdCount=1;
-        }
-        count = 0;
-        birdCaught=YES;
-        animatingBird.hidden=YES;
-        birdHit=YES;
-        
-    }
+    for(int i=0; i<[flyingObjectsArray count]; i++)
+     {
+         flyingObject * object =[flyingObjectsArray objectAtIndex:i];
+         if(CGRectIntersectsRect(_headBird.frame, [object getImage].frame)&&[object getObjectHit]==NO)
+         {
+             if(birdCount>=4)
+            {
+                birdCount -= 3;
+            }
+             else
+             {
+                 birdCount=1;
+             }
+             count = 0;
+             birdCaught=YES;
+             [object getImage].hidden=YES;
+             [object setObjectHit:YES];
+     }
+     
+     }
+
 
     
 }
 -(void)upDateCollisionAnimations
 {
-    if(collisionAnimationInProgress==NO)
+    int tempNumAnimation=0;
+    for(int i=0; i<[flyingObjectsArray count]; i++)
+    {
+        flyingObject * temp=[flyingObjectsArray objectAtIndex:i];
+       if([temp getAnimationInProgress]==YES)
+        {
+            tempNumAnimation+=1;
+        }
+        
+        
+    }
+    if(tempNumAnimation<numCollisionAnimations)
     {
         
-        animatingObject.frame=CGRectMake(widthOfViewController/2, 0, animatingObject.frame.size.width, animatingObject.frame.size.height);
-        collisionAnimationInProgress=YES;
-        animatingObject.hidden=NO;
+        [self createCollisionImage];
+       
+      
         collisionRand=arc4random()%9;
     }
     else
@@ -224,8 +223,12 @@
             [self animateBird5:animatingObject];
         }
         */
-        [self animateBird1:animatingObject];
-        
+       for(int j=0; j<[flyingObjectsArray count]; j++)
+        {
+            flyingObject * object=[flyingObjectsArray objectAtIndex:j];
+            
+            [self animateBird1:object];
+        }
     }
     
     
@@ -233,8 +236,17 @@
 }
 -(void)upDateAnimations
 {
-    
-    if(animateInProgress==NO)
+    int tempNumAnimation=0;
+    for(int i=0; i<[flyingBirdsArray count]; i++)
+    {
+        flyingObject * temp=[flyingBirdsArray objectAtIndex:i];
+        if([temp getAnimationInProgress]==YES)
+        {
+            tempNumAnimation+=1;
+        }
+        
+    }
+    if(tempNumAnimation<numBirdAnimations)
     {
         passedGravity2Line=NO;
         
@@ -246,16 +258,18 @@
         accel4=0;
         gravity4= .05;
         
-        animateInProgress=YES;
+       
        [self createBirdImage];
        
        
         
         randDirection=(arc4random() % 2 ? 1 : -1);
         
+        
         randY=arc4random()%7+1;
         randX=(1+arc4random()%5)*randDirection;
-        if(randX>=0)
+        
+        /*if(randX>=0)
         {
             animatingBird.frame=CGRectMake(0, -(animatingBird.frame.size.height), animatingBird.frame.size.width, animatingBird.frame.size.height);
         }
@@ -263,7 +277,7 @@
         {
             animatingBird.frame=CGRectMake(lengthOfViewController, -(animatingBird.frame.size.height), animatingBird.frame.size.width, animatingBird.frame.size.height);
         }
-        
+        */
         
         //animate away
        // animatingBird.frame=CGRectMake(widthOfViewController/2, 0, animatingBird.frame.size.width, animatingBird.frame.size.height);
@@ -286,10 +300,10 @@
     }
     
    
-        for(int i=0; i<[flyingObjectsArray count]; i++)
+        for(int i=0; i<[flyingBirdsArray count]; i++)
         {
         
-            flyingObject * object=[flyingObjectsArray objectAtIndex:i];
+            flyingObject * object=[flyingBirdsArray objectAtIndex:i];
             if([object getAnimationInProgress]==YES)
             {
                 [self animatebirdAway:object];
@@ -299,46 +313,47 @@
         }
     
 }
--(void)endingAnimation:(UIImageView *) object
+-(void)endingAnimation:(flyingObject*) object
 {
     
     
-    if(object.frame.origin.y>lengthOfViewController)
+    if([object getImage].frame.origin.y>lengthOfViewController)
     {
         
-        if([object.image isEqual:[UIImage imageNamed:@"dragon.png"]])
-        {
-            animateInProgress=NO;
-            object.hidden=YES;
-            birdCaught=NO;
+        if([object isBird]==YES)
+        {            [object getImage].hidden=YES;
+            [object setObjectHit:NO];
+            [flyingBirdsArray removeObjectAtIndex:[object getIndex]];
             passedGravityLine4=NO;
           
         }
-        if([object.image isEqual:[UIImage imageNamed:@"ball.png"]])
+        if([object isBird]==NO)
         {
-            collisionAnimationInProgress=NO;
-            birdHit=NO;
-            object.hidden=YES;
+             [flyingObjectsArray removeObjectAtIndex:[object getIndex]];
+            [object getImage].hidden=YES;
+            [object setObjectHit:NO];
         }
     }
 
 }
--(void)animateBird1:(UIImageView*) object
+-(void)animateBird1:(flyingObject*) object
 {
+    
     if(animationCounter%50==0)
     {
         animationModifier*=-1;
     }
-    object.frame=CGRectMake(object.frame.origin.x+animationModifier, object.frame.origin.y+animationSpeed, object.frame.size.width, object.frame.size.height);
+    [object getImage].frame=CGRectMake([object getImage].frame.origin.x+animationModifier, [object getImage].frame.origin.y+[object getSpeed], [object getImage].frame.size.width, [object getImage].frame.size.height);
    
     [self endingAnimation:object];
     
   
     animationCounter++;
 }
--(void)animateBird2:(UIImageView*) object
+-(void)animateBird2:(flyingObject*) object
 {
-    if(object.center.x<gravity2Line)
+    
+    if([object getImage].center.x<gravity2Line)
     {
         if(passedGravity2Line==NO)
         {
@@ -346,7 +361,7 @@
             passedGravity2Line=YES;
         }
     }
-    else if(object.center.x>gravity2Line)
+    else if([object getImage].center.x>gravity2Line)
     {
         if(passedGravity2Line==YES)
         {
@@ -356,7 +371,7 @@
     }
     //NSLog([NSString stringWithFormat:@"Y value %f",animatingBird.frame.origin.y]);
     //NSLog([NSString stringWithFormat:@"X value %f",animatingBird.frame.origin.x]);
-    object.frame=CGRectMake(object.frame.origin.x+accel2, object.frame.origin.y+animationSpeed, object.frame.size.width, object.frame.size.height);
+    [object getImage].frame=CGRectMake([object getImage].frame.origin.x+accel2, [object getImage].frame.origin.y+animationSpeed, [object getImage].frame.size.width, [object getImage].frame.size.height);
     
     accel2=accel2+gravity2;
     //NSLog([NSString stringWithFormat:@"%f", accel]);
@@ -364,9 +379,9 @@
   [self endingAnimation:object];
 }
 
--(void)animateBird3:(UIImageView*) object
+-(void)animateBird3:(flyingObject*) object
 {
-    if(object.center.y>gravity3Line)
+    if([object getImage].center.y>gravity3Line)
     {
         if(passedgravity3Line==NO)
         {
@@ -375,7 +390,7 @@
             passedgravity3Line=YES;
         }
     }
-    else if(object.center.y<gravity3Line)
+    else if([object getImage].center.y<gravity3Line)
     {
         if(passedgravity3Line==YES)
         {
@@ -386,7 +401,7 @@
     }
   
 
-    object.frame=CGRectMake(object.frame.origin.x-animationSpeed, object.frame.origin.y+accel3, object.frame.size.width, object.frame.size.height);
+    [object getImage].frame=CGRectMake([object getImage].frame.origin.x-animationSpeed, [object getImage].frame.origin.y+accel3, [object getImage].frame.size.width, [object getImage].frame.size.height);
     
     
     accel3=accel3+gravity3;
@@ -395,12 +410,12 @@
  [self endingAnimation:object];
 }
 
--(void)animateBird4:(UIImageView*) object
+-(void)animateBird4:(flyingObject*) object
 {
     
     if(passedGravityLine4==NO)
     {
-        if(object.center.y>gravity4Line)
+        if([object getImage].center.y>gravity4Line)
         {
         
            // object.center=CGPointMake(gravity4Line, object.center.y);
@@ -411,17 +426,17 @@
         }
     }
     
-     object.frame=CGRectMake(object.frame.origin.x-accel4, object.frame.origin.y+animationSpeed, object.frame.size.width, object.frame.size.height);
+     [object getImage].frame=CGRectMake([object getImage].frame.origin.x-accel4, [object getImage].frame.origin.y+animationSpeed, [object getImage].frame.size.width, [object getImage].frame.size.height);
  
     accel4=accel4+gravity4;
     
   [self endingAnimation:object];
     
 }
--(void)animateBird5:(UIImageView*) object
+-(void)animateBird5:(flyingObject*) object
 {
-        object.frame=CGRectMake(object.frame.origin.x+randX, object.frame.origin.y+randY, object.frame.size.width, object.frame.size.height);
- 
+    [object getImage].frame=CGRectMake([object getImage].frame.origin.x+randX, [object getImage].frame.origin.y+randY, [object getImage].frame.size.width, [object getImage].frame.size.height);
+    
 [self endingAnimation:object];
 }
 
@@ -469,12 +484,13 @@
     {
         [object setAnimationInProgress:NO];
         [object getImage].hidden=YES;
-        animateInProgress=NO;
+       
         bird.hidden=YES;
         birdCaught=NO;
-      
-        [flyingObjectsArray removeObjectAtIndex:[object getIndex]];
-        
+        if([object isBird]==YES)
+        {
+            [flyingBirdsArray removeObjectAtIndex:[object getIndex]];
+        }
     }
     
 }
@@ -482,10 +498,10 @@
 
 -(void)createBirdImage
 {
-    flyingObject *object=[[flyingObject alloc] initWithImageAndIndex:@"dragon.png" :CGRectMake(widthOfViewController/2, -(_headBird.frame.size.height), _headBird.frame.size.width, _headBird.frame.size.height) :[flyingObjectsArray count] :3];
+    flyingObject *object=[[flyingObject alloc] initWithImageAndIndex:@"dragon.png" :CGRectMake(widthOfViewController/2, -(_headBird.frame.size.height), _headBird.frame.size.width, _headBird.frame.size.height) :[flyingBirdsArray count] :3];
     [object setIsBird:YES];
-    [object setAnimationInProgress:YES];
-    [flyingObjectsArray addObject:object];
+   
+    [flyingBirdsArray addObject:object];
     
     
     [self.view addSubview:[object getImage]];
@@ -498,17 +514,16 @@
                             
 }
 
--(UIImageView*)createCollisionImage
+-(void)createCollisionImage
 {
     
-    
-    UIImageView * object = [[UIImageView alloc] initWithFrame:CGRectMake(widthOfViewController/2, -25, 25, 25)];
-    object.image=[UIImage imageNamed:@"ball.png"];
-    [self.view addSubview:object];
-    [self.view sendSubviewToBack:object];
+    flyingObject *object=[[flyingObject alloc] initWithImageAndIndex:@"ball.png" :CGRectMake(widthOfViewController/2, -25, 25, 25) :[flyingObjectsArray count] :3];
+    [object setIsBird:NO];
+    [flyingObjectsArray addObject:object];
+    [self.view addSubview:[object getImage]];
+    [self.view sendSubviewToBack:[object getImage]];
    
    
-    return object;
     
 }
 

@@ -64,6 +64,7 @@
     int highBirdCount;
     
     //collission animations
+    int numCollisionAnimations;
     float collisionSpeed;
     bool collisionAnimationInProgress;
     UIImageView * animatingObject;
