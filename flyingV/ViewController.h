@@ -17,7 +17,13 @@
     float sizeModifier;
     float newBirdSizeModifier;
     
+    //array flying objects
+    NSMutableArray * flyingBirdsArray;
+    NSMutableArray * flyingObjectsArray;
+    
         //animation variables
+    
+    int numBirdAnimations;
     int randAnimation;
     float animationSpeed;
     bool animateInProgress;
@@ -61,7 +67,8 @@
     float collisionSpeed;
     bool collisionAnimationInProgress;
     UIImageView * animatingObject;
-    
+    bool birdHit;
+    int collisionRand;
     
 }
 
