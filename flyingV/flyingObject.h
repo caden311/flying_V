@@ -17,6 +17,12 @@
     BOOL objectHit;
     int livesWorth;
     bool animationInProgress;
+    int animationNumber;
+    
+    //rand's
+    int randX;
+    int randY;
+    int randDirection;
  
 }
 
@@ -34,6 +40,15 @@
 -(void)setLivesWorth:(int)lives;
 -(bool)getAnimationInProgress;
 -(void)setAnimationInProgress:(bool)inProg;
+-(void)setAnimationNumber:(int)num;
+-(int)getAnimationNumber;
+-(int)getRandX;
+-(void)setRandX:(int)x;
+-(int)getRandY;
+-(void)setRandY:(int)x;
+-(int)getRandDirection;
+-(void)setRandDirection:(int)x;
+
 
 
 @end

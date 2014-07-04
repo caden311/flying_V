@@ -25,7 +25,6 @@
     
     int numBirdAnimations;
     int randAnimation;
-    float animationSpeed;
     bool animateInProgress;
     int animationCounter;
     float animationModifier;
@@ -51,9 +50,7 @@
     bool birdClose;
     float animationSpeedModifier;
 
-    int randX;
-    int randY;
-    int randDirection;
+  
     
     NSTimer * gameTimer;
     int count;

@@ -21,8 +21,11 @@
         index = newIndex;
         speed=newSpeed;
         objectHit=NO;
-        livesWorth=0;
+        livesWorth=3;
         animationInProgress=YES;
+        randX=1;
+        randY=1;
+        randDirection=1;
         
     }
     return self;
@@ -83,6 +86,39 @@
 -(void)setAnimationInProgress:(bool)inProg
 {
     animationInProgress=inProg;
+}
+-(void)setAnimationNumber:(int)num
+{
+    animationNumber=num;
+}
+-(int)getAnimationNumber
+{
+    return animationNumber;
+}
+
+-(int)getRandX
+{
+    return randX;
+}
+-(void)setRandX:(int)x
+{
+    randX=x;
+}
+-(int)getRandY
+{
+    return randY;
+}
+-(void)setRandY:(int)x
+{
+    randY=x;
+}
+-(int)getRandDirection
+{
+    return randDirection;
+}
+-(void)setRandDirection:(int)x
+{
+    randDirection=x;
 }
 
 @end
