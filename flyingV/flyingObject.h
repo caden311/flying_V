@@ -23,7 +23,11 @@
     int randX;
     int randY;
     int randDirection;
- 
+    
+    //gravity/accel
+    float gravity;
+    float accel;
+    bool passedGravityLine;
 }
 
 -(id) initWithImageAndIndex:(NSString*) imageName :(CGRect) newFrame :(int) newIndex :(float)newSpeed;
@@ -48,6 +52,14 @@
 -(void)setRandY:(int)x;
 -(int)getRandDirection;
 -(void)setRandDirection:(int)x;
+
+-(float)getGravity;
+-(void)setGravity:(float)x;
+-(float)getAccel;
+-(void)setAccel:(float)x;
+-(bool)getPassedGravityLine;
+-(void)setPassedGravityLine:(bool)x;
+
 
 
 

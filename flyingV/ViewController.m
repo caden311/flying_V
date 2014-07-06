@@ -29,40 +29,18 @@
     flyingObjectsArray=[[NSMutableArray alloc] init];
     flyingBirdsArray=[[NSMutableArray alloc] init];
     numCollisionAnimations=1;
-    
-    collisionRand=0;
-    birdHit=NO;
-    collisionSpeed=3;
-    collisionAnimationInProgress=NO;
-    animatingObject=[[UIImageView alloc] initWithFrame:CGRectMake(widthOfViewController, 0, 25, 25)];
-    animatingObject.image=[UIImage imageNamed:@"ball.png"];
-    [self.view addSubview:animatingObject];
-    [self.view sendSubviewToBack:animatingObject];
-    
+  
+
     //animation variables
     numBirdAnimations=1;
-    animationSpeedModifier=1;
-    randAnimation=0;
-  
-    animationCounter=0;
-    animationModifier=5;
-    animatingBird=[[UIImageView alloc] init];
-    animatingBird=[[UIImageView alloc] initWithFrame:CGRectMake(widthOfViewController - 75, 0, _headBird.frame.size.width, _headBird.frame.size.height)];
-    animatingBird.image=[UIImage imageNamed:@"dragon.png"];
-    [self.view addSubview:animatingBird];
-    [self.view sendSubviewToBack:animatingBird];
    
-    gravity2=-.75;
-    gravity3= .75;
-    gravity4= .002;
     
-    accel2=0;
-    accel3=0;
-    accel4=0;
+   
+   
     
-    gravity2Line=widthOfViewController/2;
-    gravity3Line = lengthOfViewController / 2;
-    gravity4Line=lengthOfViewController/2;
+    verticalGravityLine=widthOfViewController/2;
+    horizontalGravityLine = lengthOfViewController / 2;
+    
     
    
    
@@ -70,10 +48,7 @@
     
     birdClose=NO;
     
-    passedGravity2Line=NO;
-    passedGravityLine4=NO;
-    passedgravity3Line=NO;
-    
+   
 
 
     
@@ -197,7 +172,6 @@
         [self createCollisionImage];
        
       
-        collisionRand=arc4random()%9;
     }
     else
     {
@@ -249,15 +223,11 @@
     }
     if(tempNumAnimation<numBirdAnimations)
     {
-        passedGravity2Line=NO;
+      
         
         birdClose=NO;
         
-        accel2=0;
-        accel3=0;
-        
-        accel4=0;
-        gravity4= .05;
+      
         
        
        [self createBirdImage];
@@ -294,15 +264,18 @@
         if([object isBird]==YES)
         {            [object getImage].hidden=YES;
             [object setObjectHit:NO];
+            [object setPassedGravityLine:NO];
             [flyingBirdsArray removeObjectAtIndex:[object getIndex]];
-            passedGravityLine4=NO;
+            
           
         }
         if([object isBird]==NO)
         {
-             [flyingObjectsArray removeObjectAtIndex:[object getIndex]];
             [object getImage].hidden=YES;
             [object setObjectHit:NO];
+            [object setPassedGravityLine:NO];
+            [flyingObjectsArray removeObjectAtIndex:[object getIndex]];
+           
         }
     }
 
@@ -310,41 +283,44 @@
 -(void)animateBird1:(flyingObject*) object
 {
     
-    if(animationCounter%50==0)
+    if(count%50==0)
     {
-        animationModifier*=-1;
+        [object setAccel:[object getAccel]*(-1)];
     }
-    [object getImage].frame=CGRectMake([object getImage].frame.origin.x+animationModifier, [object getImage].frame.origin.y+[object getSpeed], [object getImage].frame.size.width, [object getImage].frame.size.height);
+    [object getImage].frame=CGRectMake([object getImage].frame.origin.x+[object getAccel], [object getImage].frame.origin.y+[object getSpeed], [object getImage].frame.size.width, [object getImage].frame.size.height);
    
     [self endingAnimation:object];
     
   
-    animationCounter++;
+    
+    
 }
 -(void)animateBird2:(flyingObject*) object
 {
     
-    if([object getImage].center.x<gravity2Line)
+    if([object getImage].center.x<verticalGravityLine)
     {
-        if(passedGravity2Line==NO)
+        if([object getPassedGravityLine]==NO)
         {
-            gravity2*=-1;
-            passedGravity2Line=YES;
+            float currGrav=[object getGravity];
+            [object setGravity:currGrav*(-1)];
+            [object setPassedGravityLine:YES];
         }
     }
-    else if([object getImage].center.x>gravity2Line)
+    else if([object getImage].center.x>verticalGravityLine)
     {
-        if(passedGravity2Line==YES)
+        if([object getPassedGravityLine]==YES)
         {
-            gravity2*=-1;
-            passedGravity2Line=NO;
+            float currGrav=[object getGravity];
+            [object setGravity:currGrav*(-1)];
+            [object setPassedGravityLine:NO];
         }
     }
     //NSLog([NSString stringWithFormat:@"Y value %f",animatingBird.frame.origin.y]);
     //NSLog([NSString stringWithFormat:@"X value %f",animatingBird.frame.origin.x]);
-    [object getImage].frame=CGRectMake([object getImage].frame.origin.x+accel2, [object getImage].frame.origin.y+[object getSpeed], [object getImage].frame.size.width, [object getImage].frame.size.height);
+    [object getImage].frame=CGRectMake([object getImage].frame.origin.x+[object getAccel], [object getImage].frame.origin.y+[object getSpeed], [object getImage].frame.size.width, [object getImage].frame.size.height);
     
-    accel2=accel2+gravity2;
+    [object setAccel:([object getAccel]+[object getGravity])];
     //NSLog([NSString stringWithFormat:@"%f", accel]);
     
   [self endingAnimation:object];
@@ -352,30 +328,32 @@
 
 -(void)animateBird3:(flyingObject*) object
 {
-    if([object getImage].center.y>gravity3Line)
+    if([object getImage].center.y>horizontalGravityLine)
     {
-        if(passedgravity3Line==NO)
+        if([object getPassedGravityLine]==NO)
         {
           
-            gravity3*=-1;
-            passedgravity3Line=YES;
+            float currGrav=[object getGravity];
+            [object setGravity:currGrav*(-1)];
+            [object setPassedGravityLine:YES];
         }
     }
-    else if([object getImage].center.y<gravity3Line)
+    else if([object getImage].center.y<horizontalGravityLine)
     {
-        if(passedgravity3Line==YES)
+        if([object getPassedGravityLine]==YES)
         {
           
-            gravity3*=-1;
-            passedgravity3Line=NO;
+            float currGrav=[object getGravity];
+            [object setGravity:currGrav*(-1)];
+            [object setPassedGravityLine:NO];
         }
     }
   
 
-    [object getImage].frame=CGRectMake([object getImage].frame.origin.x-[object getSpeed], [object getImage].frame.origin.y+accel3, [object getImage].frame.size.width, [object getImage].frame.size.height);
+    [object getImage].frame=CGRectMake([object getImage].frame.origin.x-[object getSpeed], [object getImage].frame.origin.y+[object getAccel], [object getImage].frame.size.width, [object getImage].frame.size.height);
     
     
-    accel3=accel3+gravity3;
+   [object setAccel:([object getAccel]+[object getGravity])];
  
     
     if([object getImage].frame.origin.x<(-widthOfViewController))
@@ -384,15 +362,18 @@
         if([object isBird]==YES)
         {            [object getImage].hidden=YES;
             [object setObjectHit:NO];
+            [object setPassedGravityLine:NO];
             [flyingBirdsArray removeObjectAtIndex:[object getIndex]];
-            passedGravityLine4=NO;
+            
             
         }
         if([object isBird]==NO)
         {
-            [flyingObjectsArray removeObjectAtIndex:[object getIndex]];
             [object getImage].hidden=YES;
             [object setObjectHit:NO];
+            [object setPassedGravityLine:NO];
+            [flyingObjectsArray removeObjectAtIndex:[object getIndex]];
+            
         }
     }
 }
@@ -400,23 +381,25 @@
 -(void)animateBird4:(flyingObject*) object
 {
     
-    if(passedGravityLine4==NO)
+    if([object getPassedGravityLine]==NO)
     {
-        if([object getImage].center.y>gravity4Line)
+        if([object getImage].center.y>horizontalGravityLine)
         {
         
-           // object.center=CGPointMake(gravity4Line, object.center.y);
-            gravity4*=-1;
-            accel4*=-1;
-            passedGravityLine4=YES;
+           // object.center=CGPointMake(horizontalGravityLine, object.center.y);
+            float currGrav=[object getGravity];
+            [object setGravity:currGrav*(-1)];
+            float currAccel=[object getAccel];
+            [object setAccel:currAccel*(-1)];
+            [object setPassedGravityLine:YES];
         
         }
     }
     
-     [object getImage].frame=CGRectMake([object getImage].frame.origin.x-accel4, [object getImage].frame.origin.y+[object getSpeed], [object getImage].frame.size.width, [object getImage].frame.size.height);
+     [object getImage].frame=CGRectMake([object getImage].frame.origin.x-[object getAccel], [object getImage].frame.origin.y+[object getSpeed], [object getImage].frame.size.width, [object getImage].frame.size.height);
  
-    accel4=accel4+gravity4;
-    
+    [object setAccel:([object getAccel]+[object getGravity])];
+
   [self endingAnimation:object];
     
 }
@@ -535,19 +518,24 @@
     }
     else if([object getAnimationNumber]>3)
     {
+ //       [object setGravity:.002];
+        [object setGravity:.05];
       [object getImage].frame=CGRectMake(widthOfViewController-[object getImage].frame.size.width, 0, [object getImage].frame.size.width, [object getImage].frame.size.height);
     }
     else if([object getAnimationNumber]>2)
     {
+        [object setGravity:.75];
        [object getImage].frame=CGRectMake(widthOfViewController, [object getImage].frame.size.height*3, [object getImage].frame.size.width, [object getImage].frame.size.height);
     }
     else if([object getAnimationNumber]>1)
     {
+        [object setGravity:.75];
         [object getImage].frame=CGRectMake(widthOfViewController, 0, [object getImage].frame.size.width, [object getImage].frame.size.height);
     }
     else if([object getAnimationNumber]>0)
     {
-       [object getImage].frame=CGRectMake(widthOfViewController, 0, [object getImage].frame.size.width, [object getImage].frame.size.height);
+        [object setAccel:5];
+       [object getImage].frame=CGRectMake(widthOfViewController/2, 0, [object getImage].frame.size.width, [object getImage].frame.size.height);
     }
     
 

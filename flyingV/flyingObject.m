@@ -26,6 +26,9 @@
         randX=1;
         randY=1;
         randDirection=1;
+        accel=0;
+        gravity=.75;
+        passedGravityLine=NO;
         
     }
     return self;
@@ -119,6 +122,31 @@
 -(void)setRandDirection:(int)x
 {
     randDirection=x;
+}
+-(float)getGravity
+{
+    return gravity;
+}
+-(void)setGravity:(float)x
+{
+    gravity=x;
+}
+-(float)getAccel
+{
+    return accel;
+}
+-(void)setAccel:(float)x
+{
+    accel=x;
+}
+-(bool)getPassedGravityLine
+{
+    return passedGravityLine;
+}
+
+-(void)setPassedGravityLine:(bool)x
+{
+    passedGravityLine=x;
 }
 
 @end
