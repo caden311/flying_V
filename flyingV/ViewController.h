@@ -31,10 +31,7 @@
     float verticalGravityLine;
     float horizontalGravityLine;
     
-    bool birdClose;
  
-
-  
     
     NSTimer * gameTimer;
     int count;
@@ -47,6 +44,7 @@
     //collission animations
     int numCollisionAnimations;
        int collisionRand;
+  
     
 }
 

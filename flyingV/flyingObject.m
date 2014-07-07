@@ -23,12 +23,13 @@
         objectHit=NO;
         livesWorth=3;
         animationInProgress=YES;
-        randX=1;
+        randX=arc4random()%4;
         randY=1;
         randDirection=1;
         accel=0;
         gravity=.75;
         passedGravityLine=NO;
+        objectCloseToHeadBird=NO;
         
     }
     return self;
@@ -147,6 +148,14 @@
 -(void)setPassedGravityLine:(bool)x
 {
     passedGravityLine=x;
+}
+-(bool)getObjectCloseToHeadBird
+{
+    return objectCloseToHeadBird;
+}
+-(void)setObjectCloseToHeadBird:(bool)x
+{
+    objectCloseToHeadBird=x;
 }
 
 @end

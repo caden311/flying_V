@@ -28,6 +28,7 @@
     float gravity;
     float accel;
     bool passedGravityLine;
+    bool objectCloseToHeadBird;
 }
 
 -(id) initWithImageAndIndex:(NSString*) imageName :(CGRect) newFrame :(int) newIndex :(float)newSpeed;
@@ -60,7 +61,8 @@
 -(bool)getPassedGravityLine;
 -(void)setPassedGravityLine:(bool)x;
 
-
+-(bool)getObjectCloseToHeadBird;
+-(void)setObjectCloseToHeadBird:(bool)x;
 
 
 @end
