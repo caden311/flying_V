@@ -17,6 +17,7 @@
     {
         image = [[UIImageView alloc]initWithFrame:newFrame];
         image.image = [UIImage imageNamed:imageName];
+        
         isBird = NO;
         index = newIndex;
         speed=newSpeed;
@@ -26,9 +27,6 @@
         randX=arc4random()%4;
         randY=1;
         randDirection=1;
-        accel=0;
-        gravity=.75;
-        passedGravityLine=NO;
         objectCloseToHeadBird=NO;
         
     }
@@ -124,31 +122,7 @@
 {
     randDirection=x;
 }
--(float)getGravity
-{
-    return gravity;
-}
--(void)setGravity:(float)x
-{
-    gravity=x;
-}
--(float)getAccel
-{
-    return accel;
-}
--(void)setAccel:(float)x
-{
-    accel=x;
-}
--(bool)getPassedGravityLine
-{
-    return passedGravityLine;
-}
 
--(void)setPassedGravityLine:(bool)x
-{
-    passedGravityLine=x;
-}
 -(bool)getObjectCloseToHeadBird
 {
     return objectCloseToHeadBird;
@@ -156,6 +130,15 @@
 -(void)setObjectCloseToHeadBird:(bool)x
 {
     objectCloseToHeadBird=x;
+}
+-(UIImageView*)getToImage
+{
+    return toImage;
+}
+-(void)setToImage:(CGRect) rect :(NSString *)imageName
+{
+    toImage = [[UIImageView alloc]initWithFrame:rect];
+    toImage.image = [UIImage imageNamed:imageName];
 }
 
 @end

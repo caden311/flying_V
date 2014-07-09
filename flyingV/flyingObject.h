@@ -11,6 +11,7 @@
 @interface flyingObject : NSObject
 {
     UIImageView * image;
+    UIImageView * toImage;
     BOOL isBird;
     int index;
     float speed;
@@ -25,9 +26,7 @@
     int randDirection;
     
     //gravity/accel
-    float gravity;
-    float accel;
-    bool passedGravityLine;
+
     bool objectCloseToHeadBird;
 }
 
@@ -54,15 +53,12 @@
 -(int)getRandDirection;
 -(void)setRandDirection:(int)x;
 
--(float)getGravity;
--(void)setGravity:(float)x;
--(float)getAccel;
--(void)setAccel:(float)x;
--(bool)getPassedGravityLine;
--(void)setPassedGravityLine:(bool)x;
 
 -(bool)getObjectCloseToHeadBird;
 -(void)setObjectCloseToHeadBird:(bool)x;
+
+-(UIImageView*)getToImage;
+-(void)setToImage:(CGRect) rect :(NSString*)imName;
 
 
 @end
