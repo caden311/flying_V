@@ -24,6 +24,7 @@
 		AD18B2ED193EDD7800E2BEA7 /* flyingVTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AD18B2EC193EDD7800E2BEA7 /* flyingVTests.m */; };
 		AD18B2F7193EE03E00E2BEA7 /* bat.png in Resources */ = {isa = PBXBuildFile; fileRef = AD18B2F6193EE03E00E2BEA7 /* bat.png */; };
 		AD18B2F9194143AB00E2BEA7 /* dragon.png in Resources */ = {isa = PBXBuildFile; fileRef = AD18B2F8194143AB00E2BEA7 /* dragon.png */; };
+		AD3EC453196CECB0009DA0F2 /* carrot.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3EC452196CECB0009DA0F2 /* carrot.png */; };
 		AD8650C31963B10C00893C8F /* ball.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8650C21963B10C00893C8F /* ball.png */; };
 		AD8650C61964C7F400893C8F /* flyingObject.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8650C51964C7F400893C8F /* flyingObject.m */; };
 /* End PBXBuildFile section */
@@ -62,6 +63,7 @@
 		AD18B2EC193EDD7800E2BEA7 /* flyingVTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = flyingVTests.m; sourceTree = "<group>"; };
 		AD18B2F6193EE03E00E2BEA7 /* bat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bat.png; sourceTree = "<group>"; };
 		AD18B2F8194143AB00E2BEA7 /* dragon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dragon.png; sourceTree = "<group>"; };
+		AD3EC452196CECB0009DA0F2 /* carrot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = carrot.png; sourceTree = "<group>"; };
 		AD8650C21963B10C00893C8F /* ball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ball.png; sourceTree = "<group>"; };
 		AD8650C41964C7F400893C8F /* flyingObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = flyingObject.h; sourceTree = "<group>"; };
 		AD8650C51964C7F400893C8F /* flyingObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = flyingObject.m; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 		AD18B2C8193EDD7800E2BEA7 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AD3EC452196CECB0009DA0F2 /* carrot.png */,
 				AD8650C21963B10C00893C8F /* ball.png */,
 				AD18B2F8194143AB00E2BEA7 /* dragon.png */,
 				AD18B2F6193EE03E00E2BEA7 /* bat.png */,
@@ -247,6 +250,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD3EC453196CECB0009DA0F2 /* carrot.png in Resources */,
 				AD18B2DA193EDD7800E2BEA7 /* Images.xcassets in Resources */,
 				AD18B2F9194143AB00E2BEA7 /* dragon.png in Resources */,
 				AD8650C31963B10C00893C8F /* ball.png in Resources */,

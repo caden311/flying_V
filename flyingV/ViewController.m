@@ -35,8 +35,8 @@
     numBirdAnimations=1;
    
     
-   
-   
+    blindSpotsEnabled=NO;
+    timeToCompleteAnimation=2.0;
     
     verticalGravityLine=widthOfViewController/2;
     horizontalGravityLine = lengthOfViewController / 2;
@@ -208,7 +208,7 @@
 {
      UIImageView * toImg=[object getToImage];
     
-    [UIView animateWithDuration:2.0f
+    [UIView animateWithDuration:timeToCompleteAnimation
                           delay:0.0f
                         options:UIViewAnimationOptionCurveLinear
                      animations:^{
@@ -271,24 +271,24 @@
     
     if([object getObjectCloseToHeadBird]==NO)
     {
-        bird.frame=CGRectMake(bird.frame.origin.x, bird.frame.origin.y+([object getSpeed]*[object getRandDirection]), bird.frame.size.width, bird.frame.size.height);
-    }
+        bird.frame=CGRectMake(bird.frame.origin.x+([object getRandX]), bird.frame.origin.y+([object getSpeed]*[object getRandDirection]), bird.frame.size.width, bird.frame.size.height);
+    }//go up and left
     else if([object getImage].frame.origin.x<_headBird.frame.origin.x&&[object getImage].frame.origin.y<_headBird.frame.origin.y)
     {
         bird.frame=CGRectMake(bird.frame.origin.x-([object getSpeed]), bird.frame.origin.y-([object getSpeed]), bird.frame.size.width, bird.frame.size.height);
-    }
+    }// go up and right
     else if([object getImage].frame.origin.x>_headBird.frame.origin.x&&[object getImage].frame.origin.y<_headBird.frame.origin.y)
     {
         bird.frame=CGRectMake(bird.frame.origin.x+([object getSpeed]), bird.frame.origin.y-([object getSpeed]), bird.frame.size.width, bird.frame.size.height);
-    }
+    }//go down and left
     else if([object getImage].frame.origin.x<_headBird.frame.origin.x&&[object getImage].frame.origin.y>_headBird.frame.origin.y)
     {
           bird.frame=CGRectMake(bird.frame.origin.x-([object getSpeed]), bird.frame.origin.y+([object getSpeed]), bird.frame.size.width, bird.frame.size.height);
-    }
+    }//go down and right;
     else if([object getImage].frame.origin.x>_headBird.frame.origin.x&&[object getImage].frame.origin.y>_headBird.frame.origin.y)
     {
         bird.frame=CGRectMake(bird.frame.origin.x+([object getSpeed]), bird.frame.origin.y+([object getSpeed]), bird.frame.size.width, bird.frame.size.height);
-    }
+    }//go up and left if nothing else....
     else
     {
          bird.frame=CGRectMake(bird.frame.origin.x-([object getSpeed]), bird.frame.origin.y-([object getSpeed]), bird.frame.size.width, bird.frame.size.height);
@@ -304,7 +304,7 @@
             [flyingBirdsArray removeObjectAtIndex:[object getIndex]];
         }
     }
-    else if(distance>lengthOfViewController+widthOfViewController)
+    else if(distance>lengthOfViewController+(widthOfViewController/2))
     {
         [object setAnimationInProgress:NO];
         [object getImage].hidden=YES;
@@ -322,23 +322,43 @@
 
 -(void)createBirdImage
 {
-    int randX=arc4random()%widthOfViewController;
+    int randX=arc4random()%(widthOfViewController/2);
     int randHeight=0;
     int randDirection=(arc4random() % 2 ? 1 : -1);
-    float speed=1;
+    float speed=4;
+    flyingObject *object=[[flyingObject alloc]init];
+    //places image on top
     if(randDirection>=0)
     {
-        randHeight=-(_headBird.frame.size.height);
-        speed=3;
-    }
+         randHeight=-(_headBird.frame.size.height);
+        if(randDirection>=0)
+        {
+       
+          object=[[flyingObject alloc] initWithImageAndIndex:@"dragon.png" :CGRectMake((widthOfViewController/2)+randX, randHeight, _headBird.frame.size.width, _headBird.frame.size.height) :[flyingBirdsArray count] :3];
+        }
+        else
+        {
+            object=[[flyingObject alloc] initWithImageAndIndex:@"dragon.png" :CGRectMake((widthOfViewController/2)-randX, randHeight, _headBird.frame.size.width, _headBird.frame.size.height) :[flyingBirdsArray count] :3];
+        }
+    
+    }//places image on bottom
     else
     {
-        randHeight=lengthOfViewController+_headBird.frame.size.height;
-        speed=3;
+            randHeight=lengthOfViewController+_headBird.frame.size.height;
+        if(randDirection>=0)
+        {
+    
+         object=[[flyingObject alloc] initWithImageAndIndex:@"dragon.png" :CGRectMake((widthOfViewController/2)-randX, randHeight, _headBird.frame.size.width, _headBird.frame.size.height) :[flyingBirdsArray count] :3];
+        }
+        else
+        {
+        object=[[flyingObject alloc] initWithImageAndIndex:@"dragon.png" :CGRectMake((widthOfViewController/2)+randX, randHeight, _headBird.frame.size.width, _headBird.frame.size.height) :[flyingBirdsArray count] :3];
+        }
+       
     }
-    flyingObject *object=[[flyingObject alloc] initWithImageAndIndex:@"dragon.png" :CGRectMake(randX, randHeight, _headBird.frame.size.width, _headBird.frame.size.height) :[flyingBirdsArray count] :3];
+   
     [object setSpeed:speed];
-    [object setRandX:(arc4random()%1+1)*randDirection];
+    [object setRandX:(arc4random()%1+1)*(arc4random() % 2 ? 1 : -1)];
     [object setRandDirection:randDirection];
     [object setIsBird:YES];
     //[object setAnimationNumber:rand];
@@ -355,65 +375,131 @@
 
 -(void)createCollisionImage
 {
-    int rand=(arc4random() % 3+1);
+
+    int rand=(arc4random() % 4);
     
-    flyingObject *object=[[flyingObject alloc] initWithImageAndIndex:@"ball.png" :CGRectMake(widthOfViewController/2, -25, 25, 25) :[flyingObjectsArray count] :3];
-    [object setLivesWorth:3];
+  
+    //image selection
+    int tempLifesWorth=0;
+    NSString * ImageName;
+    int randImage=arc4random()%2;
+    if(randImage>=1)
+    {
+        ImageName=@"carrot.png";
+        tempLifesWorth=5;
+    }
+    else if(randImage>=0)
+    {
+        ImageName=@"ball.png";
+        tempLifesWorth=3;
+    }
+    
+   
+    flyingObject *object=[[flyingObject alloc] initWithImageAndIndex: [NSString stringWithFormat:@"%@",ImageName] :CGRectMake(widthOfViewController/2, -25, 25, 25) :[flyingObjectsArray count] :3];
+    
     [object setIsBird:NO];
     [object setAnimationNumber:5];
-
+     [object setLivesWorth:tempLifesWorth];
     [object setRandDirection:(arc4random() % 2 ? 1 : -1)];
-    [object setRandY:arc4random()%lengthOfViewController];
-    [object setRandX:arc4random()%((lengthOfViewController-widthOfViewController)/2)];
+    [object setRandY:arc4random()%(lengthOfViewController/2)];
+    [object setRandX:arc4random()%((widthOfViewController)/2)];
     
     
     
-    if(rand>2)
+    
+    if(rand>=3)
     {
-        //start image at the top and negative
+   
+        //start image at the top and positive
         if([object getRandDirection]>=0)
         {
-            [object getImage].frame=CGRectMake(-([object getRandX]), -([object getImage].frame.size.height), [object getImage].frame.size.width, [object getImage].frame.size.height);
-            [object setToImage:CGRectMake(([object getRandX]), (lengthOfViewController+[object getImage].frame.size.height), [object getImage].frame.size.width, [object getImage].frame.size.height) :@"ball.png"];
-        }//start image at top positive
+            [object getImage].frame=CGRectMake(((widthOfViewController/2)+[object getRandX]), -([object getImage].frame.size.height), [object getImage].frame.size.width, [object getImage].frame.size.height);
+            [object setToImage:CGRectMake(((widthOfViewController/2)-[object getRandX]), (lengthOfViewController+[object getImage].frame.size.height), [object getImage].frame.size.width, [object getImage].frame.size.height) : [NSString stringWithFormat:@"%@",ImageName]];
+        }//start image at top negative
         else
         {
-            [object getImage].frame=CGRectMake((widthOfViewController+[object getRandX]), -([object getImage].frame.size.height), [object getImage].frame.size.width, [object getImage].frame.size.height);
-            [object setToImage:CGRectMake(-([object getRandX]), (lengthOfViewController+[object getImage].frame.size.height), [object getImage].frame.size.width, [object getImage].frame.size.height) :@"ball.png"];
+            [object getImage].frame=CGRectMake(((widthOfViewController/2)-[object getRandX]), -([object getImage].frame.size.height), [object getImage].frame.size.width, [object getImage].frame.size.height);
+            [object setToImage:CGRectMake(((widthOfViewController/2)+[object getRandX]), (lengthOfViewController+[object getImage].frame.size.height), [object getImage].frame.size.width, [object getImage].frame.size.height) : [NSString stringWithFormat:@"%@",ImageName]];
         }
 
     }
-    else if(rand >1)
+    else if(rand >=2)
     {
+        if(blindSpotsEnabled)
+        {
         //start image at bottom negative X
         if([object getRandDirection]>=0)
         {
-            [object getImage].frame=CGRectMake(-([object getRandX]), (lengthOfViewController+[object getImage].frame.size.height), [object getImage].frame.size.width, [object getImage].frame.size.height);
-            [object setToImage:CGRectMake(([object getRandX]), -([object getImage].frame.size.height), [object getImage].frame.size.width, [object getImage].frame.size.height) :@"ball.png"];
-        }//start image at top positive X;
+            [object getImage].frame=CGRectMake(((widthOfViewController/2)-[object getRandX]), (lengthOfViewController+[object getImage].frame.size.height), [object getImage].frame.size.width, [object getImage].frame.size.height);
+            [object setToImage:CGRectMake(((widthOfViewController/2)+[object getRandX]), -([object getImage].frame.size.height), [object getImage].frame.size.width, [object getImage].frame.size.height) : [NSString stringWithFormat:@"%@",ImageName]];
+        }//start image at bottom positive X;
         else
         {
-            [object getImage].frame=CGRectMake((widthOfViewController+[object getRandX]), (lengthOfViewController+[object getImage].frame.size.height), [object getImage].frame.size.width, [object getImage].frame.size.height);
-             [object setToImage:CGRectMake(-([object getRandX]), -([object getImage].frame.size.height), [object getImage].frame.size.width, [object getImage].frame.size.height) :@"ball.png"];
+            [object getImage].frame=CGRectMake(((widthOfViewController/2)+[object getRandX]), (lengthOfViewController+[object getImage].frame.size.height), [object getImage].frame.size.width, [object getImage].frame.size.height);
+             [object setToImage:CGRectMake(((widthOfViewController/2)-[object getRandX]), -([object getImage].frame.size.height), [object getImage].frame.size.width, [object getImage].frame.size.height) : [NSString stringWithFormat:@"%@",ImageName]];
+        }
+        }
+        else
+        {
+            goto saveMe;
         }
     }
-    else if(rand>0)
+    else if(rand>=1)
     {
-                //start image on the right
+                //start image on the right and positive
         if([object getRandDirection]>=0)
         {
-    
-            [object getImage].frame=CGRectMake((widthOfViewController+[object getImage].frame.size.width), -([object getRandY]), [object getImage].frame.size.width, [object getImage].frame.size.height);
-            [object setToImage:CGRectMake(-([object getImage].frame.size.width), ([object getRandY]), [object getImage].frame.size.width, [object getImage].frame.size.height) :@"ball.png"];
-        }//start image on the left
+            if(blindSpotsEnabled==NO)
+            {
+                goto saveMe;
+            }
+            else
+            {
+            
+            [object getImage].frame=CGRectMake(((widthOfViewController)+[object getImage].frame.size.width), ((lengthOfViewController/2)+[object getRandY]), [object getImage].frame.size.width, [object getImage].frame.size.height);
+            [object setToImage:CGRectMake(-([object getImage].frame.size.width), ((lengthOfViewController/2)-[object getRandY]), [object getImage].frame.size.width, [object getImage].frame.size.height) : [NSString stringWithFormat:@"%@",ImageName]];
+            }
+        }//start image on the right negative
         else
         {
-            [object getImage].frame=CGRectMake(-([object getImage].frame.size.width), ([object getRandY]), [object getImage].frame.size.width, [object getImage].frame.size.height);
-            [object setToImage:CGRectMake((lengthOfViewController+[object getImage].frame.size.width), -([object getRandY]), [object getImage].frame.size.width, [object getImage].frame.size.height) :@"ball.png"];
+            [object getImage].frame=CGRectMake(((widthOfViewController)+[object getImage].frame.size.width), ((lengthOfViewController/2)-[object getRandY]), [object getImage].frame.size.width, [object getImage].frame.size.height);
+            [object setToImage:CGRectMake(-([object getImage].frame.size.width), ((lengthOfViewController/2)+[object getRandY]), [object getImage].frame.size.width, [object getImage].frame.size.height) : [NSString stringWithFormat:@"%@",ImageName]];
+            
+         
+        }
+    }
+    else if(rand>=0)
+    {
+        //start image on the left and negative
+        if([object getRandDirection]>=0)
+        {
+            
+            [object getImage].frame=CGRectMake(-([object getImage].frame.size.width), ((lengthOfViewController/2)-[object getRandY]), [object getImage].frame.size.width, [object getImage].frame.size.height);
+            [object setToImage:CGRectMake((widthOfViewController+[object getImage].frame.size.width), ((lengthOfViewController/2)+[object getRandY]), [object getImage].frame.size.width, [object getImage].frame.size.height) : [NSString stringWithFormat:@"%@",ImageName]];
+        }//start image on the left and positive
+        else
+        {
+            if(blindSpotsEnabled==NO)
+            {
+                goto saveMe;
+            }
+            else
+            {
+            [object getImage].frame=CGRectMake(-([object getImage].frame.size.width), ((lengthOfViewController/2)+[object getRandY]), [object getImage].frame.size.width, [object getImage].frame.size.height);
+            [object setToImage:CGRectMake((widthOfViewController+[object getImage].frame.size.width), ((lengthOfViewController/2)-[object getRandY]), [object getImage].frame.size.width, [object getImage].frame.size.height) : [NSString stringWithFormat:@"%@",ImageName]];
+            }
+            
         }
     }
  
 
+    
+    if(0)
+    {
+    saveMe:
+        [object getImage].frame=CGRectMake(((widthOfViewController/2)+([object getImage].frame.size.width/2)), -([object getImage].frame.size.height), [object getImage].frame.size.width, [object getImage].frame.size.height);
+        [object setToImage:CGRectMake(((widthOfViewController/2)+([object getImage].frame.size.width/2)), (lengthOfViewController+[object getImage].frame.size.height), [object getImage].frame.size.width, [object getImage].frame.size.height) : [NSString stringWithFormat:@"%@",ImageName]];
+    }
  
 
     [flyingObjectsArray addObject:object];

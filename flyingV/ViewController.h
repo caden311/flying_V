@@ -44,7 +44,10 @@
     //collission animations
     int numCollisionAnimations;
        int collisionRand;
+    
+    bool blindSpotsEnabled;
   
+    float timeToCompleteAnimation;
     
 }
 
