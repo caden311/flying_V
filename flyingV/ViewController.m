@@ -56,6 +56,22 @@
     
     birdCount = 1;
     highBirdCount=1;
+    
+    //Set up background images
+    
+    
+    
+    background1 = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, widthOfViewController, lengthOfViewController)];
+    background1.image = [UIImage imageNamed:@"BG1.png"];
+    
+    [self.view addSubview:background1];
+    [self.view sendSubviewToBack:background1];
+    
+    background2 = [[UIImageView alloc]initWithFrame:CGRectMake(0, -1 * lengthOfViewController, widthOfViewController, lengthOfViewController)];
+    background2.image = [UIImage imageNamed:@"BG1.png"];
+    
+    [self.view addSubview:background2];
+    [self.view sendSubviewToBack:background2];
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -67,9 +83,14 @@
     [self collisionChecking];
     [self upDateAnimations];
     [self moveBirds: _headBird.center];
-  
+    [self updateBackground];
     
     count += 1;
+}
+-(void)updateBackground
+{
+    [background1 setFrame:CGRectMake(0, background1.frame.origin.y + 1, widthOfViewController, lengthOfViewController)];
+    [background2 setFrame:CGRectMake(0, background2.frame.origin.y + 1, widthOfViewController, lengthOfViewController)];
 }
 -(void)updateLabels
 {
@@ -519,7 +540,7 @@
     
     
     [self.view addSubview:[object getImage]];
-    [self.view sendSubviewToBack:[object getImage]];
+    //[self.view sendSubviewToBack:[object getImage]];
    
 
     
@@ -656,7 +677,7 @@
 
     [flyingObjectsArray addObject:object];
     [self.view addSubview:[object getImage]];
-    [self.view sendSubviewToBack:[object getImage]];
+    //[self.view sendSubviewToBack:[object getImage]];
     
     [self animateObject:object];
  
@@ -677,7 +698,7 @@
         [rightBirds addObject:newBird];
     }
     [self.view addSubview:[newBird getImage]];
-    [self.view sendSubviewToBack:[newBird getImage]];
+    //[self.view sendSubviewToBack:[newBird getImage]];
     CGPoint newBirdLocation = _headBird.center;
     [self moveBirds:newBirdLocation];
 }

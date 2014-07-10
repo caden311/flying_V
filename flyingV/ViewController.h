@@ -49,6 +49,10 @@
   
     float timeToCompleteAnimation;
     
+    int bgImageCount;
+    UIImageView * background1;
+    UIImageView * background2;
+    NSMutableArray * bgImageArray;
 }
 
 
