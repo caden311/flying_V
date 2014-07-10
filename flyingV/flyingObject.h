@@ -38,6 +38,7 @@
 -(float)getSpeed;
 -(void)setSpeed:(float)speed;
 -(UIImageView*) getImage;
+-(void)setImage:(UIImageView*)img;
 -(void)setObjectHit:(bool)hit;
 -(bool)getObjectHit;
 -(int)getLivesWorth;

@@ -28,6 +28,7 @@
         randY=1;
         randDirection=1;
         objectCloseToHeadBird=NO;
+        animationNumber=0;
         
     }
     return self;
@@ -37,7 +38,10 @@
 {
     return image;
 }
-
+-(void)setImage:(UIImageView*)img
+{
+    image=img;
+}
 -(void)setIsBird:(BOOL)bird
 {
     isBird = bird;

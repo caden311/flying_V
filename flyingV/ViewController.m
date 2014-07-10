@@ -152,7 +152,9 @@
     for(int i=0; i<[flyingBirdsArray count]; i++)
     {
         flyingObject * object =[flyingBirdsArray objectAtIndex:i];
-        if(CGRectIntersectsRect(_headBird.frame, [object getImage].frame)&&[object getObjectHit]==NO)
+        CALayer *layer = [object getImage].layer.presentationLayer;
+        CGRect layerFrame = layer.frame;
+        if(CGRectIntersectsRect(_headBird.frame, layerFrame)&&[object getObjectHit]==NO)
         {
             CGPoint point=CGPointMake([object getImage].center.x, [object getImage].center.y);
             [self createBirdForV:point];
@@ -250,9 +252,15 @@
     }
     if(tempNumAnimation<numBirdAnimations)
     {
-  
-       [self createBirdImage];
-
+        int rand=arc4random()%2;
+        if(rand>0)
+        {
+            [self createBirdImage];
+        }
+        else
+        {
+            [self createDumbBirdImage];
+        }
     }
     
    
@@ -262,10 +270,13 @@
             flyingObject * object=[flyingBirdsArray objectAtIndex:i];
             if([object getAnimationInProgress]==YES)
             {
-                [self animatebirdAway:object];
-            }
+                if([object getAnimationNumber]==0)
+                {
+                    [self animatebirdAway:object];
+            
+                }
                 //[self animateBird1];
-    
+            }
         }
     
 }
@@ -279,19 +290,59 @@
                         options:UIViewAnimationOptionCurveLinear
                      animations:^{
                          [object getImage].frame = toImg.frame;
-                         [object getImage].animationDuration=3.0f;
+                         
                      }
                      completion:^(BOOL finished){
                       if(finished)
                       {
                           [object setAnimationInProgress:NO];
-                        //  [flyingObjectsArray removeObjectAtIndex:[object getIndex]];
+                          int currIndex=[object getIndex];
+                          [flyingObjectsArray removeObjectAtIndex:[object getIndex]];
+                          for(int i=0; i<[flyingObjectsArray count]; i++)
+                          {
+                              flyingObject *temp=[flyingObjectsArray objectAtIndex:i];
+                              if([temp getIndex]>currIndex)
+                              {
+                                  [temp setIndex:([temp getIndex]-1)];
+                              }
+                          }
                       }
                     
                      }];
    
 
     
+}
+
+-(void)animateDumbDuck:(flyingObject*)object
+{
+    UIImageView * toImg=[object getToImage];
+    
+    [UIView animateWithDuration:timeToCompleteAnimation
+                          delay:0.0f
+                        options:UIViewAnimationOptionCurveLinear
+                     animations:^{
+                         [object getImage].frame = toImg.frame;
+                        
+                     }
+                     completion:^(BOOL finished){
+                         if(finished)
+                         {
+                             [object setAnimationInProgress:NO];
+                             int currIndex=[object getIndex];
+                             [flyingBirdsArray removeObjectAtIndex:[object getIndex]];
+                             for(int i=0; i<[flyingBirdsArray count]; i++)
+                             {
+                                 flyingObject *temp=[flyingBirdsArray objectAtIndex:i];
+                                 if([temp getIndex]>currIndex)
+                                 {
+                                     [temp setIndex:([temp getIndex]-1)];
+                                 }
+                             }
+                         }
+                         
+                     }];
+ 
 }
 
 
@@ -380,19 +431,120 @@
         
         if([object isBird]==YES)
         {
+            int currIndex=[object getIndex];
             [flyingBirdsArray removeObjectAtIndex:[object getIndex]];
+            for(int i=0; i<[flyingBirdsArray count]; i++)
+            {
+                flyingObject *temp=[flyingBirdsArray objectAtIndex:i];
+                if([temp getIndex]>currIndex)
+                {
+                    [temp setIndex:([temp getIndex]-1)];
+                }
+            }
         }
     }
     
 }
-
+-(void)createDumbBirdImage
+{
+    NSString * ImageName=@"dragon.png";
+    flyingObject *object=[[flyingObject alloc] init];
+  object=([[flyingObject alloc] initWithImageAndIndex:@"dragon.png" :CGRectMake(widthOfViewController/2,-[object getImage].frame.size.height , _headBird.frame.size.width, _headBird.frame.size.height) :[flyingBirdsArray count] :3]);
+    int rand=(arc4random() % 4);
+    
+    
+   
+    [object setIsBird:YES];
+    [object setAnimationNumber:1];
+    [object setRandDirection:(arc4random() % 2 ? 1 : -1)];
+    [object setRandY:arc4random()%(lengthOfViewController/2)];
+    [object setRandX:arc4random()%((widthOfViewController)/2)];
+    
+    if(rand>=3)
+    {
+   
+        //start image at the top and positive
+        if([object getRandDirection]>=0)
+        {
+            [object getImage].frame=CGRectMake(((widthOfViewController/2)+[object getRandX]), -([object getImage].frame.size.height), [object getImage].frame.size.width, [object getImage].frame.size.height);
+            [object setToImage:CGRectMake(((widthOfViewController/2)-[object getRandX]), (lengthOfViewController+[object getImage].frame.size.height), [object getImage].frame.size.width, [object getImage].frame.size.height) : [NSString stringWithFormat:@"%@",ImageName]];
+        }//start image at top negative
+        else
+        {
+            [object getImage].frame=CGRectMake(((widthOfViewController/2)-[object getRandX]), -([object getImage].frame.size.height), [object getImage].frame.size.width, [object getImage].frame.size.height);
+            [object setToImage:CGRectMake(((widthOfViewController/2)+[object getRandX]), (lengthOfViewController+[object getImage].frame.size.height), [object getImage].frame.size.width, [object getImage].frame.size.height) : [NSString stringWithFormat:@"%@",ImageName]];
+        }
+        
+    }
+    else if(rand >=2)
+    {
+        
+            //start image at bottom negative X
+            if([object getRandDirection]>=0)
+            {
+                [object getImage].frame=CGRectMake(((widthOfViewController/2)-[object getRandX]), (lengthOfViewController+[object getImage].frame.size.height), [object getImage].frame.size.width, [object getImage].frame.size.height);
+                [object setToImage:CGRectMake(((widthOfViewController/2)+[object getRandX]), -([object getImage].frame.size.height), [object getImage].frame.size.width, [object getImage].frame.size.height) : [NSString stringWithFormat:@"%@",ImageName]];
+            }//start image at bottom positive X;
+            else
+            {
+                [object getImage].frame=CGRectMake(((widthOfViewController/2)+[object getRandX]), (lengthOfViewController+[object getImage].frame.size.height), [object getImage].frame.size.width, [object getImage].frame.size.height);
+                [object setToImage:CGRectMake(((widthOfViewController/2)-[object getRandX]), -([object getImage].frame.size.height), [object getImage].frame.size.width, [object getImage].frame.size.height) : [NSString stringWithFormat:@"%@",ImageName]];
+            }
+        
+     
+    }
+    else if(rand>=1)
+    {
+        //start image on the right and positive
+        if([object getRandDirection]>=0)
+        {
+         
+                
+                [object getImage].frame=CGRectMake(((widthOfViewController)+[object getImage].frame.size.width), ((lengthOfViewController/2)+[object getRandY]), [object getImage].frame.size.width, [object getImage].frame.size.height);
+                [object setToImage:CGRectMake(-([object getImage].frame.size.width), ((lengthOfViewController/2)-[object getRandY]), [object getImage].frame.size.width, [object getImage].frame.size.height) : [NSString stringWithFormat:@"%@",ImageName]];
+            
+        }//start image on the right negative
+        else
+        {
+            [object getImage].frame=CGRectMake(((widthOfViewController)+[object getImage].frame.size.width), ((lengthOfViewController/2)-[object getRandY]), [object getImage].frame.size.width, [object getImage].frame.size.height);
+            [object setToImage:CGRectMake(-([object getImage].frame.size.width), ((lengthOfViewController/2)+[object getRandY]), [object getImage].frame.size.width, [object getImage].frame.size.height) : [NSString stringWithFormat:@"%@",ImageName]];
+            
+            
+        }
+    }
+    else if(rand>=0)
+    {
+        //start image on the left and negative
+        if([object getRandDirection]>=0)
+        {
+            
+            [object getImage].frame=CGRectMake(-([object getImage].frame.size.width), ((lengthOfViewController/2)-[object getRandY]), [object getImage].frame.size.width, [object getImage].frame.size.height);
+            [object setToImage:CGRectMake((widthOfViewController+[object getImage].frame.size.width), ((lengthOfViewController/2)+[object getRandY]), [object getImage].frame.size.width, [object getImage].frame.size.height) : [NSString stringWithFormat:@"%@",ImageName]];
+        }//start image on the left and positive
+        else
+        {
+          
+                [object getImage].frame=CGRectMake(-([object getImage].frame.size.width), ((lengthOfViewController/2)+[object getRandY]), [object getImage].frame.size.width, [object getImage].frame.size.height);
+                [object setToImage:CGRectMake((widthOfViewController+[object getImage].frame.size.width), ((lengthOfViewController/2)-[object getRandY]), [object getImage].frame.size.width, [object getImage].frame.size.height) : [NSString stringWithFormat:@"%@",ImageName]];
+            
+            
+        }
+    }
+    
+    [flyingBirdsArray addObject:object];
+    [self.view addSubview:[object getImage]];
+    [self.view sendSubviewToBack:[object getImage]];
+    [self animateDumbDuck:object];
+}
 -(void)createBirdImage
 {
+    
     int randX=arc4random()%(widthOfViewController/2);
     int randHeight=0;
     int randDirection=(arc4random() % 2 ? 1 : -1);
     float speed=4;
     flyingObject *object=[[flyingObject alloc]init];
+    [object setAnimationNumber:0];
     //places image on top
     if(randDirection>=0)
     {
@@ -452,12 +604,12 @@
     if(randImage>=1)
     {
         ImageName=@"carrot.png";
-        tempLifesWorth=5;
+        tempLifesWorth=3;
     }
     else if(randImage>=0)
     {
         ImageName=@"ball.png";
-        tempLifesWorth=3;
+        tempLifesWorth=1;
     }
     
    
@@ -475,7 +627,7 @@
     
     if(rand>=3)
     {
-   
+    saveMe1:
         //start image at the top and positive
         if([object getRandDirection]>=0)
         {
@@ -494,16 +646,16 @@
         if(blindSpotsEnabled)
         {
         //start image at bottom negative X
-        if([object getRandDirection]>=0)
-        {
-            [object getImage].frame=CGRectMake(((widthOfViewController/2)-[object getRandX]), (lengthOfViewController+[object getImage].frame.size.height), [object getImage].frame.size.width, [object getImage].frame.size.height);
-            [object setToImage:CGRectMake(((widthOfViewController/2)+[object getRandX]), -([object getImage].frame.size.height), [object getImage].frame.size.width, [object getImage].frame.size.height) : [NSString stringWithFormat:@"%@",ImageName]];
-        }//start image at bottom positive X;
-        else
-        {
-            [object getImage].frame=CGRectMake(((widthOfViewController/2)+[object getRandX]), (lengthOfViewController+[object getImage].frame.size.height), [object getImage].frame.size.width, [object getImage].frame.size.height);
-             [object setToImage:CGRectMake(((widthOfViewController/2)-[object getRandX]), -([object getImage].frame.size.height), [object getImage].frame.size.width, [object getImage].frame.size.height) : [NSString stringWithFormat:@"%@",ImageName]];
-        }
+            if([object getRandDirection]>=0)
+            {
+                [object getImage].frame=CGRectMake(((widthOfViewController/2)-[object getRandX]), (lengthOfViewController+[object getImage].frame.size.height), [object getImage].frame.size.width, [object getImage].frame.size.height);
+                [object setToImage:CGRectMake(((widthOfViewController/2)+[object getRandX]), -([object getImage].frame.size.height), [object getImage].frame.size.width, [object getImage].frame.size.height) : [NSString stringWithFormat:@"%@",ImageName]];
+            }//start image at bottom positive X;
+            else
+            {
+                [object getImage].frame=CGRectMake(((widthOfViewController/2)+[object getRandX]), (lengthOfViewController+[object getImage].frame.size.height), [object getImage].frame.size.width, [object getImage].frame.size.height);
+                [object setToImage:CGRectMake(((widthOfViewController/2)-[object getRandX]), -([object getImage].frame.size.height), [object getImage].frame.size.width, [object getImage].frame.size.height) : [NSString stringWithFormat:@"%@",ImageName]];
+            }
         }
         else
         {
@@ -517,7 +669,7 @@
         {
             if(blindSpotsEnabled==NO)
             {
-                goto saveMe;
+                goto saveMe1;
             }
             else
             {
@@ -547,7 +699,7 @@
         {
             if(blindSpotsEnabled==NO)
             {
-                goto saveMe;
+                goto saveMe1;
             }
             else
             {
