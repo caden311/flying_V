@@ -156,7 +156,7 @@
         CGRect layerFrame = layer.frame;
         if(CGRectIntersectsRect(_headBird.frame, layerFrame)&&[object getObjectHit]==NO)
         {
-            CGPoint point=CGPointMake([object getImage].center.x, [object getImage].center.y);
+            CGPoint point=CGPointMake(layerFrame.origin.x + (layerFrame.size.width / 2), layerFrame.origin.y + (layerFrame.size.height / 2));
             [self createBirdForV:point];
                 int birdLevel = (int)((leftBirds.count + rightBirds.count) / 5);
                 newBirdSizeModifier = 1;
@@ -533,7 +533,7 @@
     
     [flyingBirdsArray addObject:object];
     [self.view addSubview:[object getImage]];
-    [self.view sendSubviewToBack:[object getImage]];
+    //[self.view sendSubviewToBack:[object getImage]];
     [self animateDumbDuck:object];
 }
 -(void)createBirdImage
