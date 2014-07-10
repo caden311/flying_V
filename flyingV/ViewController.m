@@ -57,6 +57,7 @@
     birdCount = 1;
     highBirdCount=1;
     
+    
     //Set up background images
     
     
@@ -72,6 +73,12 @@
     
     [self.view addSubview:background2];
     [self.view sendSubviewToBack:background2];
+    
+    bgInTransition = NO;
+    bgImageCount = 2;
+    bgImageIndex = 0;
+    
+    bgImageArray = [[NSMutableArray alloc]initWithObjects:@"BG1.png", @"1-2.png", @"BG2.png", @"2-3.png", @"BG3.png", @"3-4.png", @"BG4.png", @"4-5.png", @"BG5.png", nil];
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -91,6 +98,44 @@
 {
     [background1 setFrame:CGRectMake(0, background1.frame.origin.y + 1, widthOfViewController, lengthOfViewController)];
     [background2 setFrame:CGRectMake(0, background2.frame.origin.y + 1, widthOfViewController, lengthOfViewController)];
+    if(background1.frame.origin.y >= lengthOfViewController)
+    {
+        [background1 setFrame:CGRectMake(0, -1 * lengthOfViewController, widthOfViewController, lengthOfViewController)];
+        if(bgImageIndex < bgImageArray.count - 1)
+        {
+            bgImageCount += 1;
+            if(bgInTransition)
+            {
+                bgImageIndex += 1;
+                bgInTransition = NO;
+            }
+            if(bgImageCount % 3 == 0)
+            {
+                bgImageIndex += 1;
+                bgInTransition = YES;
+            }
+        }
+        background1.image = [UIImage imageNamed:[bgImageArray objectAtIndex:bgImageIndex]];
+    }
+    if(background2.frame.origin.y >= lengthOfViewController)
+    {
+        [background2 setFrame:CGRectMake(0, -1 * lengthOfViewController, widthOfViewController, lengthOfViewController)];
+        if(bgImageIndex < bgImageArray.count - 1)
+        {
+            bgImageCount += 1;
+            if(bgInTransition)
+            {
+                bgImageIndex += 1;
+                bgInTransition = NO;
+            }
+            if(bgImageCount % 3 == 0)
+            {
+                bgImageIndex += 1;
+                bgInTransition = YES;
+            }
+        }
+        background2.image = [UIImage imageNamed:[bgImageArray objectAtIndex:bgImageIndex]];
+    }
 }
 -(void)updateLabels
 {
