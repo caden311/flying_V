@@ -156,7 +156,7 @@
         CGRect layerFrame = layer.frame;
         if(CGRectIntersectsRect(_headBird.frame, layerFrame)&&[object getObjectHit]==NO)
         {
-            CGPoint point=CGPointMake(layerFrame.origin.x + (layerFrame.size.width / 2), layerFrame.origin.y + (layerFrame.size.height / 2));
+            CGPoint point=CGPointMake(layerFrame.origin.x, layerFrame.origin.y);
             [self createBirdForV:point];
                 int birdLevel = (int)((leftBirds.count + rightBirds.count) / 5);
                 newBirdSizeModifier = 1;
