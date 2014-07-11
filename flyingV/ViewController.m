@@ -79,6 +79,8 @@
     bgImageIndex = 0;
     
     bgImageArray = [[NSMutableArray alloc]initWithObjects:@"BG1.png", @"1-2.png", @"BG2.png", @"2-3.png", @"BG3.png", @"3-4.png", @"BG4.png", @"4-5.png", @"BG5.png", nil];
+    
+    levelDuration = 3;
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -109,10 +111,14 @@
                 bgImageIndex += 1;
                 bgInTransition = NO;
             }
-            if(bgImageCount % 3 == 0)
+            if(bgImageCount % levelDuration == 0)
             {
                 bgImageIndex += 1;
                 bgInTransition = YES;
+            }
+            else if((bgImageCount - (levelDuration + 1)) % levelDuration == 0)
+            {
+                //HERE IS WHERE THE LEVEL GOES UP
             }
         }
         background1.image = [UIImage imageNamed:[bgImageArray objectAtIndex:bgImageIndex]];
@@ -128,10 +134,14 @@
                 bgImageIndex += 1;
                 bgInTransition = NO;
             }
-            if(bgImageCount % 3 == 0)
+            if(bgImageCount % levelDuration == 0)
             {
                 bgImageIndex += 1;
                 bgInTransition = YES;
+            }
+            else if((bgImageCount - (levelDuration + 1)) % levelDuration == 0)
+            {
+                //HERE IS WHERE THE LEVEL GOES UP
             }
         }
         background2.image = [UIImage imageNamed:[bgImageArray objectAtIndex:bgImageIndex]];

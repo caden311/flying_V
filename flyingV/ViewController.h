@@ -55,6 +55,8 @@
     UIImageView * background2;
     NSMutableArray * bgImageArray;
     BOOL bgInTransition;
+    
+    int levelDuration;
 }
 
 
