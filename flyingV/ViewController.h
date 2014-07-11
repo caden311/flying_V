@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "StartPageController.h"
+#import "dataBase.h"
 @interface ViewController : UIViewController
 {
     int lengthOfViewController;
@@ -57,7 +58,7 @@
     BOOL bgInTransition;
 }
 
-
+@property (strong, nonatomic) database * db;
 @property (strong, nonatomic) IBOutlet UIImageView *headBird;
 
 @property (strong, nonatomic) IBOutlet UILabel *highScoreLabel;
