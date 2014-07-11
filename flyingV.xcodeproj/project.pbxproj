@@ -34,6 +34,8 @@
 		AD18B2F7193EE03E00E2BEA7 /* bat.png in Resources */ = {isa = PBXBuildFile; fileRef = AD18B2F6193EE03E00E2BEA7 /* bat.png */; };
 		AD18B2F9194143AB00E2BEA7 /* dragon.png in Resources */ = {isa = PBXBuildFile; fileRef = AD18B2F8194143AB00E2BEA7 /* dragon.png */; };
 		AD3EC453196CECB0009DA0F2 /* carrot.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3EC452196CECB0009DA0F2 /* carrot.png */; };
+		AD3EC456196F9FA8009DA0F2 /* dataBase.m in Sources */ = {isa = PBXBuildFile; fileRef = AD3EC455196F9FA8009DA0F2 /* dataBase.m */; };
+		AD3EC459196FA074009DA0F2 /* StartPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD3EC458196FA074009DA0F2 /* StartPageController.m */; };
 		AD8650C31963B10C00893C8F /* ball.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8650C21963B10C00893C8F /* ball.png */; };
 		AD8650C61964C7F400893C8F /* flyingObject.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8650C51964C7F400893C8F /* flyingObject.m */; };
 /* End PBXBuildFile section */
@@ -82,6 +84,10 @@
 		AD18B2F6193EE03E00E2BEA7 /* bat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bat.png; sourceTree = "<group>"; };
 		AD18B2F8194143AB00E2BEA7 /* dragon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dragon.png; sourceTree = "<group>"; };
 		AD3EC452196CECB0009DA0F2 /* carrot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = carrot.png; sourceTree = "<group>"; };
+		AD3EC454196F9FA8009DA0F2 /* dataBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dataBase.h; sourceTree = "<group>"; };
+		AD3EC455196F9FA8009DA0F2 /* dataBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dataBase.m; sourceTree = "<group>"; };
+		AD3EC457196FA074009DA0F2 /* StartPageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartPageController.h; sourceTree = "<group>"; };
+		AD3EC458196FA074009DA0F2 /* StartPageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartPageController.m; sourceTree = "<group>"; };
 		AD8650C21963B10C00893C8F /* ball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ball.png; sourceTree = "<group>"; };
 		AD8650C41964C7F400893C8F /* flyingObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = flyingObject.h; sourceTree = "<group>"; };
 		AD8650C51964C7F400893C8F /* flyingObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = flyingObject.m; sourceTree = "<group>"; };
@@ -147,6 +153,8 @@
 				AD18B2D0193EDD7800E2BEA7 /* AppDelegate.h */,
 				AD18B2D1193EDD7800E2BEA7 /* AppDelegate.m */,
 				AD18B2D3193EDD7800E2BEA7 /* Main.storyboard */,
+				AD3EC457196FA074009DA0F2 /* StartPageController.h */,
+				AD3EC458196FA074009DA0F2 /* StartPageController.m */,
 				AD18B2D6193EDD7800E2BEA7 /* ViewController.h */,
 				AD18B2D7193EDD7800E2BEA7 /* ViewController.m */,
 				AD18B2D9193EDD7800E2BEA7 /* Images.xcassets */,
@@ -155,6 +163,8 @@
 				7F2CB63C1960BFA6002176E3 /* Bird.m */,
 				AD8650C41964C7F400893C8F /* flyingObject.h */,
 				AD8650C51964C7F400893C8F /* flyingObject.m */,
+				AD3EC454196F9FA8009DA0F2 /* dataBase.h */,
+				AD3EC455196F9FA8009DA0F2 /* dataBase.m */,
 			);
 			path = flyingV;
 			sourceTree = "<group>";
@@ -313,6 +323,8 @@
 			files = (
 				AD8650C61964C7F400893C8F /* flyingObject.m in Sources */,
 				AD18B2D8193EDD7800E2BEA7 /* ViewController.m in Sources */,
+				AD3EC459196FA074009DA0F2 /* StartPageController.m in Sources */,
+				AD3EC456196F9FA8009DA0F2 /* dataBase.m in Sources */,
 				AD18B2D2193EDD7800E2BEA7 /* AppDelegate.m in Sources */,
 				7F2CB63D1960BFA6002176E3 /* Bird.m in Sources */,
 				AD18B2CE193EDD7800E2BEA7 /* main.m in Sources */,

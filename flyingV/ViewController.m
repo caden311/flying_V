@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 vientapps. All rights reserved.
 //
 
+#import "StartPageController.h"
 #import "ViewController.h"
 #import "Bird.h"
 #import "flyingObject.h"
@@ -15,6 +16,7 @@
 @end
 
 @implementation ViewController
+@synthesize db=_db;
 
 - (void)viewDidLoad
 {
@@ -52,6 +54,7 @@
     leftBirds = [[NSMutableArray alloc]init];
     rightBirds = [[NSMutableArray alloc]init];
     //[birds addObject:_headBird];
+    [self loadPlist];
     [super viewDidLoad];
     
     birdCount = 1;
@@ -211,6 +214,9 @@
              else
              {
                  birdCount=1;
+                 [self showScore];
+                 [gameTimer invalidate];
+                     [self dismissViewControllerAnimated:NO completion:nil];
              }
              count = 0;
            
@@ -871,6 +877,72 @@
     location.y-=60;
     [self moveBirds: location];
     //_birdImage.center=location;
+    
+}
+
+
+-(void)loadPlist
+{
+    NSString * plistPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)objectAtIndex:0] stringByAppendingPathComponent:@"database.plist"];
+    
+    if (![[NSFileManager defaultManager] fileExistsAtPath:plistPath])
+    {
+        plistPath = [[NSBundle mainBundle] pathForResource:@"Data" ofType:@"plist"];
+    }
+    NSData *plistXML = [[NSFileManager defaultManager] contentsAtPath:plistPath];
+    NSString *errorDesc = nil;
+    NSPropertyListFormat format;
+    
+    _db = [[database alloc] initWithArray:(NSMutableArray *)[NSPropertyListSerialization propertyListFromData:plistXML mutabilityOption:NSPropertyListMutableContainersAndLeaves format:&format errorDescription:&errorDesc]];
+}
+
+-(void)showScore
+{
+    int highScore=[_highScoreLabel.text intValue];
+    NSMutableArray * sizeOfData=[_db getDB];
+    if([sizeOfData count]>3)
+    {
+        
+       
+        NSString * val= [_db getUser:(1)];
+        int value=[val intValue];
+        
+       if(highScore>value)
+       {
+            [_db removeUser:(1)];
+            val=[NSString stringWithFormat:@"%i",highScore];
+            [_db addUser:val atIndex:(1)];
+           
+        }
+        
+        
+        {
+        //    [_db removeUser:(gameMode-1)];
+         //   val=[NSString stringWithFormat:@"%i",value];
+          //  [_db addUser:val atIndex:(gameMode-1)];
+           // _highScoreLabel.text = val;
+        }
+    }
+    else
+    {
+        NSString *zero=[NSString stringWithFormat:@"%i",0];
+        [_db addUser:zero atIndex:0];   // first time player (0=new, 1=not new)
+        [_db addUser:zero atIndex:1];       // high score birds
+        [_db addUser:zero atIndex:2];       // high score Time
+        NSString * val=[NSString stringWithFormat:@"%i",highScore];
+        [_db removeUser:(1)]; //set FIRST high score
+        [_db addUser:val atIndex:(1)];
+ 
+       
+    
+    }
+    
+   
+    
+
+    [_db savePlist:[_db getDB]];
+  
+    
     
 }
 
