@@ -17,5 +17,6 @@
 
 @property (strong, nonatomic) database * db;
 @property (strong, nonatomic) IBOutlet UILabel *highScoreLabel;
+@property (strong, nonatomic) IBOutlet UILabel *longestTimeLabel;
 
 @end

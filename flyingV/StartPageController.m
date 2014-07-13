@@ -32,12 +32,29 @@
 -(void)loadScore
 {
     [self loadPlist];
-    int highScore=[_highScoreLabel.text intValue];
+    
+    int highTime=[_longestTimeLabel.text intValue];
+     int highScore=[_highScoreLabel.text intValue];
     NSMutableArray * sizeOfData=[_db getDB];
-    if([sizeOfData count]>2)
+    if([sizeOfData count]>3)
     {
+        NSString *tempHigh=[_db getUser:1];
+        int tempScore=[tempHigh intValue];
+            if(tempScore<highScore)
+            {
+                
+                [_db removeUser:1];
+                [_db addUser:tempHigh atIndex:1];
+            }
         
-
+        NSString *time=[_db getUser:2];
+        NSString *sec=[_db getUser:3];
+        int second=[sec intValue];
+        if(second>highTime)
+        {
+            [_db removeUser:(2)];
+            [_db addUser:time atIndex:(2)];
+        }
         
     }
     else
@@ -45,9 +62,8 @@
         NSString *zero=[NSString stringWithFormat:@"%i",0];
         [_db addUser:zero atIndex:0];   // first time player (0=new, 1=not new)
         [_db addUser:zero atIndex:1];       // high score birds
-        [_db addUser:zero atIndex:2];       // high score Time
-    
-        
+        [_db addUser:zero atIndex:2];    // high score Time
+        [_db addUser:zero atIndex:3];
         
     }
     
@@ -56,7 +72,7 @@
     
     [_db savePlist:[_db getDB]];
     _highScoreLabel.text=[_db getUser:1];
-    
+    _longestTimeLabel.text=[_db getUser:2];
     
 }
 

@@ -11,6 +11,8 @@
 #import "dataBase.h"
 @interface ViewController : UIViewController
 {
+    NSDate *Date;
+    
     int lengthOfViewController;
     int widthOfViewController;
     NSMutableArray * leftBirds;
@@ -25,8 +27,9 @@
         //animation variables
     
     int numBirdAnimations;
-   
-
+    int timeToCompleteAnimationDuck;
+    int distanceBeforeBirdRuns;
+    int speedAwayBirdRuns;
     NSTimer * animateTimer;
     
     float verticalGravityLine;
@@ -37,10 +40,12 @@
     NSTimer * gameTimer;
     int count;
     
-  
-    
+    //level increase
+    int levelIncrease;
+    bool startAwayBirds;
     int birdCount;
     int highBirdCount;
+    bool stopDumbBirds;
     
     //collission animations
     int numCollisionAnimations;
@@ -67,5 +72,6 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *currentScore;
 
+@property (strong, nonatomic) IBOutlet UILabel *currentTime;
 
 @end

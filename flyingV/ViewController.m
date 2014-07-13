@@ -20,6 +20,8 @@
 
 - (void)viewDidLoad
 {
+    Date = [NSDate date];
+    
     lengthOfViewController=self.view.frame.size.height;
     widthOfViewController=self.view.frame.size.width;
     
@@ -31,15 +33,19 @@
     flyingObjectsArray=[[NSMutableArray alloc] init];
     flyingBirdsArray=[[NSMutableArray alloc] init];
     numCollisionAnimations=1;
-  
-
-    //animation variables
-    numBirdAnimations=1;
-   
     
+    //level Variables
+    levelIncrease=0;
+    numBirdAnimations=2;
+    timeToCompleteAnimationDuck=2.0f;
+    distanceBeforeBirdRuns=100;
     blindSpotsEnabled=NO;
     timeToCompleteAnimation=2.0;
-    
+    speedAwayBirdRuns=5;
+    startAwayBirds=NO;
+    stopDumbBirds=NO;
+  
+   
     verticalGravityLine=widthOfViewController/2;
     horizontalGravityLine = lengthOfViewController / 2;
 
@@ -89,7 +95,7 @@
 
 -(void)gameLoop
 {
-   
+    [self updateTime:gameTimer];
     [self upDateCollisionAnimations];
     [self updateLabels];
     [self collisionChecking];
@@ -99,6 +105,23 @@
     
     count += 1;
 }
+- (void)updateTime:(NSTimer *)timer
+{
+    NSInteger secondsSinceStart = (NSInteger)[[NSDate date] timeIntervalSinceDate:Date];
+    
+    NSInteger seconds = secondsSinceStart % 60;
+    NSInteger minutes = (secondsSinceStart / 60) % 60;
+    NSInteger hours = secondsSinceStart / (60 * 60);
+    NSString *result = nil;
+    if (hours > 0) {
+        result = [NSString stringWithFormat:@"%02d:%02d:%02d", hours, minutes, seconds];
+    }
+    else {
+        result = [NSString stringWithFormat:@"%02d:%02d", minutes, seconds];
+    }
+    _currentTime.text=result;
+}
+
 -(void)updateBackground
 {
     [background1 setFrame:CGRectMake(0, background1.frame.origin.y + 1, widthOfViewController, lengthOfViewController)];
@@ -122,6 +145,9 @@
             else if((bgImageCount - (levelDuration + 1)) % levelDuration == 0)
             {
                 //HERE IS WHERE THE LEVEL GOES UP
+                levelIncrease++;
+                [self levelIncrease];
+                
             }
         }
         background1.image = [UIImage imageNamed:[bgImageArray objectAtIndex:bgImageIndex]];
@@ -145,6 +171,9 @@
             else if((bgImageCount - (levelDuration + 1)) % levelDuration == 0)
             {
                 //HERE IS WHERE THE LEVEL GOES UP
+                levelIncrease++;
+                [self levelIncrease];
+                
             }
         }
         background2.image = [UIImage imageNamed:[bgImageArray objectAtIndex:bgImageIndex]];
@@ -268,10 +297,29 @@
     }
     if(tempNumAnimation<numBirdAnimations)
     {
-        int rand=arc4random()%2;
-        if(rand>0)
+        if(startAwayBirds==YES)
         {
-            [self createBirdImage];
+            if(stopDumbBirds==NO)
+            {
+                int rand=arc4random()%2;
+                if(rand>0)
+                {
+                    [self createBirdImage];
+                }
+                else
+                {
+                    [self createDumbBirdImage];
+                }
+        
+            }
+            else
+            {
+                 [self createBirdImage];
+                
+            }
+            
+            
+            
         }
         else
         {
@@ -297,6 +345,45 @@
     
 }
 
+-(void)levelIncrease
+{
+    
+    if(levelIncrease<2)
+    {
+        
+        numCollisionAnimations=2;
+        
+        distanceBeforeBirdRuns=100;
+      
+       
+        
+    }
+    else if(levelIncrease<3)
+    {
+        numBirdAnimations=1;
+        startAwayBirds=YES;
+     
+        speedAwayBirdRuns=3;
+    }
+    else if(levelIncrease<4)
+    {
+        speedAwayBirdRuns=5;
+        blindSpotsEnabled=YES;
+         stopDumbBirds=YES;
+        timeToCompleteAnimationDuck=1.75f;
+           numCollisionAnimations=3;
+    }
+    else if(levelIncrease<5)
+    {
+    
+        speedAwayBirdRuns=6;
+        numCollisionAnimations=4;
+       
+         timeToCompleteAnimation=1.5f;
+    }
+
+    
+}
 -(void)animateObject:(flyingObject*)object
 {
      UIImageView * toImg=[object getToImage];
@@ -334,7 +421,7 @@
 {
     UIImageView * toImg=[object getToImage];
     
-    [UIView animateWithDuration:timeToCompleteAnimation
+    [UIView animateWithDuration:timeToCompleteAnimationDuck
                           delay:0.0f
                         options:UIViewAnimationOptionCurveLinear
                      animations:^{
@@ -374,21 +461,21 @@
     
     
     
-    if(distance<100)
+    if(distance<distanceBeforeBirdRuns)
     {
         [object setObjectCloseToHeadBird:YES];
      
         
      
-            [object setSpeed:5];
+            [object setSpeed:speedAwayBirdRuns];
         
     }
-    else if(distance<50)
+    else if(distance<distanceBeforeBirdRuns-50)
     {
        
         
     
-            [object setSpeed:10];
+            [object setSpeed:speedAwayBirdRuns+5];
         
     }
     else if(distance<10)
@@ -396,7 +483,7 @@
        
         
       
-            [object setSpeed:20];
+            [object setSpeed:speedAwayBirdRuns+speedAwayBirdRuns];
         
     }
     
@@ -898,6 +985,21 @@
 
 -(void)showScore
 {
+
+    NSInteger secondsSinceStart = (NSInteger)[[NSDate date] timeIntervalSinceDate:Date];
+    
+    NSInteger seconds = secondsSinceStart % 60;
+    NSInteger minutes = (secondsSinceStart / 60) % 60;
+    NSInteger hours = secondsSinceStart / (60 * 60);
+    NSString *result = nil;
+    if (hours > 0) {
+        result = [NSString stringWithFormat:@"%02d:%02d:%02d", hours, minutes, seconds];
+    }
+    else {
+        result = [NSString stringWithFormat:@"%02d:%02d", minutes, seconds];
+    }
+
+    
     int highScore=[_highScoreLabel.text intValue];
     NSMutableArray * sizeOfData=[_db getDB];
     if([sizeOfData count]>3)
@@ -915,20 +1017,26 @@
            
         }
         
+        NSString *time=[_db getUser:3];
+        int timeInt=[time intValue];
         
+        if(seconds>timeInt)
         {
-        //    [_db removeUser:(gameMode-1)];
-         //   val=[NSString stringWithFormat:@"%i",value];
-          //  [_db addUser:val atIndex:(gameMode-1)];
-           // _highScoreLabel.text = val;
+            [_db removeUser:(2)];
+            [_db addUser:result atIndex:(2)];
+            [_db removeUser:(3)];
+            NSString *sec=[NSString stringWithFormat:@"%i",timeInt];
+            [_db addUser:sec atIndex:(3)];
         }
+        
     }
     else
     {
         NSString *zero=[NSString stringWithFormat:@"%i",0];
         [_db addUser:zero atIndex:0];   // first time player (0=new, 1=not new)
         [_db addUser:zero atIndex:1];       // high score birds
-        [_db addUser:zero atIndex:2];       // high score Time
+        [_db addUser:zero atIndex:2];   // high score Time
+        [_db addUser:zero atIndex:3];
         NSString * val=[NSString stringWithFormat:@"%i",highScore];
         [_db removeUser:(1)]; //set FIRST high score
         [_db addUser:val atIndex:(1)];
@@ -945,6 +1053,7 @@
     
     
 }
+
 
 - (void)didReceiveMemoryWarning
 {
