@@ -60,12 +60,11 @@
     leftBirds = [[NSMutableArray alloc]init];
     rightBirds = [[NSMutableArray alloc]init];
     //[birds addObject:_headBird];
-    [self loadPlist];
-    [super viewDidLoad];
+  
     
     birdCount = 1;
     highBirdCount=1;
-    
+    _headBird.hidden=NO;
     
     //Set up background images
     
@@ -91,6 +90,10 @@
     
     levelDuration = 3;
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    
+    [self loadPlist];
+    [super viewDidLoad];
 }
 
 -(void)gameLoop
