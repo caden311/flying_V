@@ -89,6 +89,11 @@
     bgImageArray = [[NSMutableArray alloc]initWithObjects:@"BG1.png", @"1-2.png", @"BG2.png", @"2-3.png", @"BG3.png", @"3-4.png", @"BG4.png", @"4-5.png", @"BG5.png", nil];
     
     levelDuration = 3;
+    [_levelIndicator setAlpha:0];
+    levelIndicatorIsDisplaying = NO;
+    levelNumber = 1;
+    veryFirstLoop = YES;
+    headBirdChasePoint = _headBird.center;
 	// Do any additional setup after loading the view, typically from a nib.
     
     
@@ -103,9 +108,9 @@
     [self updateLabels];
     [self collisionChecking];
     [self upDateAnimations];
-    [self moveBirds: _headBird.center];
+    [self moveBirds: headBirdChasePoint];
     [self updateBackground];
-    
+    veryFirstLoop = NO;
     count += 1;
 }
 - (void)updateTime:(NSTimer *)timer
@@ -856,23 +861,27 @@
 
 -(void)moveBirds:(CGPoint)location
 {
-    _headBird.center = location;
-    CGPoint tempLocation = location;
+    float chaseX = (_headBird.center.x - location.x) / 10;
+    float chaseY = (_headBird.center.y - location.y) / 10;
+    CGPoint newPoint = location;
+    newPoint.x = _headBird.center.x - chaseX;
+    newPoint.y = _headBird.center.y - chaseY;
+    _headBird.center = newPoint;
+    CGPoint tempLocation = _headBird.center;
     float moveDistX = 15 * newBirdSizeModifier;
     float moveDistY = 30 * newBirdSizeModifier;
     for(int i = 0; i < leftBirds.count; i += 1)
     {
         Bird * tempBird = [leftBirds objectAtIndex:i];
         UIImageView * tempView = [tempBird getImage];
-        CGPoint newPoint = location;
         if([tempBird isDying] == NO)
         {
             if([tempBird getIndex] <= birdCount)
             {
                 tempLocation.x -= moveDistX;
                 tempLocation.y += moveDistY;
-                float chaseX = (tempView.center.x - tempLocation.x) / 10;
-                float chaseY = (tempView.center.y - tempLocation.y) / 10;
+                chaseX = (tempView.center.x - tempLocation.x) / 10;
+                chaseY = (tempView.center.y - tempLocation.y) / 10;
                 newPoint.x = tempView.center.x - chaseX;
                 newPoint.y = tempView.center.y - chaseY;
                 tempView.center = newPoint;
@@ -896,7 +905,7 @@
             }
         }
     }
-    tempLocation = location;
+    tempLocation = _headBird.center;
     for(int i = 0; i < rightBirds.count; i += 1)
     {
         Bird * tempBird = [rightBirds objectAtIndex:i];
@@ -947,8 +956,8 @@
     UITouch *touch = [touches anyObject];
     
     CGPoint location = [touch locationInView:touch.view];
-    
     location.y-=60;
+    headBirdChasePoint = location;
     [self moveBirds: location];
     //_birdImage.center=location;
     
@@ -963,8 +972,8 @@
     UITouch *touch = [touches anyObject];
     
     CGPoint location = [touch locationInView:touch.view];
-    
     location.y-=60;
+    headBirdChasePoint = location;
     [self moveBirds: location];
     //_birdImage.center=location;
     

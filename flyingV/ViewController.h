@@ -63,6 +63,10 @@
     BOOL bgInTransition;
     
     int levelDuration;
+    BOOL levelIndicatorIsDisplaying;
+    int levelNumber;
+    BOOL veryFirstLoop;
+    CGPoint headBirdChasePoint;
 }
 
 @property (strong, nonatomic) database * db;
@@ -71,6 +75,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *highScoreLabel;
 
 @property (strong, nonatomic) IBOutlet UILabel *currentScore;
+@property (weak, nonatomic) IBOutlet UILabel *levelIndicator;
 
 @property (strong, nonatomic) IBOutlet UILabel *currentTime;
 
