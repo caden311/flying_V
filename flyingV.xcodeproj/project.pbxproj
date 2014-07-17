@@ -36,6 +36,8 @@
 		AD3EC453196CECB0009DA0F2 /* carrot.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3EC452196CECB0009DA0F2 /* carrot.png */; };
 		AD3EC456196F9FA8009DA0F2 /* dataBase.m in Sources */ = {isa = PBXBuildFile; fileRef = AD3EC455196F9FA8009DA0F2 /* dataBase.m */; };
 		AD3EC459196FA074009DA0F2 /* StartPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD3EC458196FA074009DA0F2 /* StartPageController.m */; };
+		AD3EC45B19774A92009DA0F2 /* pauseButton.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3EC45A19774A92009DA0F2 /* pauseButton.png */; };
+		AD3EC45D19774A9A009DA0F2 /* playButton.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3EC45C19774A9A009DA0F2 /* playButton.png */; };
 		AD8650C31963B10C00893C8F /* ball.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8650C21963B10C00893C8F /* ball.png */; };
 		AD8650C61964C7F400893C8F /* flyingObject.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8650C51964C7F400893C8F /* flyingObject.m */; };
 /* End PBXBuildFile section */
@@ -88,6 +90,8 @@
 		AD3EC455196F9FA8009DA0F2 /* dataBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dataBase.m; sourceTree = "<group>"; };
 		AD3EC457196FA074009DA0F2 /* StartPageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartPageController.h; sourceTree = "<group>"; };
 		AD3EC458196FA074009DA0F2 /* StartPageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartPageController.m; sourceTree = "<group>"; };
+		AD3EC45A19774A92009DA0F2 /* pauseButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pauseButton.png; sourceTree = "<group>"; };
+		AD3EC45C19774A9A009DA0F2 /* playButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playButton.png; sourceTree = "<group>"; };
 		AD8650C21963B10C00893C8F /* ball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ball.png; sourceTree = "<group>"; };
 		AD8650C41964C7F400893C8F /* flyingObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = flyingObject.h; sourceTree = "<group>"; };
 		AD8650C51964C7F400893C8F /* flyingObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = flyingObject.m; sourceTree = "<group>"; };
@@ -172,6 +176,8 @@
 		AD18B2C8193EDD7800E2BEA7 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AD3EC45C19774A9A009DA0F2 /* playButton.png */,
+				AD3EC45A19774A92009DA0F2 /* pauseButton.png */,
 				7F819801196E06EE00E3AB57 /* 1-2.png */,
 				7F819802196E06EE00E3AB57 /* 2-3.png */,
 				7F819803196E06EE00E3AB57 /* 3-4.png */,
@@ -294,6 +300,7 @@
 				AD3EC453196CECB0009DA0F2 /* carrot.png in Resources */,
 				AD18B2DA193EDD7800E2BEA7 /* Images.xcassets in Resources */,
 				7F81980A196E06EE00E3AB57 /* 1-2.png in Resources */,
+				AD3EC45D19774A9A009DA0F2 /* playButton.png in Resources */,
 				7F81980B196E06EE00E3AB57 /* 2-3.png in Resources */,
 				7F819812196E06EE00E3AB57 /* BG5.png in Resources */,
 				AD18B2F9194143AB00E2BEA7 /* dragon.png in Resources */,
@@ -301,6 +308,7 @@
 				AD18B2F7193EE03E00E2BEA7 /* bat.png in Resources */,
 				7F819810196E06EE00E3AB57 /* BG3.png in Resources */,
 				7F81980F196E06EE00E3AB57 /* BG2.png in Resources */,
+				AD3EC45B19774A92009DA0F2 /* pauseButton.png in Resources */,
 				AD18B2CC193EDD7800E2BEA7 /* InfoPlist.strings in Resources */,
 				AD18B2D5193EDD7800E2BEA7 /* Main.storyboard in Resources */,
 			);

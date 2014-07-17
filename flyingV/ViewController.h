@@ -79,4 +79,7 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *currentTime;
 
+- (IBAction)pausePlayButton:(id)sender;
+@property (strong, nonatomic) IBOutlet UIButton *pausePlayOutlet;
+
 @end

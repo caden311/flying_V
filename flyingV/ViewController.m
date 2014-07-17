@@ -45,7 +45,7 @@
     startAwayBirds=NO;
     stopDumbBirds=NO;
   
-   
+
     verticalGravityLine=widthOfViewController/2;
     horizontalGravityLine = lengthOfViewController / 2;
 
@@ -104,6 +104,19 @@
 -(void)gameLoop
 {
     [self updateTime:gameTimer];
+    if(veryFirstLoop)
+    {
+        
+        [UIView animateWithDuration:1.0
+                animations:^(void){[_levelIndicator setAlpha:1.0];}
+                completion:^(BOOL finished){if(finished){[UIView animateWithDuration:3.0
+                            animations:^(void){[_levelIndicator setAlpha:0.99];}
+                            completion:^(BOOL finished){if(finished){[UIView animateWithDuration:1.0
+                                        animations:^(void){[_levelIndicator setAlpha:0.0];}
+                                        completion:^(BOOL finished){}];}
+                            }];}
+                }];
+    }
     [self upDateCollisionAnimations];
     [self updateLabels];
     [self collisionChecking];
@@ -128,6 +141,7 @@
         result = [NSString stringWithFormat:@"%02d:%02d", minutes, seconds];
     }
     _currentTime.text=result;
+
 }
 
 -(void)updateBackground
@@ -156,6 +170,7 @@
                 levelIncrease++;
                 [self levelIncrease];
                 
+               
             }
         }
         background1.image = [UIImage imageNamed:[bgImageArray objectAtIndex:bgImageIndex]];
@@ -182,6 +197,7 @@
                 levelIncrease++;
                 [self levelIncrease];
                 
+              
             }
         }
         background2.image = [UIImage imageNamed:[bgImageArray objectAtIndex:bgImageIndex]];
@@ -389,6 +405,19 @@
        
          timeToCompleteAnimation=1.5f;
     }
+    
+    levelNumber += 1;
+    NSString * levelUpText = [NSString stringWithFormat:@"%@%d", @"LEVEL ", levelNumber];
+    _levelIndicator.text = levelUpText;
+    [UIView animateWithDuration:1.0
+                     animations:^(void){[_levelIndicator setAlpha:1.0];}
+                     completion:^(BOOL finished){if(finished){[UIView animateWithDuration:3.0
+                                                                               animations:^(void){[_levelIndicator setAlpha:0.99];}
+                                                                               completion:^(BOOL finished){if(finished){[UIView animateWithDuration:1.0
+                                                                                                                                         animations:^(void){[_levelIndicator setAlpha:0.0];}
+                                                                                                                                         completion:^(BOOL finished){}];}
+                                                                               }];}
+                     }];
 
     
 }
@@ -1065,12 +1094,29 @@
     
     
 }
+- (IBAction)pausePlayButton:(id)sender
+{
 
+    if([[_pausePlayOutlet currentImage] isEqual:[UIImage imageNamed:@"pauseButton.png"]])
+    {
+        [_pausePlayOutlet setImage:[UIImage imageNamed:@"playButton.png"] forState:UIControlStateNormal];
+        
+        
+        
+    }
+    else if([_pausePlayOutlet.currentImage isEqual:[UIImage imageNamed:@"playButton.png"]])
+    {
+          [_pausePlayOutlet setImage:[UIImage imageNamed:@"pauseButton.png"] forState:UIControlStateNormal];
+    }
+    
+    
+}
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 @end
