@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Hyp-oY-sul">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Hyp-oY-sul">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -13,12 +13,13 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Grs-qi-Zky">
-                                <rect key="frame" x="119" y="233" width="82" height="59"/>
+                                <rect key="frame" x="140" y="272" width="40" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="StartGame">
+                                <state key="normal" title="Play">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="playButtonPressed:" destination="Hyp-oY-sul" eventType="touchUpInside" id="tI6-Xt-hyp"/>
                                     <segue destination="vXZ-lx-hvc" kind="modal" id="uNn-Wa-fhs"/>
                                 </connections>
                             </button>
@@ -47,17 +48,62 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="96R-sN-jn2">
+                                <rect key="frame" x="132" y="269" width="57" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Tutorial">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="tutorialButtonPressed:" destination="Hyp-oY-sul" eventType="touchUpInside" id="moq-RB-fV4"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="iOr-Wk-aPn">
+                                <rect key="frame" x="127" y="269" width="67" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Settings">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="settingsButtonPressed:" destination="Hyp-oY-sul" eventType="touchUpInside" id="dcR-Z0-OTe"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="pUK-CI-nBq">
+                                <rect key="frame" x="122" y="256" width="77" height="55"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Game Center">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="gameCenterButtonPressed:" destination="Hyp-oY-sul" eventType="touchUpInside" id="jjW-kd-tMv"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="4mY-xe-q1g">
+                                <rect key="frame" x="137" y="269" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Stats">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="statsButtonPressed:" destination="Hyp-oY-sul" eventType="touchUpInside" id="Ii7-MC-eQl"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="gameCenterButton" destination="pUK-CI-nBq" id="7lM-4i-v7U"/>
                         <outlet property="highScoreLabel" destination="Z6e-pE-kOl" id="Bvx-KE-tsO"/>
                         <outlet property="longestTimeLabel" destination="Vgw-VE-FX3" id="qGe-N5-mLd"/>
+                        <outlet property="playButton" destination="Grs-qi-Zky" id="dyR-DM-Vks"/>
+                        <outlet property="settingsButton" destination="iOr-Wk-aPn" id="55e-87-Hb6"/>
+                        <outlet property="statsButton" destination="4mY-xe-q1g" id="VXH-we-j0t"/>
+                        <outlet property="tutorialButton" destination="96R-sN-jn2" id="grq-99-HYw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d3Y-gM-NcK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-192" y="71"/>
+            <point key="canvasLocation" x="-214" y="63"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="ufC-wZ-h7g">

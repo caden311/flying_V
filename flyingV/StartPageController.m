@@ -26,7 +26,86 @@
    
     [super viewDidLoad];
 
+    startPageGameTimer=[NSTimer scheduledTimerWithTimeInterval:.016 target:self selector:@selector(gameLoop) userInfo:nil repeats:YES];
+    startPageHeadBirdChasePoint = _playButton.center;
     
+}
+-(void)gameLoop
+{
+    [self moveBirds: startPageHeadBirdChasePoint];
+    [self updateBackground];
+}
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = [touches anyObject];
+    
+    CGPoint location = [touch locationInView:touch.view];
+    location.y-=60;
+    startPageHeadBirdChasePoint = location;
+}
+-(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = [touches anyObject];
+    
+    CGPoint location = [touch locationInView:touch.view];
+    location.y-=60;
+    startPageHeadBirdChasePoint = location;
+}
+-(void)moveBirds: (CGPoint) location
+{
+    //Move Play Button
+    float chaseX = (_playButton.center.x - location.x) / 15;
+    float chaseY = (_playButton.center.y - location.y) / 15;
+    CGPoint newPoint = location;
+    newPoint.x = _playButton.center.x - chaseX;
+    newPoint.y = _playButton.center.y - chaseY;
+    _playButton.center = newPoint;
+    CGPoint tempLocation = _playButton.center;
+    float moveDistX = 50;
+    float moveDistY = 90;
+    
+    //Move tutorial button
+    tempLocation.x -= moveDistX;
+    tempLocation.y += moveDistY;
+    chaseX = (_tutorialButton.center.x - tempLocation.x) / 15;
+    chaseY = (_tutorialButton.center.y - tempLocation.y) / 15;
+    newPoint.x = _tutorialButton.center.x - chaseX;
+    newPoint.y = _tutorialButton.center.y - chaseY;
+    _tutorialButton.center = newPoint;
+    tempLocation = _tutorialButton.center;
+    
+    //Move Stats button
+    tempLocation.x -= moveDistX;
+    tempLocation.y += moveDistY;
+    chaseX = (_statsButton.center.x - tempLocation.x) / 15;
+    chaseY = (_statsButton.center.y - tempLocation.y) / 15;
+    newPoint.x = _statsButton.center.x - chaseX;
+    newPoint.y = _statsButton.center.y - chaseY;
+    _statsButton.center = newPoint;
+    tempLocation = _statsButton.center;
+    
+    //Move Settings Button
+    tempLocation = _playButton.center;
+    tempLocation.x += moveDistX;
+    tempLocation.y += moveDistY;
+    chaseX = (_settingsButton.center.x - tempLocation.x) / 15;
+    chaseY = (_settingsButton.center.y - tempLocation.y) / 15;
+    newPoint.x = _settingsButton.center.x - chaseX;
+    newPoint.y = _settingsButton.center.y - chaseY;
+    _settingsButton.center = newPoint;
+    tempLocation = _settingsButton.center;
+    
+    //Move Game Center Button
+    tempLocation.x += moveDistX;
+    tempLocation.y += moveDistY;
+    chaseX = (_gameCenterButton.center.x - tempLocation.x) / 15;
+    chaseY = (_gameCenterButton.center.y - tempLocation.y) / 15;
+    newPoint.x = _gameCenterButton.center.x - chaseX;
+    newPoint.y = _gameCenterButton.center.y - chaseY;
+    _gameCenterButton.center = newPoint;
+}
+-(void)updateBackground
+{
     
 }
 -(void)loadScore
@@ -106,5 +185,19 @@
     NSPropertyListFormat format;
     
     _db = [[database alloc] initWithArray:(NSMutableArray *)[NSPropertyListSerialization propertyListFromData:plistXML mutabilityOption:NSPropertyListMutableContainersAndLeaves format:&format errorDescription:&errorDesc]];
+}
+- (IBAction)playButtonPressed:(id)sender {
+}
+
+- (IBAction)tutorialButtonPressed:(id)sender {
+}
+
+- (IBAction)settingsButtonPressed:(id)sender {
+}
+
+- (IBAction)statsButtonPressed:(id)sender {
+}
+
+- (IBAction)gameCenterButtonPressed:(id)sender {
 }
 @end
