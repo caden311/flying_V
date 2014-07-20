@@ -17,6 +17,11 @@
 		7F819810196E06EE00E3AB57 /* BG3.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F819807196E06EE00E3AB57 /* BG3.png */; };
 		7F819811196E06EE00E3AB57 /* BG4.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F819808196E06EE00E3AB57 /* BG4.png */; };
 		7F819812196E06EE00E3AB57 /* BG5.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F819809196E06EE00E3AB57 /* BG5.png */; };
+		7F9E62911979DAE500FDF30C /* tutorialPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9E62901979DAE500FDF30C /* tutorialPageController.m */; };
+		7F9E6293197AD5BF00FDF30C /* speechBox.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F9E6292197AD5BF00FDF30C /* speechBox.png */; };
+		7F9E6297197B465C00FDF30C /* Country.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F9E6294197B465C00FDF30C /* Country.jpg */; };
+		7F9E6298197B465C00FDF30C /* FarmLand.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F9E6295197B465C00FDF30C /* FarmLand.jpg */; };
+		7F9E6299197B465C00FDF30C /* Suburbs.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F9E6296197B465C00FDF30C /* Suburbs.jpg */; };
 		AD18B2C2193EDD7800E2BEA7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD18B2C1193EDD7800E2BEA7 /* Foundation.framework */; };
 		AD18B2C4193EDD7800E2BEA7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD18B2C3193EDD7800E2BEA7 /* CoreGraphics.framework */; };
 		AD18B2C6193EDD7800E2BEA7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD18B2C5193EDD7800E2BEA7 /* UIKit.framework */; };
@@ -64,6 +69,12 @@
 		7F819807196E06EE00E3AB57 /* BG3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BG3.png; sourceTree = "<group>"; };
 		7F819808196E06EE00E3AB57 /* BG4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BG4.png; sourceTree = "<group>"; };
 		7F819809196E06EE00E3AB57 /* BG5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BG5.png; sourceTree = "<group>"; };
+		7F9E628F1979DAE400FDF30C /* tutorialPageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tutorialPageController.h; sourceTree = "<group>"; };
+		7F9E62901979DAE500FDF30C /* tutorialPageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = tutorialPageController.m; sourceTree = "<group>"; };
+		7F9E6292197AD5BF00FDF30C /* speechBox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = speechBox.png; sourceTree = "<group>"; };
+		7F9E6294197B465C00FDF30C /* Country.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Country.jpg; sourceTree = "<group>"; };
+		7F9E6295197B465C00FDF30C /* FarmLand.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = FarmLand.jpg; sourceTree = "<group>"; };
+		7F9E6296197B465C00FDF30C /* Suburbs.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Suburbs.jpg; sourceTree = "<group>"; };
 		AD18B2BE193EDD7800E2BEA7 /* flyingV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = flyingV.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD18B2C1193EDD7800E2BEA7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		AD18B2C3193EDD7800E2BEA7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -159,6 +170,8 @@
 				AD18B2D3193EDD7800E2BEA7 /* Main.storyboard */,
 				AD3EC457196FA074009DA0F2 /* StartPageController.h */,
 				AD3EC458196FA074009DA0F2 /* StartPageController.m */,
+				7F9E628F1979DAE400FDF30C /* tutorialPageController.h */,
+				7F9E62901979DAE500FDF30C /* tutorialPageController.m */,
 				AD18B2D6193EDD7800E2BEA7 /* ViewController.h */,
 				AD18B2D7193EDD7800E2BEA7 /* ViewController.m */,
 				AD18B2D9193EDD7800E2BEA7 /* Images.xcassets */,
@@ -176,6 +189,10 @@
 		AD18B2C8193EDD7800E2BEA7 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				7F9E6294197B465C00FDF30C /* Country.jpg */,
+				7F9E6295197B465C00FDF30C /* FarmLand.jpg */,
+				7F9E6296197B465C00FDF30C /* Suburbs.jpg */,
+				7F9E6292197AD5BF00FDF30C /* speechBox.png */,
 				AD3EC45C19774A9A009DA0F2 /* playButton.png */,
 				AD3EC45A19774A92009DA0F2 /* pauseButton.png */,
 				7F819801196E06EE00E3AB57 /* 1-2.png */,
@@ -295,18 +312,22 @@
 			files = (
 				7F81980E196E06EE00E3AB57 /* BG1.png in Resources */,
 				7F81980C196E06EE00E3AB57 /* 3-4.png in Resources */,
+				7F9E6297197B465C00FDF30C /* Country.jpg in Resources */,
 				7F81980D196E06EE00E3AB57 /* 4-5.png in Resources */,
 				7F819811196E06EE00E3AB57 /* BG4.png in Resources */,
 				AD3EC453196CECB0009DA0F2 /* carrot.png in Resources */,
 				AD18B2DA193EDD7800E2BEA7 /* Images.xcassets in Resources */,
+				7F9E6298197B465C00FDF30C /* FarmLand.jpg in Resources */,
 				7F81980A196E06EE00E3AB57 /* 1-2.png in Resources */,
 				AD3EC45D19774A9A009DA0F2 /* playButton.png in Resources */,
 				7F81980B196E06EE00E3AB57 /* 2-3.png in Resources */,
 				7F819812196E06EE00E3AB57 /* BG5.png in Resources */,
 				AD18B2F9194143AB00E2BEA7 /* dragon.png in Resources */,
 				AD8650C31963B10C00893C8F /* ball.png in Resources */,
+				7F9E6299197B465C00FDF30C /* Suburbs.jpg in Resources */,
 				AD18B2F7193EE03E00E2BEA7 /* bat.png in Resources */,
 				7F819810196E06EE00E3AB57 /* BG3.png in Resources */,
+				7F9E6293197AD5BF00FDF30C /* speechBox.png in Resources */,
 				7F81980F196E06EE00E3AB57 /* BG2.png in Resources */,
 				AD3EC45B19774A92009DA0F2 /* pauseButton.png in Resources */,
 				AD18B2CC193EDD7800E2BEA7 /* InfoPlist.strings in Resources */,
@@ -329,6 +350,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F9E62911979DAE500FDF30C /* tutorialPageController.m in Sources */,
 				AD8650C61964C7F400893C8F /* flyingObject.m in Sources */,
 				AD18B2D8193EDD7800E2BEA7 /* ViewController.m in Sources */,
 				AD3EC459196FA074009DA0F2 /* StartPageController.m in Sources */,
