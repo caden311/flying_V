@@ -40,6 +40,7 @@
 		AD3EC45D19774A9A009DA0F2 /* playButton.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3EC45C19774A9A009DA0F2 /* playButton.png */; };
 		AD8650C31963B10C00893C8F /* ball.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8650C21963B10C00893C8F /* ball.png */; };
 		AD8650C61964C7F400893C8F /* flyingObject.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8650C51964C7F400893C8F /* flyingObject.m */; };
+		AD9606D9197C9F1700DCD12F /* settingsPage.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = AD9606D8197C9F1700DCD12F /* settingsPage.jpeg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +96,7 @@
 		AD8650C21963B10C00893C8F /* ball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ball.png; sourceTree = "<group>"; };
 		AD8650C41964C7F400893C8F /* flyingObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = flyingObject.h; sourceTree = "<group>"; };
 		AD8650C51964C7F400893C8F /* flyingObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = flyingObject.m; sourceTree = "<group>"; };
+		AD9606D8197C9F1700DCD12F /* settingsPage.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = settingsPage.jpeg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +178,7 @@
 		AD18B2C8193EDD7800E2BEA7 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AD9606D8197C9F1700DCD12F /* settingsPage.jpeg */,
 				AD3EC45C19774A9A009DA0F2 /* playButton.png */,
 				AD3EC45A19774A92009DA0F2 /* pauseButton.png */,
 				7F819801196E06EE00E3AB57 /* 1-2.png */,
@@ -306,6 +309,7 @@
 				AD18B2F9194143AB00E2BEA7 /* dragon.png in Resources */,
 				AD8650C31963B10C00893C8F /* ball.png in Resources */,
 				AD18B2F7193EE03E00E2BEA7 /* bat.png in Resources */,
+				AD9606D9197C9F1700DCD12F /* settingsPage.jpeg in Resources */,
 				7F819810196E06EE00E3AB57 /* BG3.png in Resources */,
 				7F81980F196E06EE00E3AB57 /* BG2.png in Resources */,
 				AD3EC45B19774A92009DA0F2 /* pauseButton.png in Resources */,

@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #include "dataBase.h"
 
-@interface StartPageController : ViewController
+@interface StartPageController : UIViewController
 {
     
 }
@@ -18,6 +18,6 @@
 @property (strong, nonatomic) database * db;
 @property (strong, nonatomic) IBOutlet UILabel *highScoreLabel;
 @property (strong, nonatomic) IBOutlet UILabel *longestTimeLabel;
-@property (strong, nonatomic) IBOutlet UILabel *highSeconds;
+
 
 @end

@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "StartPageController.h"
 #import "dataBase.h"
+#import "SettingsPage.h"
+
 @interface ViewController : UIViewController
 {
     NSDate *Date;
@@ -81,5 +83,8 @@
 
 - (IBAction)pausePlayButton:(id)sender;
 @property (strong, nonatomic) IBOutlet UIButton *pausePlayOutlet;
+@property (strong, nonatomic) IBOutlet UIImageView *settingBackgroundImage;
+- (IBAction)resumeGameButton:(id)sender;
+@property (strong, nonatomic) IBOutlet UIButton *resumeGameOutlet;
 
 @end

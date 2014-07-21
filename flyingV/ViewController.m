@@ -10,13 +10,15 @@
 #import "ViewController.h"
 #import "Bird.h"
 #import "flyingObject.h"
-
+NSInteger totalSec;
+NSInteger totalMin;
 @interface ViewController ()
 
 @end
 
 @implementation ViewController
 @synthesize db=_db;
+
 
 - (void)viewDidLoad
 {
@@ -46,6 +48,9 @@
     stopDumbBirds=NO;
   
 
+    _resumeGameOutlet.hidden=YES;
+    _settingBackgroundImage.hidden=YES;
+    
     verticalGravityLine=widthOfViewController/2;
     horizontalGravityLine = lengthOfViewController / 2;
 
@@ -54,7 +59,7 @@
   
     gameTimer=[NSTimer scheduledTimerWithTimeInterval:.016 target:self selector:@selector(gameLoop) userInfo:nil repeats:YES];
     
-    
+  
     
     count=0;
     leftBirds = [[NSMutableArray alloc]init];
@@ -65,6 +70,9 @@
     birdCount = 1;
     highBirdCount=1;
     _headBird.hidden=NO;
+    
+    totalMin=0;
+    totalSec=0;
     
     //Set up background images
     
@@ -130,8 +138,8 @@
 {
     NSInteger secondsSinceStart = (NSInteger)[[NSDate date] timeIntervalSinceDate:Date];
     
-    NSInteger seconds = secondsSinceStart % 60;
-    NSInteger minutes = (secondsSinceStart / 60) % 60;
+    NSInteger seconds = (secondsSinceStart+totalSec) % 60;
+    NSInteger minutes = ((secondsSinceStart+totalMin) / 60) % 60;
     NSInteger hours = secondsSinceStart / (60 * 60);
     NSString *result = nil;
     if (hours > 0) {
@@ -1028,7 +1036,7 @@
 {
 
     NSInteger secondsSinceStart = (NSInteger)[[NSDate date] timeIntervalSinceDate:Date];
-    
+    NSInteger totalSeconds=secondsSinceStart;
     NSInteger seconds = secondsSinceStart % 60;
     NSInteger minutes = (secondsSinceStart / 60) % 60;
     NSInteger hours = secondsSinceStart / (60 * 60);
@@ -1061,12 +1069,12 @@
         NSString *time=[_db getUser:3];
         int timeInt=[time intValue];
         
-        if(seconds>timeInt)
+        if(totalSeconds>timeInt)
         {
             [_db removeUser:(2)];
             [_db addUser:result atIndex:(2)];
             [_db removeUser:(3)];
-            NSString *sec=[NSString stringWithFormat:@"%i",timeInt];
+            NSString *sec=[NSString stringWithFormat:@"%i",totalSeconds];
             [_db addUser:sec atIndex:(3)];
         }
         
@@ -1099,24 +1107,41 @@
 
     if([[_pausePlayOutlet currentImage] isEqual:[UIImage imageNamed:@"pauseButton.png"]])
     {
-        [_pausePlayOutlet setImage:[UIImage imageNamed:@"playButton.png"] forState:UIControlStateNormal];
+        [gameTimer invalidate];
+        NSInteger temp=(NSInteger)[[NSDate date] timeIntervalSinceDate:Date];
+        totalSec += temp % 60;
+         totalMin += (temp / 60) % 60;
         
         
+        _settingBackgroundImage.hidden=NO;
+        _resumeGameOutlet.hidden=NO;
         
+       
     }
-    else if([_pausePlayOutlet.currentImage isEqual:[UIImage imageNamed:@"playButton.png"]])
-    {
-          [_pausePlayOutlet setImage:[UIImage imageNamed:@"pauseButton.png"] forState:UIControlStateNormal];
-    }
+
     
     
 }
+- (IBAction)resumeGameButton:(id)sender
+{
+    Date = [NSDate date];
+    
+    _settingBackgroundImage.hidden=YES;
+    _resumeGameOutlet.hidden=YES;
+    
+    
+    gameTimer=[NSTimer scheduledTimerWithTimeInterval:.016 target:self selector:@selector(gameLoop) userInfo:nil repeats:YES];
+    
+    
+}
+
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 
 @end

@@ -62,7 +62,7 @@
         <!--View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="ViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainStoryboard" id="vXZ-lx-hvc" customClass="ViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -128,6 +128,20 @@
                                     <action selector="pausePlayButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="qgT-te-vi0"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="settingsPage.jpeg" id="iYu-TD-80c">
+                                <rect key="frame" x="40" y="108" width="240" height="363"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="x7S-e6-50r">
+                                <rect key="frame" x="132" y="403" width="56" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Resume">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="resumeGameButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Sc7-O0-vja"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.12850083849999999" green="0.69818975059999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -138,16 +152,19 @@
                         <outlet property="highScoreLabel" destination="wAx-Xh-RrG" id="fMR-Wb-6b8"/>
                         <outlet property="levelIndicator" destination="Kjh-kz-rl5" id="uqU-3B-bYB"/>
                         <outlet property="pausePlayOutlet" destination="ITm-Dm-9hd" id="luE-57-pwg"/>
+                        <outlet property="resumeGameOutlet" destination="x7S-e6-50r" id="abv-fI-YdN"/>
+                        <outlet property="settingBackgroundImage" destination="iYu-TD-80c" id="8ib-TA-wda"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="207" y="71"/>
+            <point key="canvasLocation" x="215" y="443"/>
         </scene>
     </scenes>
     <resources>
         <image name="dragon.png" width="1045" height="688"/>
         <image name="pauseButton.png" width="128" height="128"/>
+        <image name="settingsPage.jpeg" width="189" height="118"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
