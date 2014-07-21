@@ -11,7 +11,8 @@
 
 @interface StartPageController : UIViewController
 {
-    
+    NSTimer * startPageGameTimer;
+    CGPoint startPageHeadBirdChasePoint;
 }
 
 

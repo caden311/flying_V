@@ -78,14 +78,14 @@ NSInteger totalMin;
     
     
     
-    background1 = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, widthOfViewController, lengthOfViewController)];
-    background1.image = [UIImage imageNamed:@"BG1.png"];
+    background1 = [[UIImageView alloc]initWithFrame:CGRectMake(0, (lengthOfViewController * -1), widthOfViewController, lengthOfViewController * 2)];
+    background1.image = [UIImage imageNamed:@"Country.jpg"];
     
     [self.view addSubview:background1];
     [self.view sendSubviewToBack:background1];
     
-    background2 = [[UIImageView alloc]initWithFrame:CGRectMake(0, -1 * lengthOfViewController, widthOfViewController, lengthOfViewController)];
-    background2.image = [UIImage imageNamed:@"BG1.png"];
+    background2 = [[UIImageView alloc]initWithFrame:CGRectMake(0, -3 * lengthOfViewController, widthOfViewController, lengthOfViewController * 2)];
+    background2.image = [UIImage imageNamed:@"Country.jpg"];
     
     [self.view addSubview:background2];
     [self.view sendSubviewToBack:background2];
@@ -94,7 +94,7 @@ NSInteger totalMin;
     bgImageCount = 2;
     bgImageIndex = 0;
     
-    bgImageArray = [[NSMutableArray alloc]initWithObjects:@"BG1.png", @"1-2.png", @"BG2.png", @"2-3.png", @"BG3.png", @"3-4.png", @"BG4.png", @"4-5.png", @"BG5.png", nil];
+    bgImageArray = [[NSMutableArray alloc]initWithObjects:@"Country.jpg", @"1-2.png", @"FarmLand.jpg", @"2-3.png", @"Suburbs.jpg", @"3-4.png", @"BG4.png", @"4-5.png", @"BG5.png", nil];
     
     levelDuration = 3;
     [_levelIndicator setAlpha:0];
@@ -154,11 +154,11 @@ NSInteger totalMin;
 
 -(void)updateBackground
 {
-    [background1 setFrame:CGRectMake(0, background1.frame.origin.y + 1, widthOfViewController, lengthOfViewController)];
-    [background2 setFrame:CGRectMake(0, background2.frame.origin.y + 1, widthOfViewController, lengthOfViewController)];
+    [background1 setFrame:CGRectMake(0, background1.frame.origin.y + 1, widthOfViewController, lengthOfViewController * 2)];
+    [background2 setFrame:CGRectMake(0, background2.frame.origin.y + 1, widthOfViewController, lengthOfViewController * 2)];
     if(background1.frame.origin.y >= lengthOfViewController)
     {
-        [background1 setFrame:CGRectMake(0, -1 * lengthOfViewController, widthOfViewController, lengthOfViewController)];
+        [background1 setFrame:CGRectMake(0, -3 * lengthOfViewController, widthOfViewController, lengthOfViewController * 2)];
         if(bgImageIndex < bgImageArray.count - 1)
         {
             bgImageCount += 1;
@@ -185,7 +185,7 @@ NSInteger totalMin;
     }
     if(background2.frame.origin.y >= lengthOfViewController)
     {
-        [background2 setFrame:CGRectMake(0, -1 * lengthOfViewController, widthOfViewController, lengthOfViewController)];
+        [background2 setFrame:CGRectMake(0, -3 * lengthOfViewController, widthOfViewController, lengthOfViewController * 2)];
         if(bgImageIndex < bgImageArray.count - 1)
         {
             bgImageCount += 1;
