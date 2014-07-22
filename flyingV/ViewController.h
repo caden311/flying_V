@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 #import "StartPageController.h"
 #import "dataBase.h"
 #import "SettingsPage.h"
@@ -69,6 +70,8 @@
     int levelNumber;
     BOOL veryFirstLoop;
     CGPoint headBirdChasePoint;
+    
+  
 }
 
 @property (strong, nonatomic) database * db;
@@ -86,5 +89,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *settingBackgroundImage;
 - (IBAction)resumeGameButton:(id)sender;
 @property (strong, nonatomic) IBOutlet UIButton *resumeGameOutlet;
+@property (strong, nonatomic) IBOutlet UIImageView *settingsBackgroundOutlet;
+@property (strong, nonatomic) IBOutlet UIImageView *collisionBackground;
 
 @end

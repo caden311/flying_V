@@ -46,6 +46,8 @@
 		AD8650C31963B10C00893C8F /* ball.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8650C21963B10C00893C8F /* ball.png */; };
 		AD8650C61964C7F400893C8F /* flyingObject.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8650C51964C7F400893C8F /* flyingObject.m */; };
 		AD9606D9197C9F1700DCD12F /* settingsPage.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = AD9606D8197C9F1700DCD12F /* settingsPage.jpeg */; };
+		AD9606DB197CAA7D00DCD12F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD9606DA197CAA7D00DCD12F /* QuartzCore.framework */; };
+		AD9606DD197DE45000DCD12F /* redBackground.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AD9606DC197DE45000DCD12F /* redBackground.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,6 +110,8 @@
 		AD8650C41964C7F400893C8F /* flyingObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = flyingObject.h; sourceTree = "<group>"; };
 		AD8650C51964C7F400893C8F /* flyingObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = flyingObject.m; sourceTree = "<group>"; };
 		AD9606D8197C9F1700DCD12F /* settingsPage.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = settingsPage.jpeg; sourceTree = "<group>"; };
+		AD9606DA197CAA7D00DCD12F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		AD9606DC197DE45000DCD12F /* redBackground.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = redBackground.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +119,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD9606DB197CAA7D00DCD12F /* QuartzCore.framework in Frameworks */,
 				AD18B2C4193EDD7800E2BEA7 /* CoreGraphics.framework in Frameworks */,
 				AD18B2C6193EDD7800E2BEA7 /* UIKit.framework in Frameworks */,
 				AD18B2C2193EDD7800E2BEA7 /* Foundation.framework in Frameworks */,
@@ -156,6 +161,7 @@
 		AD18B2C0193EDD7800E2BEA7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AD9606DA197CAA7D00DCD12F /* QuartzCore.framework */,
 				AD18B2C1193EDD7800E2BEA7 /* Foundation.framework */,
 				AD18B2C3193EDD7800E2BEA7 /* CoreGraphics.framework */,
 				AD18B2C5193EDD7800E2BEA7 /* UIKit.framework */,
@@ -191,7 +197,12 @@
 		AD18B2C8193EDD7800E2BEA7 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AD9606DC197DE45000DCD12F /* redBackground.jpg */,
 				AD9606D8197C9F1700DCD12F /* settingsPage.jpeg */,
+				7F9E6294197B465C00FDF30C /* Country.jpg */,
+				7F9E6295197B465C00FDF30C /* FarmLand.jpg */,
+				7F9E6296197B465C00FDF30C /* Suburbs.jpg */,
+				7F9E6292197AD5BF00FDF30C /* speechBox.png */,
 				AD3EC45C19774A9A009DA0F2 /* playButton.png */,
 				AD3EC45A19774A92009DA0F2 /* pauseButton.png */,
 				7F819801196E06EE00E3AB57 /* 1-2.png */,
@@ -320,6 +331,7 @@
 				7F81980A196E06EE00E3AB57 /* 1-2.png in Resources */,
 				AD3EC45D19774A9A009DA0F2 /* playButton.png in Resources */,
 				7F81980B196E06EE00E3AB57 /* 2-3.png in Resources */,
+				AD9606DD197DE45000DCD12F /* redBackground.jpg in Resources */,
 				7F819812196E06EE00E3AB57 /* BG5.png in Resources */,
 				AD18B2F9194143AB00E2BEA7 /* dragon.png in Resources */,
 				AD8650C31963B10C00893C8F /* ball.png in Resources */,

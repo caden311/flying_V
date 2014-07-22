@@ -36,6 +36,8 @@ NSInteger totalMin;
     flyingBirdsArray=[[NSMutableArray alloc] init];
     numCollisionAnimations=1;
     
+    
+    
     //level Variables
     levelIncrease=0;
     numBirdAnimations=2;
@@ -50,6 +52,9 @@ NSInteger totalMin;
 
     _resumeGameOutlet.hidden=YES;
     _settingBackgroundImage.hidden=YES;
+    _settingsBackgroundOutlet.alpha=0;
+    
+    _collisionBackground.alpha=0;
     
     verticalGravityLine=widthOfViewController/2;
     horizontalGravityLine = lengthOfViewController / 2;
@@ -137,9 +142,9 @@ NSInteger totalMin;
 - (void)updateTime:(NSTimer *)timer
 {
     NSInteger secondsSinceStart = (NSInteger)[[NSDate date] timeIntervalSinceDate:Date];
-    
-    NSInteger seconds = (secondsSinceStart+totalSec) % 60;
-    NSInteger minutes = ((secondsSinceStart+totalMin) / 60) % 60;
+    secondsSinceStart+=totalSec;
+    NSInteger seconds = (secondsSinceStart) % 60;
+    NSInteger minutes = ((secondsSinceStart) / 60) % 60;
     NSInteger hours = secondsSinceStart / (60 * 60);
     NSString *result = nil;
     if (hours > 0) {
@@ -280,7 +285,7 @@ NSInteger totalMin;
                      [self dismissViewControllerAnimated:NO completion:nil];
              }
              count = 0;
-           
+             [self birdHitAnimation];
              [object getImage].hidden=YES;
              [object setObjectHit:YES];
      }
@@ -376,7 +381,35 @@ NSInteger totalMin;
         }
     
 }
-
+-(void)birdHitAnimation
+{
+    [UIView animateWithDuration:.2
+                          delay:0.0f
+                        options:UIViewAnimationOptionCurveLinear
+                     animations:^{
+                         _collisionBackground.alpha=.5;
+                         
+                     }
+                     completion:^(BOOL finished){
+                         if(finished)
+                         {
+                             [UIView animateWithDuration:.15
+                                                   delay:0.0f
+                                                 options:UIViewAnimationOptionCurveLinear
+                                              animations:^{
+                                                  _collisionBackground.alpha=0;
+                                                  
+                                              }
+                                              completion:^(BOOL finished){
+                                                
+                                                  
+                                              }];
+                             
+                         }
+                         
+                     }];
+    
+}
 -(void)levelIncrease
 {
     
@@ -435,7 +468,7 @@ NSInteger totalMin;
     
     [UIView animateWithDuration:timeToCompleteAnimation
                           delay:0.0f
-                        options:UIViewAnimationOptionCurveLinear
+                        options:UIViewAnimationOptionCurveLinear | UIViewAnimationOptionAllowUserInteraction
                      animations:^{
                          [object getImage].frame = toImg.frame;
                          
@@ -1036,7 +1069,7 @@ NSInteger totalMin;
 {
 
     NSInteger secondsSinceStart = (NSInteger)[[NSDate date] timeIntervalSinceDate:Date];
-    NSInteger totalSeconds=secondsSinceStart;
+    NSInteger totalSeconds=(secondsSinceStart+totalSec);
     NSInteger seconds = secondsSinceStart % 60;
     NSInteger minutes = (secondsSinceStart / 60) % 60;
     NSInteger hours = secondsSinceStart / (60 * 60);
@@ -1112,10 +1145,24 @@ NSInteger totalMin;
         totalSec += temp % 60;
          totalMin += (temp / 60) % 60;
         
+        for(int i=0; i<[flyingBirdsArray count]; i++)
+        {
+            flyingObject * bird=flyingBirdsArray[i];
+            [bird getImage].hidden=YES;
+            
+        }
+        for(int i=0; i<[flyingObjectsArray count]; i++)
+        {
+            flyingObject * object=flyingObjectsArray[i];
+            [object getImage].hidden=YES;
+    
+           
+            
+        }
         
         _settingBackgroundImage.hidden=NO;
         _resumeGameOutlet.hidden=NO;
-        
+        _settingsBackgroundOutlet.alpha=.7;
        
     }
 
@@ -1128,7 +1175,7 @@ NSInteger totalMin;
     
     _settingBackgroundImage.hidden=YES;
     _resumeGameOutlet.hidden=YES;
-    
+    _settingsBackgroundOutlet.alpha=0;
     
     gameTimer=[NSTimer scheduledTimerWithTimeInterval:.016 target:self selector:@selector(gameLoop) userInfo:nil repeats:YES];
     
