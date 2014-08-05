@@ -437,11 +437,12 @@ NSInteger totalMin;
          stopDumbBirds=YES;
         timeToCompleteAnimationDuck=1.75f;
            numCollisionAnimations=3;
+        numBirdAnimations=2;
     }
     else if(levelIncrease<5)
     {
     
-        speedAwayBirdRuns=6;
+        
         numCollisionAnimations=4;
        
          timeToCompleteAnimation=1.5f;
@@ -1187,6 +1188,9 @@ NSInteger totalMin;
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+- (BOOL)prefersStatusBarHidden {
+    return YES;
 }
 
 
