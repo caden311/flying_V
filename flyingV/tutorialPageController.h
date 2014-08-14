@@ -15,6 +15,12 @@
     BOOL goOn;
     NSTimer * gameLoopTimer;
     int animationCount;
+    int lengthOfViewController;
+    int widthOfViewController;
+    
+  
+
+    
 }
 @property (weak, nonatomic) IBOutlet UILabel *descriptionBox;
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
@@ -22,4 +28,6 @@
 - (IBAction)nextButtonPressed:(id)sender;
 - (IBAction)menuButtonPressed:(id)sender;
 @property (weak, nonatomic) IBOutlet UIImageView *speechBox;
+@property (strong, nonatomic) IBOutlet UIImageView *headBird;
+@property (strong, nonatomic) IBOutlet UILabel *speechLabel;
 @end

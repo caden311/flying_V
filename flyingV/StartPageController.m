@@ -5,14 +5,19 @@
 //  Created by Brittny Wright on 7/10/14.
 //  Copyright (c) 2014 vientapps. All rights reserved.
 //
-
+bool gameCenterEnabled;
+NSString *leaderBoard;
+int highScoreLeaderBoard;
 #include "StartPageController.h"
 #include "dataBase.h"
 
 @implementation StartPageController
+
 @synthesize db=_db;
 
 @synthesize highScoreLabel=_highScoreLabel;
+
+
 
 -(void)viewDidAppear:(BOOL)animated
 {
@@ -25,7 +30,7 @@
     
    
     [super viewDidLoad];
-
+    [self authenticateLocalPlayer];
     startPageGameTimer=[NSTimer scheduledTimerWithTimeInterval:.016 target:self selector:@selector(gameLoop) userInfo:nil repeats:YES];
     startPageHeadBirdChasePoint = _playButton.center;
     
@@ -135,6 +140,8 @@
     {
         NSString *tempHigh=[_db getUser:1];
         int tempScore=[tempHigh intValue];
+        highScoreLeaderBoard=highScore;
+         [self reportScore];
             if(tempScore<highScore)
             {
                 
@@ -198,6 +205,74 @@
 - (IBAction)statsButtonPressed:(id)sender {
 }
 
-- (IBAction)gameCenterButtonPressed:(id)sender {
+- (IBAction)gameCenterButtonPressed:(id)sender
+{
+    if(gameCenterEnabled==YES)
+    {
+        [self showLeaderboardAndAchievements:YES];
+
+    }
+}
+
+-(void)authenticateLocalPlayer{
+    GKLocalPlayer *localPlayer = [GKLocalPlayer localPlayer];
+    
+    localPlayer.authenticateHandler = ^(UIViewController *viewController, NSError *error){
+        if (viewController != nil) {
+            [self presentViewController:viewController animated:YES completion:nil];
+        }
+        else{
+            if ([GKLocalPlayer localPlayer].authenticated) {
+                gameCenterEnabled = YES;
+                
+                // Get the default leaderboard identifier.
+                [[GKLocalPlayer localPlayer] loadDefaultLeaderboardIdentifierWithCompletionHandler:^(NSString *leaderboardIdentifier, NSError *error) {
+                    
+                    if (error != nil) {
+                        NSLog(@"%@", [error localizedDescription]);
+                    }
+                    else{
+                        leaderBoard = leaderboardIdentifier;
+                    }
+                }];
+            }
+            
+            else{
+                gameCenterEnabled = NO;
+            }
+        }
+    };
+}
+
+-(void)reportScore{
+   
+    
+    GKScore *reportScore = [[GKScore alloc] initWithLeaderboardIdentifier:@"leaderBoardI"];
+    reportScore.value = highScoreLeaderBoard;
+    
+    NSArray *scores = @[reportScore];
+    
+    [GKScore reportScores:scores withCompletionHandler:nil];
+}
+
+-(void)gameCenterViewControllerDidFinish:(GKGameCenterViewController *)gameCenterViewController
+{
+    [gameCenterViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)showLeaderboardAndAchievements:(BOOL)shouldShowLeaderboard{
+    GKGameCenterViewController *gcViewController = [[GKGameCenterViewController alloc] init];
+    
+    gcViewController.gameCenterDelegate = self;
+    
+    if (shouldShowLeaderboard) {
+        gcViewController.viewState = GKGameCenterViewControllerStateLeaderboards;
+        gcViewController.leaderboardIdentifier = leaderBoard;
+    }
+    else{
+        gcViewController.viewState = GKGameCenterViewControllerStateAchievements;
+    }
+    
+    [self presentViewController:gcViewController animated:YES completion:nil];
 }
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "tutorialPageController.h"
-
+#import "Bird.h"
 @interface tutorialPageController ()
 
 @end
@@ -17,6 +17,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+   lengthOfViewController=self.view.frame.size.height;
+    widthOfViewController=self.view.frame.size.width;
     // Do any additional setup after loading the view.
     nextPressed = NO;
     animating = NO;
@@ -24,6 +26,14 @@
     //[self animation1];
     animationCount = 1;
     gameLoopTimer=[NSTimer scheduledTimerWithTimeInterval:.016 target:self selector:@selector(gameLoop) userInfo:nil repeats:YES];
+   
+    
+    
+    
+
+    
+
+  
 }
 
 -(void)gameLoop
@@ -35,6 +45,7 @@
         {
             case 1:
                 [self animation1];
+                [self animateFirstBird];
                 break;
             case 2:
                 [self animation2];
@@ -68,6 +79,8 @@
 
 -(void)animateBox
 {
+
+   
     [UIView animateWithDuration:0.5
             animations:^void
             {
@@ -89,12 +102,29 @@
             }
      ];
 }
+-(void)animateFirstBird
+{
+    _headBird.frame=CGRectMake(widthOfViewController/2, -(lengthOfViewController*2), _headBird.frame.size.width, _headBird.frame.size.height);
+    
+    [UIView animateWithDuration:2.0
+                     animations:^void
+        {
+            _speechLabel.text=@"This is your Bird.. You can move him around with your finger!";
+            [_headBird setFrame:CGRectMake((widthOfViewController/2-(_headBird.frame.size.width/2)), lengthOfViewController/2, _headBird.frame.size.width, _headBird.frame.size.height)];
+        }
+                     completion:^(BOOL finished)
+     {
+   
+     }
+     ];
 
+}
 -(void)animateBoxUp
 {
     [UIView animateWithDuration:0.5
             animations:^void
             {
+                 _speechLabel.frame=CGRectMake(_speechLabel.frame.origin.x, _speechLabel.frame.origin.y-10, _speechLabel.frame.size.width, _speechLabel.frame.size.height);
                 [_speechBox setFrame:CGRectMake(_speechBox.frame.origin.x, _speechBox.frame.origin.y - 10, _speechBox.frame.size.width, _speechBox.frame.size.height)];
             }
             completion:^(BOOL finished)
@@ -120,6 +150,7 @@
             animations:^void
             {
                 [_speechBox setFrame:CGRectMake(_speechBox.frame.origin.x, _speechBox.frame.origin.y + 10, _speechBox.frame.size.width, _speechBox.frame.size.height)];
+                 _speechLabel.frame=CGRectMake(_speechLabel.frame.origin.x, _speechLabel.frame.origin.y+10, _speechLabel.frame.size.width, _speechLabel.frame.size.height);
             }
             completion:^(BOOL finished)
             {
@@ -155,10 +186,18 @@
             }
      ];
 }
+
 -(void)animation1
 {
+    
     //Do animation stuff
     [self animateBox];
+    
+    
+    
+    
+    
+    
 }
 
 -(void)animation2
@@ -190,7 +229,7 @@
 - (IBAction)nextButtonPressed:(id)sender
 {
     nextPressed = YES;
-    
+
     //[self dismissViewControllerAnimated:YES completion:^{}];
 }
 

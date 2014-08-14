@@ -48,6 +48,7 @@
 		AD9606D9197C9F1700DCD12F /* settingsPage.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = AD9606D8197C9F1700DCD12F /* settingsPage.jpeg */; };
 		AD9606DB197CAA7D00DCD12F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD9606DA197CAA7D00DCD12F /* QuartzCore.framework */; };
 		AD9606DD197DE45000DCD12F /* redBackground.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AD9606DC197DE45000DCD12F /* redBackground.jpg */; };
+		AD9606DF1990721A00DCD12F /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD9606DE1990721A00DCD12F /* GameKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,6 +113,7 @@
 		AD9606D8197C9F1700DCD12F /* settingsPage.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = settingsPage.jpeg; sourceTree = "<group>"; };
 		AD9606DA197CAA7D00DCD12F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		AD9606DC197DE45000DCD12F /* redBackground.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = redBackground.jpg; sourceTree = "<group>"; };
+		AD9606DE1990721A00DCD12F /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +121,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD9606DF1990721A00DCD12F /* GameKit.framework in Frameworks */,
 				AD9606DB197CAA7D00DCD12F /* QuartzCore.framework in Frameworks */,
 				AD18B2C4193EDD7800E2BEA7 /* CoreGraphics.framework in Frameworks */,
 				AD18B2C6193EDD7800E2BEA7 /* UIKit.framework in Frameworks */,
@@ -161,6 +164,7 @@
 		AD18B2C0193EDD7800E2BEA7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AD9606DE1990721A00DCD12F /* GameKit.framework */,
 				AD9606DA197CAA7D00DCD12F /* QuartzCore.framework */,
 				AD18B2C1193EDD7800E2BEA7 /* Foundation.framework */,
 				AD18B2C3193EDD7800E2BEA7 /* CoreGraphics.framework */,

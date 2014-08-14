@@ -6,10 +6,12 @@
 //  Copyright (c) 2014 vientapps. All rights reserved.
 //
 #import <UIKit/UIKit.h>
+#import <GameKit/GameKit.h>
+#import <Foundation/Foundation.h>
 #import "ViewController.h"
 #include "dataBase.h"
 
-@interface StartPageController : UIViewController
+@interface StartPageController : UIViewController <GKGameCenterControllerDelegate>
 {
     NSTimer * startPageGameTimer;
     CGPoint startPageHeadBirdChasePoint;

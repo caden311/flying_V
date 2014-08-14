@@ -39,18 +39,31 @@
                                     <action selector="menuButtonPressed:" destination="2Ve-7q-a0z" eventType="touchUpInside" id="lQE-X5-T0G"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="speechBox.png" id="y06-Bj-EtX">
-                                <rect key="frame" x="55" y="220" width="210" height="128"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="speechBox.png" id="y06-Bj-EtX">
+                                <rect key="frame" x="36" y="341" width="229" height="135"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dragon.png" id="bGp-62-7cy">
+                                <rect key="frame" x="47" y="157" width="79" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="svA-aL-YXZ">
+                                <rect key="frame" x="72" y="352" width="176" height="72"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="descriptionBox" destination="pwE-vX-epG" id="zWV-72-NRK"/>
+                        <outlet property="headBird" destination="bGp-62-7cy" id="FRU-ug-PcL"/>
                         <outlet property="menuButton" destination="ntf-RK-oma" id="BFw-5A-TVJ"/>
                         <outlet property="nextButton" destination="qLX-6N-HF9" id="G41-fa-kp8"/>
                         <outlet property="speechBox" destination="y06-Bj-EtX" id="Vs1-ix-tsq"/>
+                        <outlet property="speechLabel" destination="svA-aL-YXZ" id="ymA-6l-eFY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NFy-hY-QD5" userLabel="First Responder" sceneMemberID="firstResponder"/>
