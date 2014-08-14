@@ -225,6 +225,36 @@
 }
 
 
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+
+{
+    
+    UITouch *touch = [touches anyObject];
+    
+    CGPoint location = [touch locationInView:touch.view];
+    location.y-=60;
+    _headBird.center = location;
+   // [self moveBirds: location];
+    //_birdImage.center=location;
+    
+    
+    
+}
+
+-(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+
+{
+    
+    UITouch *touch = [touches anyObject];
+    
+    CGPoint location = [touch locationInView:touch.view];
+    location.y-=60;
+    _headBird.center = location;
+    //[self moveBirds: location];
+    //_birdImage.center=location;
+    
+}
+
 
 - (IBAction)nextButtonPressed:(id)sender
 {
